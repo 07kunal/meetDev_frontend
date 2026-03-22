@@ -1,7 +1,8 @@
+import AppRoutes from "@/routes";
 function App() {
   return (
     <>
-      <h1>hello kunal</h1>
+      <AppRoutes />
     </>
   );
 }
