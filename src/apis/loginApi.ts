@@ -1,20 +1,22 @@
-import type { LoginBody } from "@/pages/loginForm/LoginForm";
-import type { LoginResponse } from "@/pages/loginForm/LoginForm";
+import type { LoginBody, LoginResponse } from "@/components/type/user";
 import axios from "axios";
 
 // API function
 const loginApi = async (credentials: LoginBody): Promise<LoginResponse> => {
-  const response = await axios.post<LoginResponse>(
-    "https://example.com",
-    credentials,
-    {
+  try {
+    const url: string = "http://localhost:3000/login";
+    const response = await axios.post<LoginResponse>(url, credentials, {
       headers: {
         "Content-Type": "application/json",
       },
-    },
-  );
+      withCredentials: true,
+    });
 
-  return response.data;
+    return response.data;
+  } catch (error) {
+    console.log(error);
+    throw error;
+  }
 };
 
 export default loginApi;

@@ -2,65 +2,44 @@ import React, { useState } from "react";
 import { useMutation } from "@tanstack/react-query";
 import loginApi from "@/apis/loginApi";
 import { AxiosError } from "axios";
-
-export interface LoginBody {
-  email: string;
-  password: string;
-}
-
-export interface LoginResponse {
-  token: string;
-  user: {
-    id: string;
-    name: string;
-    email: string;
-  };
-}
-
+import type { LoginBody, LoginResponse } from "@/components/type/user";
 const LoginForm = () => {
-  const [email, setEmail] = useState<string>("");
-  const [password, setPassword] = useState<string>("");
+  const [loginCredential, setLoginCredential] = useState<LoginBody>({
+    emailId: "Dev104@gmail.com",
+    password: "testA@3210",
+  });
 
-  // Input handlers
-  const handleChangeEmail = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setEmail(e.target.value);
+  const [responseData, setResponseData] = useState<LoginResponse>();
+  const handleLoginCredential = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setLoginCredential((prev) => ({
+      ...prev,
+      [e.target.name]: e.target.value,
+    }));
   };
-
-  const handleChangePassword = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setPassword(e.target.value);
-  };
-
-
 
   // Mutation
-  const { mutate, isPending } = useMutation<
-    LoginResponse,
-    AxiosError,
-    LoginBody
-  >({
+  const { mutate, isPending } = useMutation<LoginResponse,AxiosError,LoginBody>({
     mutationFn: loginApi,
 
     onSuccess: (data) => {
+      setResponseData(data);
       console.log("Welcome back:", data);
     },
 
     onError: (error) => {
-      console.error("Login failed:", error.response?.data || error.message);
+      console.error("Login failed:", error);
     },
   });
 
   // Submit handler
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = (e: React.SubmitEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    if (!email || !password) return;
+    if (!loginCredential?.emailId || !loginCredential?.password) return;
 
-    mutate({
-      email,
-      password,
-    });
+    mutate(loginCredential);
   };
-
+  console.log("REsponseData", responseData);
   return (
     <div className="min-h-screen flex items-center justify-center bg-base-200">
       <div className="card w-full max-w-sm shadow-2xl bg-base-100">
@@ -75,11 +54,11 @@ const LoginForm = () => {
               </label>
 
               <input
-                type="email"
-                placeholder="Enter your email"
+                type="emailId"
+                placeholder="Enter your emailId"
                 className="input input-bordered"
-                value={email}
-                onChange={handleChangeEmail}
+                value={loginCredential.emailId}
+                onChange={handleLoginCredential}
                 required
               />
             </div>
@@ -94,8 +73,8 @@ const LoginForm = () => {
                 type="password"
                 placeholder="Enter your password"
                 className="input input-bordered"
-                value={password}
-                onChange={handleChangePassword}
+                value={loginCredential.password}
+                onChange={handleLoginCredential}
                 required
               />
             </div>
@@ -120,7 +99,6 @@ const LoginForm = () => {
             </a>
           </p>
         </div>
-        
       </div>
     </div>
   );
