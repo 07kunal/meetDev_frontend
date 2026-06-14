@@ -7,12 +7,12 @@ export interface LoginResponse {
   firstName: string;
   lastName: string;
   gender: string;
-  age: number;
+  age: number | null;
   emailId: string;
   education: string[];
   address: string;
   profilePic: string;
-  skills: string;
-  status: Boolean;
+  skills: string[];
+  status?: Boolean;
 }
 

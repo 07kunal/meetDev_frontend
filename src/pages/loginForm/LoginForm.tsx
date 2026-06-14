@@ -2,11 +2,11 @@ import React, { useState } from "react";
 import { useMutation } from "@tanstack/react-query";
 import loginApi from "@/apis/loginApi";
 import { AxiosError } from "axios";
-import type { LoginBody, LoginResponse } from "@/components/type/user";
+import type { LoginBody, LoginResponse } from "@/components/utils/type/user";
 const LoginForm = () => {
   const [loginCredential, setLoginCredential] = useState<LoginBody>({
     emailId: "Dev104@gmail.com",
-    password: "testA@3210",
+    password: "testA@321",
   });
 
   const [responseData, setResponseData] = useState<LoginResponse>();

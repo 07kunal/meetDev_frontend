@@ -1,4 +1,4 @@
-import type { LoginBody, LoginResponse } from "@/components/type/user";
+import type { LoginBody, LoginResponse } from "@/components/utils/type/user";
 import axios from "axios";
 
 // API function
