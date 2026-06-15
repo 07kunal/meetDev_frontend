@@ -1,14 +1,15 @@
 import { configureStore } from "@reduxjs/toolkit";
 import userReducer from "../slices/userSliceReducer";
 
-const appStore = configureStore({
+const AppStore = configureStore({
   reducer: {
     user: userReducer,
   },
+   devTools: true,
 });
 
 // Infer the `RootState` and `AppDispatch` types from the store itself
-export type RootState = ReturnType<typeof appStore.getState>;
+export type RootState = ReturnType<typeof AppStore.getState>;
 // Inferred type: {posts: PostsState, comments: CommentsState, users: UsersState}
-export type AppDispatch = typeof appStore.dispatch;
-export default appStore;
+export type AppDispatch = typeof AppStore.dispatch;
+export default AppStore;

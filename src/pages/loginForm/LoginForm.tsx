@@ -6,7 +6,7 @@ import type { LoginBody, LoginResponse } from "@/components/utils/type/user";
 const LoginForm = () => {
   const [loginCredential, setLoginCredential] = useState<LoginBody>({
     emailId: "Dev104@gmail.com",
-    password: "testA@321",
+    password: "testA@3201",
   });
 
   const [responseData, setResponseData] = useState<LoginResponse>();
@@ -18,7 +18,11 @@ const LoginForm = () => {
   };
 
   // Mutation
-  const { mutate, isPending } = useMutation<LoginResponse,AxiosError,LoginBody>({
+  const { mutate, isPending } = useMutation<
+    LoginResponse,
+    AxiosError,
+    LoginBody
+  >({
     mutationFn: loginApi,
 
     onSuccess: (data) => {
@@ -26,8 +30,13 @@ const LoginForm = () => {
       console.log("Welcome back:", data);
     },
 
-    onError: (error) => {
-      console.error("Login failed:", error);
+    onError: (error: AxiosError) => {
+      if (error.response) {
+        console.error("Status:", error.response.status);
+        console.error("Data:", error.response.data);
+      } else {
+        console.error("Message:", error);
+      }
     },
   });
 

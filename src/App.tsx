@@ -1,13 +1,13 @@
 import AppRoutes from "@/routes";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { Provider } from "react-redux";
-import appStore from "./components/utils/store/AppStore";
+import AppStore from "./components/utils/store/AppStore";
 
+const queryClient = new QueryClient();
 function App() {
-  const queryClient = new QueryClient();
   return (
     <>
-      <Provider store={appStore}>
+      <Provider store={AppStore}>
         <QueryClientProvider client={queryClient}>
           <AppRoutes />
         </QueryClientProvider>
