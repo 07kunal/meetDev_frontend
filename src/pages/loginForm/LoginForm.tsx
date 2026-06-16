@@ -3,13 +3,16 @@ import { useMutation } from "@tanstack/react-query";
 import loginApi from "@/apis/loginApi";
 import { AxiosError } from "axios";
 import type { LoginBody, LoginResponse } from "@/components/utils/type/user";
+import { setUser } from "@/components/utils/slices/userSliceReducer";
+import { useDispatch } from "react-redux";
+
 const LoginForm = () => {
   const [loginCredential, setLoginCredential] = useState<LoginBody>({
     emailId: "Dev104@gmail.com",
-    password: "testA@3201",
+    password: "testA@321",
   });
+  const dispatch = useDispatch();
 
-  const [responseData, setResponseData] = useState<LoginResponse>();
   const handleLoginCredential = (e: React.ChangeEvent<HTMLInputElement>) => {
     setLoginCredential((prev) => ({
       ...prev,
@@ -26,17 +29,12 @@ const LoginForm = () => {
     mutationFn: loginApi,
 
     onSuccess: (data) => {
-      setResponseData(data);
       console.log("Welcome back:", data);
+      dispatch(setUser(data));
     },
 
     onError: (error: AxiosError) => {
-      if (error.response) {
-        console.error("Status:", error.response.status);
-        console.error("Data:", error.response.data);
-      } else {
-        console.error("Message:", error);
-      }
+      console.error("Message:", error);
     },
   });
 
@@ -48,7 +46,6 @@ const LoginForm = () => {
 
     mutate(loginCredential);
   };
-  console.log("REsponseData", responseData);
   return (
     <div className="min-h-screen flex items-center justify-center bg-base-200">
       <div className="card w-full max-w-sm shadow-2xl bg-base-100">

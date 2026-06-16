@@ -1,6 +1,10 @@
 import React from 'react'
+import { useSelector } from 'react-redux';
+import type { LoginResponse } from '../utils/type/user';
 
  const Navbar = () => {
+  const userData: LoginResponse = useSelector((state:any)=> state?.user?.data);
+  console.log('navbar',userData);
   return (
     <div className="navbar bg-base-100 shadow-sm">
   <div className="flex-1">
@@ -13,7 +17,7 @@ import React from 'react'
         <div className="w-10 rounded-full">
           <img
             alt="Tailwind CSS Navbar component"
-            src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp" />
+            src={userData?.profilePic} />
         </div>
       </div>
       <ul

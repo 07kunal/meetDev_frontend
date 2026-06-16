@@ -14,8 +14,7 @@ const loginApi = async (credentials: LoginBody): Promise<LoginResponse> => {
 
     return response.data;
   } catch (error) {
-    console.log(error);
-    throw new Error('testdsfsfd');
+    throw error;
   }
 };
 
