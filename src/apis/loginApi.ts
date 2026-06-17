@@ -4,7 +4,7 @@ import axios from "axios";
 // API function
 const loginApi = async (credentials: LoginBody): Promise<LoginResponse> => {
   try {
-    const url: string = "http://localhost:3000/login";
+    const url: string = `${import.meta.env.VITE_BASE_URL}/login`;
     const response = await axios.post<LoginResponse>(url, credentials, {
       headers: {
         "Content-Type": "application/json",

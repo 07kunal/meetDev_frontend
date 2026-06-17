@@ -2,15 +2,17 @@ import { createSlice } from "@reduxjs/toolkit";
 import type { LoginResponse } from "../type/user";
 import type { PayloadAction } from "@reduxjs/toolkit";
 const initialUserData: LoginResponse = {
-  firstName: "",
-  lastName: "",
-  age: null,
-  emailId: "",
-  profilePic: "",
-  skills: [],
-  education: [],
-  gender: "",
-  address: "",
+  data: {
+    firstName: "",
+    lastName: "",
+    age: null,
+    emailId: "",
+    profilePic: "",
+    skills: [],
+    education: [],
+    gender: "",
+    address: "",
+  },
 };
 export const userSliceReducer = createSlice({
   name: "userData",
