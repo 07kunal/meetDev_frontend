@@ -17,3 +17,10 @@ export interface LoginResponse {
   };
   status?: Boolean;
 }
+
+export interface logOutResponse {
+  data: {
+    logOutStatus: boolean;
+    message: string;
+  };
+}

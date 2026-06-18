@@ -1,11 +1,22 @@
-import type { LoginResponse } from "../utils/type/user";
+import { type logOutResponse, type LoginResponse } from "../utils/type/user";
 import { useAppSelector } from "../utils/customHooks/reduxHook";
+import { handleLogout } from "@/apis/logOutApi";
+import { useMutation } from "@tanstack/react-query";
+import { AxiosError } from "axios";
 
 const Navbar = () => {
-  const userData : LoginResponse = useAppSelector((state) => state?.user);
-console.log(userData?.data);
-  const handleLogout = async () => {
-    
+  const userData: LoginResponse = useAppSelector((state) => state?.user);
+  const { mutate, isPending } = useMutation<logOutResponse, AxiosError>({
+    mutationFn: handleLogout,
+    onSuccess: (data) => {
+      console.log("data", data);
+    },
+    onError: (error: AxiosError) => {
+      console.log("error logout", error);
+    },
+  });
+  const handleLogOutClick = () => {
+    mutate();
   };
   return (
     <div className="navbar bg-base-100 shadow-sm">
@@ -22,7 +33,7 @@ console.log(userData?.data);
             <div className="w-10 rounded-full">
               <img
                 alt="Tailwind CSS Navbar component"
-                src={userData?.data?.profilePic}
+                src={userData?.data?.profilePic || import.meta.env.VITE_BASE_IMG_URL}
               />
             </div>
           </div>
@@ -40,7 +51,7 @@ console.log(userData?.data);
               <a>Settings</a>
             </li>
             <li>
-              <a onClick={handleLogout}>Logout</a>
+              <a onClick={handleLogOutClick}>Logout</a>
             </li>
           </ul>
         </div>
