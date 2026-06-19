@@ -26,16 +26,16 @@ const Navbar = () => {
     },
   });
 
-  const handleLoginClick = (e: React.MouseEvent<HTMLButtonElement>) => {
+  const handleCredentialClick = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
-    navigate("/login");
-  };
+    console.log("Clicked:", userData?.status);
 
-  const handleLogoutClick = (e: React.MouseEvent<HTMLButtonElement>) => {
-    e.preventDefault();
-    mutate();
+    if (!userData?.status) {
+      navigate("/login");
+    } else {
+      mutate();
+    }
   };
-
   return (
     <div className="navbar bg-base-100 shadow-sm">
       <div className="flex-1">
@@ -63,18 +63,12 @@ const Navbar = () => {
             className="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow"
           >
             <li>
-              <button>
-                Profile
-              </button>
+              <button>Profile</button>
             </li>
             <li>
-              {userData?.status ? (
-                <button onClick={handleLogoutClick} disabled={isPending}>
-                  Logout
-                </button>
-              ) : (
-                <button onClick={handleLoginClick}>Login</button>
-              )}
+              <button onClick={handleCredentialClick} disabled={isPending}>
+                {userData?.status ? "Logout" : "Login"}
+              </button>
             </li>
           </ul>
         </div>
