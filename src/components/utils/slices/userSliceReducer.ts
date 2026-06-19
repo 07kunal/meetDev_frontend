@@ -13,6 +13,7 @@ const initialUserData: LoginResponse = {
     gender: "",
     address: "",
   },
+  status: false
 };
 export const userSliceReducer = createSlice({
   name: "userData",
