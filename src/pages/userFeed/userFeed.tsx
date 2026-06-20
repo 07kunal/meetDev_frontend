@@ -1,9 +1,11 @@
-import React from 'react'
+import { useGetCookie } from '@/components/utils/customHooks/useGetCookie';
 
-const userFeed = () => {
+const UserFeed = () => {
+  const name = useGetCookie();
+  console.log('nameof cookie',name);
   return (
     <div>userFeed</div>
   )
 };
 
-export default userFeed;
+export default UserFeed;

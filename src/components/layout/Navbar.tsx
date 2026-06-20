@@ -39,7 +39,7 @@ const Navbar = () => {
   return (
     <div className="navbar bg-base-100 shadow-sm">
       <div className="flex-1">
-        <button className="btn btn-ghost text-xl">DevMeet</button>
+        <button className="btn btn-ghost text-xl" onClick={()=>navigate('/')}>DevMeet</button>
       </div>
       <div className="flex gap-2">
         <div className="dropdown dropdown-end mx-10">
@@ -63,7 +63,9 @@ const Navbar = () => {
             className="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow"
           >
             <li>
-              <button>Profile</button>
+              <button
+                 onClick = {()=> navigate('/feeds')}
+              >Profile</button>
             </li>
             <li>
               <button onClick={handleCredentialClick} disabled={isPending}>
