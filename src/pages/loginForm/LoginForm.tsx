@@ -4,14 +4,16 @@ import loginApi from "@/apis/loginApi";
 import { AxiosError } from "axios";
 import type { LoginBody, LoginResponse } from "@/components/utils/type/user";
 import { setUser } from "@/components/utils/slices/userSliceReducer";
-import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { useAppDispatch } from "@/components/utils/customHooks/reduxHook";
 
 const LoginForm = () => {
   const [loginCredential, setLoginCredential] = useState<LoginBody>({
     emailId: "Dev104@gmail.com",
     password: "testA@321",
   });
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
+  const navigate = useNavigate();
 
   const handleLoginCredential = (e: React.ChangeEvent<HTMLInputElement>) => {
     setLoginCredential((prev) => ({
@@ -31,6 +33,10 @@ const LoginForm = () => {
     onSuccess: (data) => {
       console.log("Welcome back:", data);
       dispatch(setUser(data));
+      if(data?.data){
+        navigate('/feeds');
+      }
+
     },
 
     onError: (error: AxiosError) => {
