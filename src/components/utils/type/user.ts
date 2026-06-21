@@ -15,7 +15,7 @@ export interface LoginResponse {
     profilePic: string;
     skills: string[];
   };
-  status?: Boolean;
+  status?: boolean;
 }
 
 export interface logOutResponse {

@@ -31,10 +31,9 @@ const LoginForm = () => {
     mutationFn: loginApi,
 
     onSuccess: (data) => {
-      console.log("Welcome back:", data);
       dispatch(setUser(data));
       if(data?.data){
-        navigate('/feeds');
+        console.log('TEST-------------3');
       }
 
     },

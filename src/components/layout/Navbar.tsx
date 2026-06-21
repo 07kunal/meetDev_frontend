@@ -1,7 +1,7 @@
 import { type logOutResponse, type LoginResponse } from "../utils/type/user";
 import { useAppDispatch, useAppSelector } from "../utils/customHooks/reduxHook";
 import { handleLogout } from "@/apis/logOutApi";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { AxiosError } from "axios";
 import { useNavigate } from "react-router-dom";
 import { clearUser } from "../utils/slices/userSliceReducer";
@@ -10,6 +10,7 @@ const Navbar = () => {
   const userData: LoginResponse = useAppSelector((state) => state?.user);
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
+  const queryClient = useQueryClient();
 
   // ref for the dropdown trigger
 
@@ -17,8 +18,11 @@ const Navbar = () => {
     mutationFn: handleLogout,
     onSuccess: (data) => {
       if (data.data.logOutStatus) {
-        navigate("/");
         dispatch(clearUser());
+        queryClient.removeQueries({
+          queryKey: ["Profile"],
+        });
+        navigate("/");
       }
     },
     onError: (error: AxiosError) => {
@@ -28,9 +32,8 @@ const Navbar = () => {
 
   const handleCredentialClick = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
-    console.log("Clicked:", userData?.status);
-
     if (!userData?.status) {
+      console.log('Test------1');
       navigate("/login");
     } else {
       mutate();
@@ -39,7 +42,9 @@ const Navbar = () => {
   return (
     <div className="navbar bg-base-100 shadow-sm">
       <div className="flex-1">
-        <button className="btn btn-ghost text-xl" onClick={()=>navigate('/')}>DevMeet</button>
+        <button className="btn btn-ghost text-xl" onClick={() => navigate("/")}>
+          DevMeet
+        </button>
       </div>
       <div className="flex gap-2">
         <div className="dropdown dropdown-end mx-10">
@@ -63,9 +68,7 @@ const Navbar = () => {
             className="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow"
           >
             <li>
-              <button
-                 onClick = {()=> navigate('/feeds')}
-              >Profile</button>
+              <button onClick={() => navigate("/feeds")}>Profile</button>
             </li>
             <li>
               <button onClick={handleCredentialClick} disabled={isPending}>

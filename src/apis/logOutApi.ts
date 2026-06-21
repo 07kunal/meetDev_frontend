@@ -11,6 +11,7 @@ export const handleLogout = async (): Promise<logOutResponse> => {
         headers: {
           "Content-Type": "application/json",
         },
+        withCredentials: true
       },
     );
     if (response) {

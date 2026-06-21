@@ -1,4 +1,4 @@
-export const useGetCookie = <T,>()=> {
+export const getCookieToken = <T,>()=> {
   let isUserLoggedIn : boolean= false;
   const getCookie = (name: string): string => {
     const value = `${document.cookie}`;

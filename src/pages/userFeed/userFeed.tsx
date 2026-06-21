@@ -1,7 +1,7 @@
-import { useGetCookie } from '@/components/utils/customHooks/useGetCookie';
+import { getCookieToken } from "@/components/utils/customHooks/getCookieToken";
 
 const UserFeed = () => {
-  const name = useGetCookie();
+  const name = getCookieToken();
   console.log('nameof cookie',name);
   return (
     <div>userFeed</div>
