@@ -5,9 +5,10 @@ import Home from "@/pages/Home/Home";
 import LoginForm from "@/pages/loginForm/LoginForm";
 import UserFeed from "@/pages/userFeed/UserFeed";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
-import type { LoginResponse } from "@/components/utils/type/user";
+import { getCookieToken } from "@/components/utils/customHooks/getCookieToken";
+import type { Boolean } from "@/components/utils/type/commonType";
 const AppRoutes = () => {
-  const userData: LoginResponse = useAppSelector((state) => state?.user);
+  const hasToken = getCookieToken<Boolean>();
 
   return (
     <BrowserRouter>
@@ -17,7 +18,7 @@ const AppRoutes = () => {
           <Route
             path="/login"
             element={
-              userData.status ? <Navigate to="/feeds" replace /> : <LoginForm />
+              hasToken ? <Navigate to="/feeds" replace /> : <LoginForm />
             }
           />
           <Route element={<PrivateRoutes />}>
