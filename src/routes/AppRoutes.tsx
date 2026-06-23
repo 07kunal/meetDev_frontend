@@ -1,5 +1,4 @@
 import Layout from "@/components/layout/Layout";
-import { useAppSelector } from "@/components/utils/customHooks/reduxHook";
 import PrivateRoutes from "@/components/utils/Privateroute/PrivateRoutes";
 import Home from "@/pages/Home/Home";
 import LoginForm from "@/pages/loginForm/LoginForm";

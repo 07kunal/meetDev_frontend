@@ -3,7 +3,7 @@ export interface LoginBody {
   password: string;
 }
 
-export interface LoginResponse {
+export interface LoginResponse {SD
   data: {
     firstName: string;
     lastName: string;
