@@ -10,5 +10,5 @@ export interface userFeeds {
     education: string[];
     profilePic: string;
     skills: string[];
-  };
+  }
 }

@@ -1,7 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import Footer from "./Footer";
 import Navbar from "./Navbar";
-import { Outlet, useNavigate } from "react-router-dom";
+import { Outlet } from "react-router-dom";
 import fetchLoggedInUserProfile from "@/apis/fetchLoggedInUserProfile";
 import { setUser } from "../utils/slices/userSliceReducer";
 import { useAppDispatch, useAppSelector } from "../utils/customHooks/reduxHook";
@@ -15,7 +15,6 @@ import { getCookieToken } from "../utils/customHooks/getCookieToken";
 const Layout = () => {
   const dispatch = useAppDispatch();
   const hasToken = getCookieToken<Boolean>();
-  const navigate = useNavigate();
   const userData: LoginResponse = useAppSelector((state) => state?.user);
   const shouldFetchProfile: Boolean = hasToken && !userData?.status;
 
@@ -24,12 +23,6 @@ const Layout = () => {
     queryFn: fetchLoggedInUserProfile,
     enabled: shouldFetchProfile,
   });
-  // useEffect(() => {
-  //   if (!hasToken) {
-  //     console.log('Test------2');
-  //     navigate("/login");
-  //   }
-  // }, [hasToken]);
   useEffect(() => {
     if (data) {
       dispatch(setUser(data));
