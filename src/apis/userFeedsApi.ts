@@ -3,7 +3,7 @@ import axios from "axios";
 
 export const userFeedsApi = async (): Promise<Collection<userFeeds>> => {
   try {
-    let URL: string = `${import.meta.env.VITE_BASE_URL}/profile`;
+    let URL: string = `${import.meta.env.VITE_BASE_URL}/feed`;
     const response = await axios.get<Collection<userFeeds>>(URL, {
       headers: {
         "Content-Type": "application/json",

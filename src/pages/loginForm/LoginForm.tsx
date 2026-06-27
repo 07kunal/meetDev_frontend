@@ -33,6 +33,7 @@ const LoginForm = () => {
     onSuccess: (data) => {
       dispatch(setUser(data));
       if(data?.data){
+        navigate('/feeds');
         console.log('TEST-------------3');
       }
 

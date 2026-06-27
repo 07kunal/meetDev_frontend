@@ -1,4 +1,4 @@
-export const getCookieToken = <T,>()=> {
+export const getCookieToken = <T,>()=> {   // <T,> it tell it uses as generic not tsx component file . 
   let isUserLoggedIn : boolean= false;
   const getCookie = (name: string): string => {
     const value = `${document.cookie}`;
