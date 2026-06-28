@@ -4,19 +4,15 @@ import Navbar from "./Navbar";
 import { Outlet } from "react-router-dom";
 import fetchLoggedInUserProfile from "@/apis/fetchLoggedInUserProfile";
 import { setUser } from "../utils/slices/userSliceReducer";
-import { useAppDispatch, useAppSelector } from "../utils/customHooks/reduxHook";
-import type { AxiosError } from "axios";
+import { useAppDispatch} from "../utils/customHooks/reduxHook";
 import type { LoginResponse } from "../utils/type/user";
 import { useEffect } from "react";
-import type { Boolean } from "../utils/type/commonType";
-import { getCookieToken } from "../common/getCookieToken";
+import getIsFetchApiCall from "../common/getIsFetchApiCall";
 
 
 const Layout = () => {
   const dispatch = useAppDispatch();
-  const hasToken = getCookieToken<Boolean>();
-  const userData: LoginResponse = useAppSelector((state) => state?.user);
-  const shouldFetchProfile: Boolean = hasToken && !userData?.status;
+  const shouldFetchProfile = getIsFetchApiCall();
 
   const { data } = useQuery<LoginResponse>({
     queryKey: ["Profile"],

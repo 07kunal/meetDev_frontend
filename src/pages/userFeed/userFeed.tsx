@@ -5,10 +5,11 @@ import type { Collection, userFeeds } from "@/components/utils/type/usersFeeds";
 import { useQuery } from "@tanstack/react-query";
 import { useEffect } from "react";
 import type { params } from "@/components/utils/type/commonType";
-import UserCard from "@/components/UserCard/userCard";
-
+import UserCard from "@/components/UserCard/UserCard";
+import getIsFetchApiCall from "@/components/common/getIsFetchApiCall";
 const UserFeed = () => {
   const dispatch = useAppDispatch();
+  const isFetchAPICall = getIsFetchApiCall();
   const queryOptions: params = {
     page: 0,
     limit: 10,
@@ -20,18 +21,19 @@ const UserFeed = () => {
       const result = await userFeedsApi(queryOptions);
       return result;
     },
+    // enabled: isFetchAPICall,
   });
   useEffect(() => {
     if (data) {
       dispatch(setUserFeeds(data));
     }
   }, [data]);
-  console.log("data", data);
-  return (
-    <>
-      <UserCard />
-    </>
-  );
+  return <>
+    {
+      data && 
+        <UserCard data={data} />
+    }
+  </>;
 };
 
 export default UserFeed;
