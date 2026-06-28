@@ -2,7 +2,7 @@
 
 import { Outlet, Navigate } from "react-router-dom";
 import type { Boolean } from "../type/commonType";
-import { getCookieToken } from "../customHooks/getCookieToken";
+import { getCookieToken } from "../../common/getCookieToken";
 
 const PrivateRoutes = () => {
   let auth = getCookieToken<Boolean>();

@@ -1,18 +1,37 @@
 import { userFeedsApi } from "@/apis/userFeedsApi";
+import { useAppDispatch } from "@/components/utils/customHooks/reduxHook";
+import { setUserFeeds } from "@/components/utils/slices/userFeedSliceReducer";
 import type { Collection, userFeeds } from "@/components/utils/type/usersFeeds";
-
 import { useQuery } from "@tanstack/react-query";
-import type { AxiosError } from "axios";
+import { useEffect } from "react";
+import type { params } from "@/components/utils/type/commonType";
+import UserCard from "@/components/UserCard/userCard";
 
 const UserFeed = () => {
-  const {data} = useQuery<Collection<userFeeds>,AxiosError>({
-    queryKey: ['userFeeds'],
-    queryFn: userFeedsApi
+  const dispatch = useAppDispatch();
+  const queryOptions: params = {
+    page: 0,
+    limit: 10,
+  };
+
+  const { data } = useQuery<Collection<userFeeds>>({
+    queryKey: ["userFeeds"],
+    queryFn: async (): Promise<Collection<userFeeds>> => {
+      const result = await userFeedsApi(queryOptions);
+      return result;
+    },
   });
-  console.log('data',data);
+  useEffect(() => {
+    if (data) {
+      dispatch(setUserFeeds(data));
+    }
+  }, [data]);
+  console.log("data", data);
   return (
-    <div>userFeed</div>
-  )
+    <>
+      <UserCard />
+    </>
+  );
 };
 
 export default UserFeed;

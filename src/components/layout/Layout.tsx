@@ -9,7 +9,7 @@ import type { AxiosError } from "axios";
 import type { LoginResponse } from "../utils/type/user";
 import { useEffect } from "react";
 import type { Boolean } from "../utils/type/commonType";
-import { getCookieToken } from "../utils/customHooks/getCookieToken";
+import { getCookieToken } from "../common/getCookieToken";
 
 
 const Layout = () => {
@@ -18,7 +18,7 @@ const Layout = () => {
   const userData: LoginResponse = useAppSelector((state) => state?.user);
   const shouldFetchProfile: Boolean = hasToken && !userData?.status;
 
-  const { data } = useQuery<LoginResponse, AxiosError>({
+  const { data } = useQuery<LoginResponse>({
     queryKey: ["Profile"],
     queryFn: fetchLoggedInUserProfile,
     enabled: shouldFetchProfile,
@@ -30,9 +30,10 @@ const Layout = () => {
   }, [data]);
 
   
-console.log("hasToken", hasToken);
-console.log("userData", userData.status);
-console.log("shouldFetchProfile", shouldFetchProfile);
+// console.log("hasToken", hasToken);
+// console.log("userData", userData.status);
+// console.log("shouldFetchProfile", shouldFetchProfile);
+console.log('TEST----1');
   return (
     <div className="flex flex-col min-h-screen">
       {/* Header */}

@@ -5,6 +5,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { AxiosError } from "axios";
 import { useNavigate } from "react-router-dom";
 import { clearUser } from "../utils/slices/userSliceReducer";
+import { clearUserFeeds } from "../utils/slices/userFeedSliceReducer";
 
 const Navbar = () => {
   const userData: LoginResponse = useAppSelector((state) => state?.user);
@@ -19,6 +20,8 @@ const Navbar = () => {
     onSuccess: (data) => {
       if (data.data.logOutStatus) {
         dispatch(clearUser());
+        dispatch(clearUserFeeds());
+
         queryClient.removeQueries({
           queryKey: ["Profile"],
         });
@@ -33,7 +36,7 @@ const Navbar = () => {
   const handleCredentialClick = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     if (!userData?.status) {
-      console.log('Test------1');
+      // console.log('TEST___login route no EPI call');
       navigate("/login");
     } else {
       mutate();

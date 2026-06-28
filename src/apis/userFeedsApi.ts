@@ -1,7 +1,9 @@
 import type { userFeeds, Collection } from "@/components/utils/type/usersFeeds";
 import axios from "axios";
-
-export const userFeedsApi = async (): Promise<Collection<userFeeds>> => {
+import type { params } from "@/components/utils/type/commonType";
+export const userFeedsApi = async (
+  paramsArgument: params,
+): Promise<Collection<userFeeds>> => {
   try {
     let URL: string = `${import.meta.env.VITE_BASE_URL}/feed`;
     const response = await axios.get<Collection<userFeeds>>(URL, {
@@ -9,9 +11,13 @@ export const userFeedsApi = async (): Promise<Collection<userFeeds>> => {
         "Content-Type": "application/json",
       },
       withCredentials: true,
+      params: {
+        page: paramsArgument.page, // Automatically builds: ?page=X
+        limit: paramsArgument.limit, // Automatically builds: &limit=Y
+      },
     });
     console.log("resonse", response);
-    return response.data;
+    return response?.data;
   } catch (error) {
     throw error;
   }

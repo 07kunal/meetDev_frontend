@@ -1,9 +1,10 @@
 import { configureStore } from "@reduxjs/toolkit";
 import userReducer from "../slices/userSliceReducer";
-
+import userFeedReducer from '../slices/userFeedSliceReducer';
 const AppStore = configureStore({
   reducer: {
     user: userReducer,
+    userFeed: userFeedReducer
   },
    devTools: true,
 });
