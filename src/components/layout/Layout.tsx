@@ -5,7 +5,7 @@ import { Outlet } from "react-router-dom";
 import fetchLoggedInUserProfile from "@/apis/fetchLoggedInUserProfile";
 import { setUser } from "../utils/slices/userSliceReducer";
 import { useAppDispatch} from "../utils/customHooks/reduxHook";
-import type { LoginResponse } from "../utils/type/user";
+import type { UserProfile } from "../utils/type/user";
 import { useEffect } from "react";
 import getIsFetchApiCall from "../common/getIsFetchApiCall";
 
@@ -14,7 +14,7 @@ const Layout = () => {
   const dispatch = useAppDispatch();
   const shouldFetchProfile = getIsFetchApiCall();
 
-  const { data } = useQuery<LoginResponse>({
+  const { data } = useQuery<UserProfile>({
     queryKey: ["Profile"],
     queryFn: fetchLoggedInUserProfile,
     enabled: shouldFetchProfile,

@@ -6,6 +6,7 @@ import UserFeed from "@/pages/userFeed/UserFeed";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { getCookieToken } from "@/components/common/getCookieToken";
 import type { Boolean } from "@/components/utils/type/commonType";
+import Profile from "@/pages/Profile/Profile";
 const AppRoutes = () => {
   const hasToken = getCookieToken<Boolean>();
 
@@ -22,6 +23,7 @@ const AppRoutes = () => {
           />
           <Route element={<PrivateRoutes />}>
             <Route path="/feeds" element={<UserFeed />} />
+            <Route path="/profile" element={<Profile />} />
           </Route>
         </Route>
       </Routes>

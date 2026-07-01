@@ -6,7 +6,6 @@ const initialUserData: LoginResponse = {
     firstName: "",
     lastName: "",
     age: null,
-    emailId: "",
     profilePic: "",
     skills: [],
     education: [],

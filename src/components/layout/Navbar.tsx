@@ -73,6 +73,9 @@ const Navbar = () => {
             <li>
               <button onClick={() => navigate("/feeds")}>Profile</button>
             </li>
+             <li>
+              <button onClick={() => navigate("/feeds")}>User Feeds</button>
+            </li>
             <li>
               <button onClick={handleCredentialClick} disabled={isPending}>
                 {userData?.status ? "Logout" : "Login"}

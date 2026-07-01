@@ -9,7 +9,6 @@ export interface LoginResponse {
     lastName: string;
     gender: string;
     age: number | null;
-    emailId: string;
     education: string[];
     address: string;
     profilePic: string;
@@ -24,3 +23,21 @@ export interface logOutResponse {
     message: string;
   };
 }
+
+export interface UserProfile {
+  data: {
+    firstName: string;
+    lastName: string;
+    gender: string;
+    age: number | null;
+    education: string[];
+    address: string;
+    profilePic: string;
+    skills: string[];
+  };
+}
+
+/*
+ENUM
+ Unlike most TypeScript features which disappear during compilation, enums are a language extension that generates an actual JavaScript object at runtime.
+*/
