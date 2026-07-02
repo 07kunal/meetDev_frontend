@@ -25,7 +25,7 @@ const UserCard = ({ data }: propsType) => {
             <p className="m-0">
               Skills:
               {data[0]?.skills.map((item: string) => (
-                <span className="badge badge-ghost">{item}</span>
+                <span key={item} className="badge badge-ghost">{item}</span>
               ))}
             </p>
             <div className="card-actions justify-center align-center flex-nowrap">

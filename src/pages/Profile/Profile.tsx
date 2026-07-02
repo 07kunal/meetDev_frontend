@@ -23,7 +23,7 @@ const Profile = () => {
   };
   useEffect(() => {
     reset(userData);
-  }, [reset]);
+  }, [reset,userData]);
   return (
     <div className="flex items-center justify-center h-screen bg-base-200">
       {/* Parent div */}
@@ -39,57 +39,100 @@ const Profile = () => {
               <span className="label-text">First Name</span>
             </label>
             <input
-              {...register("data.firstName")}
+              {...register("data.firstName", {
+                required: "First name is required",
+                minLength: {
+                  value: 4,
+                  message: "Must be at least 4 characters",
+                },
+                pattern: {
+                  value: /^[A-Za-z]+$/,
+                  message: "Only letters allowed, no special characters",
+                },
+              })}
               placeholder="First Name"
               className="input input-bordered w-full"
             />
+            {errors.data?.firstName && (
+              <p className="text-error text-sm">{errors.data?.firstName.message}</p>
+            )}
 
             {/* Last Name */}
             <label className="label">
               <span className="label-text">Last Name</span>
             </label>
             <input
-              {...register("data.lastName")}
+              {...register("data.lastName", {
+                required: "Last name is required",
+                minLength: {
+                  value: 4,
+                  message: "Must be at least 4 characters",
+                },
+                pattern: {
+                  value: /^[A-Za-z]+$/,
+                  message: "Only letters allowed, no special characters",
+                },
+              })}
               placeholder="Last Name"
               className="input input-bordered w-full"
             />
+            {errors.data?.lastName && (
+              <p className="text-error text-sm">{errors.data?.lastName.message}</p>
+            )}
 
-            {/* Skills Dropdown */}
+            {/* Skills Multiple Select */}
             <label className="label">
-              <span className="label-text">Skills</span>
+              <span className="label-text">Skills (select multiple)</span>
             </label>
             <select
-              {...register("data.skills")}
-              className="select select-bordered w-full"
+              {...register("data.skills", {
+                required: "Please select at least one skill",
+              })}
+              multiple
+              className="select select-bordered w-full h-32"
             >
               <option value="React">React</option>
               <option value="TypeScript">TypeScript</option>
               <option value="Tailwind">Tailwind</option>
               <option value="DaisyUI">DaisyUI</option>
               <option value="Node.js">Node.js</option>
+              <option value="Node.js">Java</option>
+
             </select>
+            {errors.data?.skills && (
+              <p className="text-error text-sm">{errors.data?.skills.message}</p>
+            )}
 
             {/* Profile Pic */}
             <label className="label">
               <span className="label-text">Profile Picture URL</span>
             </label>
             <input
-              {...register("data.profilePic")}
+              {...register("data.profilePic", {
+                required: "Profile picture URL is required",
+              })}
               placeholder="Profile Pic URL"
               className="input input-bordered w-full"
             />
+            {errors.data?.profilePic && (
+              <p className="text-error text-sm">{errors.data?.profilePic.message}</p>
+            )}
 
             {/* Gender Dropdown */}
             <label className="label">
               <span className="label-text">Gender</span>
             </label>
             <select
-              {...register("data.gender")}
+              {...register("data.gender", { required: "Please select gender" })}
               className="select select-bordered w-full"
             >
+              <option value="">Select gender</option>
               <option value="male">Male</option>
               <option value="female">Female</option>
             </select>
+            {errors.data?.gender && (
+              <p className="text-error text-sm">{errors.data?.gender.message}</p>
+            )}
 
             {/* Submit Button */}
             <button type="submit" className="btn btn-primary w-full mt-4">
