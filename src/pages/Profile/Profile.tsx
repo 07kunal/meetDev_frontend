@@ -12,10 +12,14 @@ const Profile = () => {
     register,
     handleSubmit,
     reset,
+    watch,
     formState: { errors },
   } = useForm<UserProfile>();
   const dispatch = useAppDispatch();
   const userData: UserProfile = useAppSelector((state) => state?.user);
+  // Watch skills field to display chips
+  const selectedSkills: string[] = watch("data.skills", []);
+  const selectedfirstname: string= watch("data.firstName", '');
 
   const onSubmit: SubmitHandler<UserProfile> = (data: UserProfile) => {
     dispatch(setUser(data)); // update store
@@ -23,13 +27,14 @@ const Profile = () => {
   };
   useEffect(() => {
     reset(userData);
-  }, [reset,userData]);
+  }, [reset, userData]);
+  console.log('selectedfir',selectedfirstname);
   return (
     <div className="flex items-center justify-center h-screen bg-base-200">
       {/* Parent div */}
       <div className="flex items-center justify-center gap-4 bg-base-100 p-6 rounded-lg shadow-md">
         {/* Child div 1 */}
-        <div className="p-4 bg-primary text-primary-content rounded-lg">
+        <div className="text-primary-content rounded-lg">
           <form
             onSubmit={handleSubmit(onSubmit)}
             className="flex flex-col gap-4 p-6 bg-base-200 rounded-lg shadow-md w-96"
@@ -54,7 +59,9 @@ const Profile = () => {
               className="input input-bordered w-full"
             />
             {errors.data?.firstName && (
-              <p className="text-error text-sm">{errors.data?.firstName.message}</p>
+              <p className="text-error text-sm">
+                {errors.data?.firstName.message}
+              </p>
             )}
 
             {/* Last Name */}
@@ -77,7 +84,9 @@ const Profile = () => {
               className="input input-bordered w-full"
             />
             {errors.data?.lastName && (
-              <p className="text-error text-sm">{errors.data?.lastName.message}</p>
+              <p className="text-error text-sm">
+                {errors.data?.lastName.message}
+              </p>
             )}
 
             {/* Skills Multiple Select */}
@@ -96,13 +105,22 @@ const Profile = () => {
               <option value="Tailwind">Tailwind</option>
               <option value="DaisyUI">DaisyUI</option>
               <option value="Node.js">Node.js</option>
-              <option value="Node.js">Java</option>
-
+              <option value="Java">Java</option>
             </select>
             {errors.data?.skills && (
-              <p className="text-error text-sm">{errors.data?.skills.message}</p>
+              <p className="text-error text-sm">
+                {errors.data?.skills.message}
+              </p>
             )}
-
+            {/* Chips for selected skills */}
+            <div className="flex flex-wrap gap-2 mt-2">
+              {selectedSkills &&
+                selectedSkills.map((skill: string) => (
+                  <span key={skill} className="badge badge-primary">
+                    {skill}
+                  </span>
+                ))}
+            </div>
             {/* Profile Pic */}
             <label className="label">
               <span className="label-text">Profile Picture URL</span>
@@ -115,7 +133,9 @@ const Profile = () => {
               className="input input-bordered w-full"
             />
             {errors.data?.profilePic && (
-              <p className="text-error text-sm">{errors.data?.profilePic.message}</p>
+              <p className="text-error text-sm">
+                {errors.data?.profilePic.message}
+              </p>
             )}
 
             {/* Gender Dropdown */}
@@ -131,7 +151,9 @@ const Profile = () => {
               <option value="female">Female</option>
             </select>
             {errors.data?.gender && (
-              <p className="text-error text-sm">{errors.data?.gender.message}</p>
+              <p className="text-error text-sm">
+                {errors.data?.gender.message}
+              </p>
             )}
 
             {/* Submit Button */}
