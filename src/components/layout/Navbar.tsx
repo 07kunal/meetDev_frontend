@@ -36,7 +36,6 @@ const Navbar = () => {
   const handleCredentialClick = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     if (!userData?.status) {
-      // console.log('TEST___login route no EPI call');
       navigate("/login");
     } else {
       mutate();

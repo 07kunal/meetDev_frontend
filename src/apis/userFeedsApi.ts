@@ -16,7 +16,6 @@ export const userFeedsApi = async (
         limit: paramsArgument.limit, // Automatically builds: &limit=Y
       },
     });
-    console.log("resonse", response);
     return response?.data;
   } catch (error) {
     throw error;

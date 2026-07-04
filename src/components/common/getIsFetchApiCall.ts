@@ -2,10 +2,12 @@ import { useAppSelector } from "../utils/customHooks/reduxHook";
 import { getCookieToken } from "./getCookieToken";
 import type { LoginResponse } from "../utils/type/user";
 import type { Boolean } from "../utils/type/commonType";
+import getCheckValidityToken from "./getCheckValidityToken";
+
 const getIsFetchApiCall = (): Boolean => {
   const hasToken = getCookieToken();
+  const isTokenValidate = getCheckValidityToken();
   const userData: LoginResponse = useAppSelector((state) => state?.user);
-  // Change Boolean to lowercase boolean, and add !! before the expression
   const shouldFetchAPI: Boolean = !!(hasToken && !userData?.status);
 
   return shouldFetchAPI;

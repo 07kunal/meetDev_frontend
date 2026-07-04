@@ -19,16 +19,13 @@ const Profile = () => {
   const userData: UserProfile = useAppSelector((state) => state?.user);
   // Watch skills field to display chips
   const selectedSkills: string[] = watch("data.skills", []);
-  const selectedfirstname: string= watch("data.firstName", '');
 
   const onSubmit: SubmitHandler<UserProfile> = (data: UserProfile) => {
     dispatch(setUser(data)); // update store
-    console.log("Updated Redux Store:", data);
   };
   useEffect(() => {
     reset(userData);
   }, [reset, userData]);
-  console.log('selectedfir',selectedfirstname);
   return (
     <div className="flex items-center justify-center h-screen bg-base-200">
       {/* Parent div */}

@@ -4,15 +4,14 @@ import type { PayloadAction } from "@reduxjs/toolkit";
 
 const initialData: Collection<userFeeds> = [
   {
-    data: {
-      firstName: "",
-      lastName: "",
-      gender: "",
-      age: null,
-      education: [],
-      profilePic: "",
-      skills: [],
-    },
+    firstName: "",
+    lastName: "",
+    fullName: "",
+    gender: "",
+    age: null,
+    education: [],
+    profilePic: "",
+    skills: [],
   },
 ];
 
@@ -21,15 +20,15 @@ export const userFeedSliceReducer = createSlice({
   initialState: initialData,
   reducers: {
     setUserFeeds: (state, action: PayloadAction<Collection<userFeeds>>) => {
-      console.log("SET USER Feed", action.payload);
+      // console.log("SET USER Feed", action.payload);
       return action.payload;
     },
     clearUserFeeds: () => {
-      console.log("CLEAR USER Feed");
+      // console.log("CLEAR USER Feed");
       return initialData;
     },
   },
 });
 
-export const {setUserFeeds,clearUserFeeds} = userFeedSliceReducer.actions;
+export const { setUserFeeds, clearUserFeeds } = userFeedSliceReducer.actions;
 export default userFeedSliceReducer.reducer;

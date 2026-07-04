@@ -1,6 +1,8 @@
 import { jwtDecode } from "jwt-decode";
+import { getCookie } from "./getCookieToken";
 
-const getCheckValidityToken = (token: string) => {
+const getCheckValidityToken = ()=> {
+  const token: string = getCookie("Token");
   try {
     const { exp } = jwtDecode(token);
     if (exp) {

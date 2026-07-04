@@ -20,11 +20,11 @@ export const userSliceReducer = createSlice({
   initialState: initialUserData,
   reducers: {
     setUser: (state, action: PayloadAction<LoginResponse>) => {
-      console.log("SET USER", action.payload);
+      // console.log("SET USER", action.payload);
       return action.payload;
     },
     clearUser: () => {
-        console.log("CLEAR USER");
+        // console.log("CLEAR USER");
       return initialUserData;
     },
   },

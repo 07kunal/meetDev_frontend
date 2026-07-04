@@ -4,7 +4,7 @@ interface propsType {
   data: Collection<userFeeds>;
 }
 const UserCard = ({ data }: propsType) => {
-  console.log("data in card", data);
+  // console.log("data in card", data);
   return (
     <>
       <div className="min-h-screen flex items-center justify-center">

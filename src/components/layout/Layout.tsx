@@ -29,7 +29,7 @@ const Layout = () => {
 // console.log("hasToken", hasToken);
 // console.log("userData", userData.status);
 // console.log("shouldFetchProfile", shouldFetchProfile);
-console.log('TEST----1');
+console.log('TEST----1---LayoutLanding');
   return (
     <div className="flex flex-col min-h-screen">
       {/* Header */}
