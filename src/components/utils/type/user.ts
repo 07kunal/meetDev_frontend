@@ -18,7 +18,6 @@ export interface LoginResponse {
   data: User;
   status?: boolean;
   isAuthenticated: boolean;
-  isLoading: boolean;
 }
 
 export interface logOutResponse {

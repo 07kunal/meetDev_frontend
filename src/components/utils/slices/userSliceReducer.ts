@@ -15,7 +15,6 @@ const initialUserData: LoginResponse = {
   },
   status: false,
   isAuthenticated: false,
-  isLoading: true,
 };
 export const userSliceReducer = createSlice({
   name: "userData",
@@ -25,12 +24,11 @@ export const userSliceReducer = createSlice({
     setUser: (state, action: PayloadAction<User>) => {
       state.data = action.payload;
       state.isAuthenticated = true;
-      state.isLoading = false;
       state.status = true;
     },
     clearUser: () => {
       // console.log("CLEAR USER");
-      return { ...initialUserData, isLoading: false };
+      return initialUserData;
     },
   },
 });

@@ -3,33 +3,41 @@ import Footer from "./Footer";
 import Navbar from "./Navbar";
 import { Outlet } from "react-router-dom";
 import fetchLoggedInUserProfile from "@/apis/fetchLoggedInUserProfile";
-import { setUser } from "../utils/slices/userSliceReducer";
-import { useAppDispatch} from "../utils/customHooks/reduxHook";
+import { clearUser, setUser } from "../utils/slices/userSliceReducer";
+import { useAppDispatch } from "../utils/customHooks/reduxHook";
 import type { UserProfile } from "../utils/type/user";
 import { useEffect } from "react";
 import getIsFetchApiCall from "../common/getIsFetchApiCall";
-
-
+import { useNavigate } from "react-router-dom";
+import Cookies from "js-cookie";
 const Layout = () => {
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
   const shouldFetchProfile = getIsFetchApiCall();
 
-  const { data } = useQuery<UserProfile>({
+  const { data, isError,error } = useQuery<UserProfile>({
     queryKey: ["Profile"],
     queryFn: fetchLoggedInUserProfile,
     enabled: shouldFetchProfile,
+    retry: false, // Disable retry on error
   });
+
   useEffect(() => {
     if (data) {
       dispatch(setUser(data?.data));
     }
-  }, [data]);
+  }, [data, isError, dispatch]);
+  useEffect(() => {
+    if (isError) {
+      const axiosError = error as any;
+      if (axiosError?.response?.status === 401) {
+        dispatch(clearUser());
+        Cookies.remove("token");
+        navigate("/login");
+      }
+    }
+  }, [isError, error, dispatch, navigate]);
 
-  
-// console.log("hasToken", hasToken);
-// console.log("userData", userData.status);
-// console.log("shouldFetchProfile", shouldFetchProfile);
-console.log('TEST----1---LayoutLanding');
   return (
     <div className="flex flex-col min-h-screen">
       {/* Header */}

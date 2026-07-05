@@ -15,7 +15,3 @@ export const getCookieToken = <T>() => {
   }
   return isUserLoggedIn as T;
 };
-/*
-Telling that <T,> Adding a comma tells TypeScript that this is a type parameter, not an HTML tag.
-
-*/

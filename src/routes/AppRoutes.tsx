@@ -2,22 +2,26 @@ import Layout from "@/components/layout/Layout";
 import Home from "@/pages/Home/Home";
 import LoginForm from "@/pages/loginForm/LoginForm";
 import UserFeed from "@/pages/userFeed/UserFeed";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route ,Navigate} from "react-router-dom";
 import Profile from "@/pages/Profile/Profile";
-import PublicRoutes from "@/components/utils/PublicRoute/PublicRoutes";
 import PrivateRoutes from "@/components/utils/Privateroute/PrivateRoutes";
+import { useAppSelector } from "@/components/utils/customHooks/reduxHook";
 
 const AppRoutes = () => {
-  console.log("approutrs----");
+    const { isAuthenticated} = useAppSelector((state) => state.user);
+  
   return (
     <BrowserRouter>
       <Routes>
         <Route element={<Layout />}>
           <Route path="/" element={<Home />} />
           {/* Public Routes */}
-          <Route element={<PublicRoutes />}>
-            <Route path="/login" element={<LoginForm />} />
-          </Route>
+          <Route
+            path="/login"
+            element={
+              isAuthenticated ? <Navigate to="/feeds" replace /> : <LoginForm />
+            }
+          />
           <Route element={<PrivateRoutes />}>
             <Route path="/feeds" element={<UserFeed />} />
             <Route path="/profile" element={<Profile />} />

@@ -6,34 +6,40 @@ import { useQuery } from "@tanstack/react-query";
 import { useEffect } from "react";
 import type { params } from "@/components/utils/type/commonType";
 import UserCard from "@/components/UserCard/UserCard";
-import getIsFetchApiCall from "@/components/common/getIsFetchApiCall";
+import { clearUser } from "@/components/utils/slices/userSliceReducer";
+import { useNavigate } from "react-router-dom";
 const UserFeed = () => {
   const dispatch = useAppDispatch();
-  const isFetchAPICall = getIsFetchApiCall();
+  const navigate = useNavigate();
   const queryOptions: params = {
     page: 0,
     limit: 10,
   };
 
-  const { data } = useQuery<Collection<userFeeds>>({
+  const { data, isError, error } = useQuery<Collection<userFeeds>>({
     queryKey: ["userFeeds"],
     queryFn: async (): Promise<Collection<userFeeds>> => {
       const result = await userFeedsApi(queryOptions);
       return result;
     },
-    // enabled: isFetchAPICall,
+    retry: false, // Disable retry on error
   });
   useEffect(() => {
     if (data) {
       dispatch(setUserFeeds(data));
     }
-  }, [data]);
-  return <>
-    {
-      data && 
-        <UserCard data={data} />
+  }, [data, isError, dispatch]);
+  useEffect(() => {
+    if (isError) {
+      const axiosError = error as any;
+      if (axiosError?.response?.status === 401) {
+        dispatch(clearUser());
+        navigate("/login");
+      }
     }
-  </>;
+  }, [isError, error, dispatch, navigate]);
+  console.log("isError", isError);
+  return <>{data && <UserCard data={data} />}</>;
 };
 
 export default UserFeed;
