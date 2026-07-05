@@ -1,5 +1,3 @@
-import getCheckValidityToken from "./getCheckValidityToken";
-
 export const getCookie = (name: string): string => {
   const value = `${document.cookie}`;
   const parts = value.split(`${name}=`);
@@ -9,9 +7,8 @@ export const getCookie = (name: string): string => {
 export const getCookieToken = <T>() => {
   // <T,> it tell it uses as generic not tsx component file .
   let isUserLoggedIn: boolean = false;
-  const isTokenValid = getCheckValidityToken();
-  console.log('isTokenValid===========Test1',isTokenValid);
-  if (isTokenValid) {
+  let token: string = getCookie("token");
+  if (token) {
     isUserLoggedIn = true;
   } else {
     isUserLoggedIn = false;

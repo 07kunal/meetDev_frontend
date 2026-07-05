@@ -1,26 +1,23 @@
 import Layout from "@/components/layout/Layout";
-import PrivateRoutes from "@/components/utils/Privateroute/PrivateRoutes";
 import Home from "@/pages/Home/Home";
 import LoginForm from "@/pages/loginForm/LoginForm";
 import UserFeed from "@/pages/userFeed/UserFeed";
-import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
-import { getCookieToken } from "@/components/common/getCookieToken";
-import type { Boolean } from "@/components/utils/type/commonType";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Profile from "@/pages/Profile/Profile";
-const AppRoutes = () => {
-  const hasToken = getCookieToken<Boolean>();
+import PublicRoutes from "@/components/utils/PublicRoute/PublicRoutes";
+import PrivateRoutes from "@/components/utils/Privateroute/PrivateRoutes";
 
+const AppRoutes = () => {
+  console.log("approutrs----");
   return (
     <BrowserRouter>
       <Routes>
         <Route element={<Layout />}>
           <Route path="/" element={<Home />} />
-          <Route
-            path="/login"
-            element={
-              hasToken ? <Navigate to="/feeds" replace /> : <LoginForm />
-            }
-          />
+          {/* Public Routes */}
+          <Route element={<PublicRoutes />}>
+            <Route path="/login" element={<LoginForm />} />
+          </Route>
           <Route element={<PrivateRoutes />}>
             <Route path="/feeds" element={<UserFeed />} />
             <Route path="/profile" element={<Profile />} />

@@ -21,7 +21,7 @@ const Profile = () => {
   const selectedSkills: string[] = watch("data.skills", []);
 
   const onSubmit: SubmitHandler<UserProfile> = (data: UserProfile) => {
-    dispatch(setUser(data)); // update store
+    dispatch(setUser(data?.data)); // update store
   };
   useEffect(() => {
     reset(userData);

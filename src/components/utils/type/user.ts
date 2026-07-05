@@ -3,18 +3,22 @@ export interface LoginBody {
   password: string;
 }
 
+export interface User {
+  firstName: string;
+  lastName: string;
+  gender: string;
+  age: number | null;
+  education: string[];
+  address: string;
+  profilePic: string;
+  skills: string[];
+}
+
 export interface LoginResponse {
-  data: {
-    firstName: string;
-    lastName: string;
-    gender: string;
-    age: number | null;
-    education: string[];
-    address: string;
-    profilePic: string;
-    skills: string[];
-  };
+  data: User;
   status?: boolean;
+  isAuthenticated: boolean;
+  isLoading: boolean;
 }
 
 export interface logOutResponse {
@@ -25,16 +29,7 @@ export interface logOutResponse {
 }
 
 export interface UserProfile {
-  data: {
-    firstName: string;
-    lastName: string;
-    gender: string;
-    age: number | null;
-    education: string[];
-    address: string;
-    profilePic: string;
-    skills: string[];
-  };
+  data: User;
 }
 
 /*

@@ -31,7 +31,7 @@ const LoginForm = () => {
     mutationFn: loginApi,
 
     onSuccess: (data) => {
-      dispatch(setUser(data));
+      dispatch(setUser(data?.data));
       if(data?.data){
         navigate('/feeds');
         console.log('TEST-------------3');

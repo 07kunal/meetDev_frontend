@@ -1,13 +1,16 @@
-//utils/PrivateRoutes.js
-
-import { Outlet, Navigate } from "react-router-dom";
-import type { Boolean } from "../type/commonType";
-import { getCookieToken } from "../../common/getCookieToken";
-
+import { Navigate, Outlet, useLocation } from "react-router-dom";
+import { useAppSelector } from "../customHooks/reduxHook";
 const PrivateRoutes = () => {
-  let auth = getCookieToken<Boolean>();
+  const { isAuthenticated } = useAppSelector((state) => state.user);
 
-  return auth ? <Outlet /> : <Navigate to="/login" />;
+  const location = useLocation();
+
+  // Not logged in
+  if (!isAuthenticated) {
+    return <Navigate to="/login" state={{ from: location }} replace />;
+  }
+
+  return <Outlet />;
 };
 
 export default PrivateRoutes;
