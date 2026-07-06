@@ -26,7 +26,17 @@ const Layout = () => {
     if (data) {
       dispatch(setUser(data?.data));
     }
-  }, [data, isError, dispatch]);
+  }, [data, dispatch]);
+
+  useEffect(() => {
+    if (!shouldFetchProfile) {
+      const timeoutId = window.setTimeout(() => {
+        dispatch(clearUser());
+      }, 300);
+
+      return () => window.clearTimeout(timeoutId);
+    }
+  }, [shouldFetchProfile, dispatch]);
   useEffect(() => {
     if (isError) {
       const axiosError = error as any;
