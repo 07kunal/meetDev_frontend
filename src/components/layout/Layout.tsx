@@ -15,7 +15,7 @@ const Layout = () => {
   const navigate = useNavigate();
   const shouldFetchProfile = getIsFetchApiCall();
 
-  const { data, isError,error } = useQuery<UserProfile>({
+  const { data, isError, error } = useQuery<UserProfile>({
     queryKey: ["Profile"],
     queryFn: fetchLoggedInUserProfile,
     enabled: shouldFetchProfile,
@@ -24,19 +24,11 @@ const Layout = () => {
 
   useEffect(() => {
     if (data) {
+      console.log('TEST-1');
       dispatch(setUser(data));
     }
   }, [data, dispatch]);
 
-  useEffect(() => {
-    if (!shouldFetchProfile) {
-      const timeoutId = window.setTimeout(() => {
-        dispatch(clearUser());
-      }, 300);
-
-      return () => window.clearTimeout(timeoutId);
-    }
-  }, [shouldFetchProfile, dispatch]);
   useEffect(() => {
     if (isError) {
       const axiosError = error as any;

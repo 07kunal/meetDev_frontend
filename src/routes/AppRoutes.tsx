@@ -8,8 +8,9 @@ import PrivateRoutes from "@/components/utils/Privateroute/PrivateRoutes";
 import { useAppSelector } from "@/components/utils/customHooks/reduxHook";
 
 const AppRoutes = () => {
-  const { status } = useAppSelector((state) => state.user);
+  const { status,data } = useAppSelector((state) => state.user);
 console.log('status ====',status);
+console.log('data',data);
   return (
     <BrowserRouter>
       <Routes>
