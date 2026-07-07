@@ -24,7 +24,6 @@ const Layout = () => {
 
   useEffect(() => {
     if (data) {
-      console.log('TEST-1');
       dispatch(setUser(data));
     }
   }, [data, dispatch]);
@@ -39,7 +38,6 @@ const Layout = () => {
       }
     }
   }, [isError, error, dispatch, navigate]);
-console.log('data',data);
   return (
     <div className="flex flex-col min-h-screen">
       {/* Header */}

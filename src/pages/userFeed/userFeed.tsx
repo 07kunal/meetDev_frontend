@@ -38,7 +38,6 @@ const UserFeed = () => {
       }
     }
   }, [isError, error, dispatch, navigate]);
-  console.log("isError", isError);
   return <>{data && <UserCard data={data} />}</>;
 };
 

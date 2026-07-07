@@ -20,11 +20,9 @@ export const userFeedSliceReducer = createSlice({
   initialState: initialData,
   reducers: {
     setUserFeeds: (state, action: PayloadAction<Collection<userFeeds>>) => {
-      // console.log("SET USER Feed", action.payload);
       return action.payload;
     },
     clearUserFeeds: () => {
-      // console.log("CLEAR USER Feed");
       return initialData;
     },
   },

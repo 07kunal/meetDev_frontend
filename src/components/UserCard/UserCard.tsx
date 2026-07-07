@@ -4,12 +4,10 @@ interface propsType {
   data: Collection<userFeeds>;
 }
 const UserCard = ({ data }: propsType) => {
-  // console.log("data in card", data);
   return (
     <>
       <div className="min-h-screen flex items-center justify-center">
-        {/* {data?.map((item: userFeeds) => (
-          console.log('item',item?.fullName), */}
+  
         <div
           className="card card-side bg-base-00 shadow-xl w-100 h-100"
           key={data[0]?._id}
