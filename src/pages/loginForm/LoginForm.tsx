@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useMutation } from "@tanstack/react-query";
 import loginApi from "@/apis/loginApi";
 import { AxiosError } from "axios";
-import type { LoginBody, LoginResponse } from "@/components/utils/type/user";
+import type { LoginBody, UserProfile } from "@/components/utils/type/user";
 import { setUser } from "@/components/utils/slices/userSliceReducer";
 import { useNavigate } from "react-router-dom";
 import { useAppDispatch } from "@/components/utils/customHooks/reduxHook";
@@ -24,14 +24,14 @@ const LoginForm = () => {
 
   // Mutation
   const { mutate, isPending } = useMutation<
-    LoginResponse,
+    UserProfile,
     AxiosError,
     LoginBody
   >({
     mutationFn: loginApi,
 
     onSuccess: (data) => {
-      dispatch(setUser(data?.data));
+      dispatch(setUser(data));
       if(data?.data){
         navigate('/feeds');
         console.log('TEST-------------3');

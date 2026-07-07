@@ -13,14 +13,6 @@ export interface User {
   profilePic: string;
   skills: string[];
 }
-
-export interface LoginResponse {
-  data: User;
-  status?: boolean;
-  isAuthenticated: boolean;
-  isLoading: boolean;
-}
-
 export interface logOutResponse {
   data: {
     logOutStatus: boolean;
@@ -30,6 +22,8 @@ export interface logOutResponse {
 
 export interface UserProfile {
   data: User;
+  status: boolean;
+
 }
 
 /*

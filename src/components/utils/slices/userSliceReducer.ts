@@ -1,8 +1,8 @@
 import { createSlice } from "@reduxjs/toolkit";
-import type { LoginResponse, User } from "../type/user";
+import type { UserProfile } from "../type/user";
 import type { PayloadAction } from "@reduxjs/toolkit";
 
-const initialUserData: LoginResponse = {
+const initialUserData: UserProfile = {
   data: {
     firstName: "",
     lastName: "",
@@ -14,22 +14,17 @@ const initialUserData: LoginResponse = {
     skills: [],
   },
   status: false,
-  isAuthenticated: false,
-  isLoading: true,
 };
 export const userSliceReducer = createSlice({
   name: "userData",
   // `createSlice` will infer the state type from the `initialState` argument
   initialState: initialUserData,
   reducers: {
-    setUser: (state, action: PayloadAction<User>) => {
-      state.data = action.payload;
-      state.isAuthenticated = true;
-      state.status = true;
-      state.isLoading = false;
+    setUser: (state, action: PayloadAction<UserProfile>) => {
+     return action.payload
     },
     clearUser: () => {
-      return { ...initialUserData, isLoading: false };
+      return initialUserData;
     },
   },
 });

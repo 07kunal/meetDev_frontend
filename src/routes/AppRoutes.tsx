@@ -2,14 +2,14 @@ import Layout from "@/components/layout/Layout";
 import Home from "@/pages/Home/Home";
 import LoginForm from "@/pages/loginForm/LoginForm";
 import UserFeed from "@/pages/userFeed/UserFeed";
-import { BrowserRouter, Routes, Route ,Navigate} from "react-router-dom";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import Profile from "@/pages/Profile/Profile";
 import PrivateRoutes from "@/components/utils/Privateroute/PrivateRoutes";
 import { useAppSelector } from "@/components/utils/customHooks/reduxHook";
 
 const AppRoutes = () => {
-    const { isAuthenticated} = useAppSelector((state) => state.user);
-  
+  const { status } = useAppSelector((state) => state.user);
+console.log('status ====',status);
   return (
     <BrowserRouter>
       <Routes>
@@ -19,7 +19,7 @@ const AppRoutes = () => {
           <Route
             path="/login"
             element={
-              isAuthenticated ? <Navigate to="/feeds" replace /> : <LoginForm />
+              status ? <Navigate to="/feeds" replace /> : <LoginForm />
             }
           />
           <Route element={<PrivateRoutes />}>

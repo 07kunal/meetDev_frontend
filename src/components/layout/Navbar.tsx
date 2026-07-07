@@ -1,4 +1,4 @@
-import { type logOutResponse, type LoginResponse } from "../utils/type/user";
+import { type logOutResponse, type UserProfile } from "../utils/type/user";
 import { useAppDispatch, useAppSelector } from "../utils/customHooks/reduxHook";
 import { handleLogout } from "@/apis/logOutApi";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
@@ -8,7 +8,7 @@ import { clearUser } from "../utils/slices/userSliceReducer";
 import { clearUserFeeds } from "../utils/slices/userFeedSliceReducer";
 
 const Navbar = () => {
-  const userData: LoginResponse = useAppSelector((state) => state?.user);
+  const userData: UserProfile = useAppSelector((state) => state?.user);
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const queryClient = useQueryClient();

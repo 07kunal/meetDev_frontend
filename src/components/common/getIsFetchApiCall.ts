@@ -1,10 +1,10 @@
 import { useAppSelector } from "../utils/customHooks/reduxHook";
-import type { LoginResponse } from "../utils/type/user";
+import type { UserProfile } from "../utils/type/user";
 import type { Boolean } from "../utils/type/commonType";
 import { getCookieToken } from "./getCookieToken";
 
 const getIsFetchApiCall = (): Boolean => {
-  const userData: LoginResponse = useAppSelector((state) => state?.user);
+  const userData: UserProfile = useAppSelector((state) => state?.user);
   const hasToken = getCookieToken();
 
   return Boolean(hasToken && !userData?.status);
