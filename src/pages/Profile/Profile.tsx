@@ -5,6 +5,8 @@ import {
 } from "@/components/utils/customHooks/reduxHook";
 import { setUser } from "@/components/utils/slices/userSliceReducer";
 import SignUpForm from "@/components/SignUpForm/SignUpForm";
+import UserCard from "@/components/UserCard/UserCard";
+
 const Profile = () => {
 
   const dispatch = useAppDispatch();
@@ -26,7 +28,10 @@ const Profile = () => {
 
         {/* Child div 2 */}
         <div className="p-4 bg-secondary text-secondary-content rounded-lg">
-          Card UI
+          <UserCard 
+            data={userData?.data}
+            action="userCardView"
+          />
         </div>
       </div>
     </div>

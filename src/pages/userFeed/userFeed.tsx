@@ -22,6 +22,7 @@ const UserFeed = () => {
       const result = await userFeedsApi(queryOptions);
       return result;
     },
+    // enabled: shouldFetchProfile,
     retry: false, // Disable retry on error
   });
   useEffect(() => {
@@ -38,7 +39,7 @@ const UserFeed = () => {
       }
     }
   }, [isError, error, dispatch, navigate]);
-  return <>{data && <UserCard data={data} />}</>;
+  return <>{data && <UserCard data={data} action="feeds" />}</>;
 };
 
 export default UserFeed;

@@ -5,7 +5,6 @@ export type Collection<T extends object> = T[];
 export interface userFeeds {
   firstName: string;
   lastName: string;
-  fullName: string;
   gender: string;
   age: number | null;
   education: string[];
