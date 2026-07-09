@@ -1,5 +1,4 @@
 import type { Collection, userFeeds } from "../utils/type/usersFeeds";
-import type { UserProfile } from "../utils/type/user";
 
 interface FeedsProps {
   data: Collection<userFeeds>;
@@ -13,7 +12,8 @@ interface UserCardViewProps {
 
 type propsType = FeedsProps | UserCardViewProps;
 const UserCard = ({ data, action }: propsType) => {
-  let userCardData = action !== "feeds" ? data : data[0];
+  console.log('action',action);
+  const userCardData = action === "feeds" ? data[0] : data;
   return (
     <>
       <div className="min-h-screen flex items-center justify-center">
@@ -26,22 +26,29 @@ const UserCard = ({ data, action }: propsType) => {
           </figure>
           <div className="card-body">
             <h2 className="card-title">
-              {`${userCardData.firstName}` } { `${userCardData?.lastName}`}
+              {`${userCardData.firstName}`} {`${userCardData?.lastName}`}
             </h2>
             <span>Introduction</span>
             <span>Age: {userCardData?.age}</span>
-            <span>Gender: {userCardData?.gender.toUpperCase()}</span>
+            <span>Gender: {userCardData?.gender?.toUpperCase()}</span>
             <p className="m-0">
               Skills:
-              {userCardData?.skills.map((item: string) => (
+              {userCardData?.skills?.map((item: string) => (
                 <span key={item} className="badge badge-ghost">
                   {item}
                 </span>
               ))}
             </p>
             <div className="card-actions justify-center align-center flex-nowrap">
-              <button disabled={action !== "feeds"} className="btn btn-primary">Ignore</button>
-              <button disabled={action !== "feeds"} className="btn btn-secondary">Interested</button>
+              <button disabled={action !== "feeds"} className="btn btn-primary">
+                Ignore
+              </button>
+              <button
+                disabled={action !== "feeds"}
+                className="btn btn-secondary"
+              >
+                Interested
+              </button>
             </div>
           </div>
         </div>

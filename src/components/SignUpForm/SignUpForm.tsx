@@ -18,7 +18,9 @@ const SignUpForm = ({ defaultValues = {}, onSubmit }: SignupFormProps) => {
     reset(defaultValues);
   }, [defaultValues, reset]);
   const selectedSkills: string[] = watch("data.skills", []);
-  
+  const watchedValues = watch();
+  console.log('watchValues',watchedValues);
+  console.log("Test111");
   return (
     <div>
       <form
