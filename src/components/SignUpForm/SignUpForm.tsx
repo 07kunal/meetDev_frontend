@@ -1,29 +1,68 @@
 import { useForm } from "react-hook-form";
 import type { SubmitHandler } from "react-hook-form";
 import type { UserProfile } from "../utils/type/user";
-import { useEffect } from "react";
+import { useEffect, useMemo } from "react";
+import { useAppDispatch } from "../utils/customHooks/reduxHook";
+import { setUser } from "../utils/slices/userSliceReducer";
+import { debounce } from "lodash";
+
 interface SignupFormProps {
   defaultValues?: Partial<UserProfile>;
   onSubmit: SubmitHandler<UserProfile>;
 }
+
 const SignUpForm = ({ defaultValues = {}, onSubmit }: SignupFormProps) => {
+  const dispatch = useAppDispatch();
+
+  // Create a deeply cloned, mutable copy of the Redux object to decouple references
+  const cleanDefaultValues = useMemo(() => {
+    return JSON.parse(JSON.stringify(defaultValues));
+  }, [defaultValues]);
+
   const {
     register,
     handleSubmit,
     reset,
-    watch,
+    getValues,
     formState: { errors },
-  } = useForm<UserProfile>({ defaultValues });
+  } = useForm<UserProfile>({ 
+    defaultValues: cleanDefaultValues 
+  });
+
+  // Reset form with a deep clone only when the primary default object identity changes
   useEffect(() => {
-    reset(defaultValues);
-  }, [defaultValues, reset]);
-  const selectedSkills: string[] = watch("data.skills", []);
-  const firstName: string = watch("data.firstName", "");
-  console.log("firstname", firstName);
-  console.log("Test111");
+    if (cleanDefaultValues) {
+      reset(cleanDefaultValues);
+    }
+  }, [cleanDefaultValues, reset]);
+
+  // Stable debounced function to sync back to Redux
+  const debouncedDispatch = useMemo(
+    () =>
+      debounce((updatedValues: UserProfile) => {
+        dispatch(setUser(updatedValues));
+      }, 500),
+    [dispatch]
+  );
+
+  useEffect(() => {
+    return () => {
+      debouncedDispatch.cancel();
+    };
+  }, [debouncedDispatch]);
+
+  // Handle changes without triggering component-wide watch cycles
+  const handleFormChange = () => {
+    const currentFormValues = getValues();
+    debouncedDispatch(currentFormValues);
+  };
+
+  const selectedSkills = getValues("data.skills") || [];
+
   return (
     <div>
       <form
+        onChange={handleFormChange}
         onSubmit={handleSubmit(onSubmit)}
         className="flex flex-col gap-4 p-6 bg-base-200 rounded-lg shadow-md w-96"
       >
@@ -34,14 +73,8 @@ const SignUpForm = ({ defaultValues = {}, onSubmit }: SignupFormProps) => {
         <input
           {...register("data.firstName", {
             required: "First name is required",
-            minLength: {
-              value: 4,
-              message: "Must be at least 4 characters",
-            },
-            pattern: {
-              value: /^[A-Za-z]+$/,
-              message: "Only letters allowed, no special characters",
-            },
+            minLength: { value: 4, message: "Must be at least 4 characters" },
+            pattern: { value: /^[A-Za-z]+$/, message: "Only letters allowed" },
           })}
           placeholder="First Name"
           className="input input-bordered w-full"
@@ -57,14 +90,8 @@ const SignUpForm = ({ defaultValues = {}, onSubmit }: SignupFormProps) => {
         <input
           {...register("data.lastName", {
             required: "Last name is required",
-            minLength: {
-              value: 4,
-              message: "Must be at least 4 characters",
-            },
-            pattern: {
-              value: /^[A-Za-z]+$/,
-              message: "Only letters allowed, no special characters",
-            },
+            minLength: { value: 4, message: "Must be at least 4 characters" },
+            pattern: { value: /^[A-Za-z]+$/, message: "Only letters allowed" },
           })}
           placeholder="Last Name"
           className="input input-bordered w-full"
@@ -94,30 +121,27 @@ const SignUpForm = ({ defaultValues = {}, onSubmit }: SignupFormProps) => {
         {errors.data?.skills && (
           <p className="text-error text-sm">{errors.data?.skills.message}</p>
         )}
+        
         {/* Chips for selected skills */}
         <div className="flex flex-wrap gap-2 mt-2">
-          {selectedSkills &&
-            selectedSkills.map((skill: string) => (
-              <span key={skill} className="badge badge-primary">
-                {skill}
-              </span>
-            ))}
+          {selectedSkills.map((skill: string) => (
+            <span key={skill} className="badge badge-primary">
+              {skill}
+            </span>
+          ))}
         </div>
+
         {/* Profile Pic */}
         <label className="label">
           <span className="label-text">Profile Picture URL</span>
         </label>
         <input
-          {...register("data.profilePic", {
-            required: "Profile picture URL is required",
-          })}
+          {...register("data.profilePic", { required: "Profile picture URL is required" })}
           placeholder="Profile Pic URL"
           className="input input-bordered w-full"
         />
         {errors.data?.profilePic && (
-          <p className="text-error text-sm">
-            {errors.data?.profilePic.message}
-          </p>
+          <p className="text-error text-sm">{errors.data?.profilePic.message}</p>
         )}
 
         {/* Gender Dropdown */}

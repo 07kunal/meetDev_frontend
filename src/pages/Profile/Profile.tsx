@@ -27,7 +27,7 @@ const Profile = () => {
         </div>
 
         {/* Child div 2 */}
-        <div className="p-4 bg-secondary text-secondary-content rounded-lg">
+        <div className="p-4 text-secondary-content rounded-lg">
           <UserCard 
             data={userData?.data}
             action="userCardView"
