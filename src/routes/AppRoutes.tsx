@@ -1,11 +1,12 @@
 import Layout from "@/components/layout/Layout";
 import Home from "@/pages/Home/Home";
 import LoginForm from "@/pages/loginForm/LoginForm";
-import UserFeed from "@/pages/userFeed/UserFeed";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import Profile from "@/pages/Profile/Profile";
 import PrivateRoutes from "@/components/utils/Privateroute/PrivateRoutes";
 import { useAppSelector } from "@/components/utils/customHooks/reduxHook";
+import UserFeed from "@/pages/userFeed/userFeed";
+import SignUpPage from "@/pages/SignUpPage/SignUpPage";
 
 const AppRoutes = () => {
   const { status } = useAppSelector((state) => state.user);
@@ -20,6 +21,12 @@ const AppRoutes = () => {
             path="/login"
             element={
               status ? <Navigate to="/feeds" replace /> : <LoginForm />
+            }
+          />
+          <Route
+            path="/signup"
+            element={
+              status ? <Navigate to="/feeds" replace /> : <SignUpPage />
             }
           />
           <Route element={<PrivateRoutes />}>
