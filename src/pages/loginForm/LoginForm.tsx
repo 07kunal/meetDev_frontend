@@ -4,7 +4,7 @@ import loginApi from "@/apis/loginApi";
 import { AxiosError } from "axios";
 import type { LoginBody, UserProfile } from "@/components/utils/type/user";
 import { setUser } from "@/components/utils/slices/userSliceReducer";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useAppDispatch } from "@/components/utils/customHooks/reduxHook";
 
 const LoginForm = () => {
@@ -105,9 +105,9 @@ const LoginForm = () => {
           {/* Footer */}
           <p className="text-center text-sm mt-2">
             Don’t have an account?{" "}
-            <a href="#" className="link link-primary">
+            <Link to="/signup" className="link link-primary">
               Sign up
-            </a>
+            </Link>
           </p>
         </div>
       </div>

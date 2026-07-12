@@ -22,7 +22,7 @@ const Profile = () => {
       <div className="flex items-center justify-center gap-4 bg-base-100 p-6 rounded-lg shadow-md">
         {/* Child div 1 */}
         <div className="text-primary-content rounded-lg">
-          <SignUpForm defaultValues={userData} onSubmit={onSubmit} />
+          <SignUpForm defaultValues={userData} onSubmit={onSubmit} key={'edit-profile'} />
         </div>
 
         {/* Child div 2 */}

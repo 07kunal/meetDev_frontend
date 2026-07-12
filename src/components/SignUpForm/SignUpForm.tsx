@@ -9,38 +9,38 @@ import { debounce } from "lodash";
 interface SignupFormProps {
   defaultValues?: Partial<UserProfile>;
   onSubmit: SubmitHandler<UserProfile>;
+  key: string
 }
 
-const SignUpForm = ({ defaultValues = {}, onSubmit }: SignupFormProps) => {
+const SignUpForm = ({ defaultValues = {}, onSubmit ,key}: SignupFormProps) => {
   const dispatch = useAppDispatch();
 
-  // Create a deeply cloned, mutable copy of the Redux object to decouple references
+  // 1. Clean the default values strictly for initial state injection
   const cleanDefaultValues = useMemo(() => {
     return JSON.parse(JSON.stringify(defaultValues));
   }, [defaultValues]);
 
+  // 2. Pass cloned values to initialization. RHF keeps track of changes locally.
   const {
     register,
     handleSubmit,
-    reset,
     getValues,
     formState: { errors },
   } = useForm<UserProfile>({ 
     defaultValues: cleanDefaultValues 
   });
 
-  // Reset form with a deep clone only when the primary default object identity changes
-  useEffect(() => {
-    if (cleanDefaultValues) {
-      reset(cleanDefaultValues);
-    }
-  }, [cleanDefaultValues, reset]);
+  /* 
+    DELETED THE useEffect(() => { reset(...) }) BLOCK.
+    This prevents Redux updates from forcefully overriding your input mid-keystroke.
+  */
 
-  // Stable debounced function to sync back to Redux
+  // 3. Stable debounced function to sync back to Redux
   const debouncedDispatch = useMemo(
     () =>
       debounce((updatedValues: UserProfile) => {
-        dispatch(setUser(updatedValues));
+        // Deep clone before sending to Redux to safely sever RHF references
+        dispatch(setUser(JSON.parse(JSON.stringify(updatedValues))));
       }, 500),
     [dispatch]
   );
@@ -51,7 +51,7 @@ const SignUpForm = ({ defaultValues = {}, onSubmit }: SignupFormProps) => {
     };
   }, [debouncedDispatch]);
 
-  // Handle changes without triggering component-wide watch cycles
+  // 4. Handle changes seamlessly without state overwrites
   const handleFormChange = () => {
     const currentFormValues = getValues();
     debouncedDispatch(currentFormValues);
