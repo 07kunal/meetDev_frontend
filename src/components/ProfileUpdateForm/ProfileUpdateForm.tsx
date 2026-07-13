@@ -6,13 +6,13 @@ import { useAppDispatch } from "../utils/customHooks/reduxHook";
 import { setUser } from "../utils/slices/userSliceReducer";
 import { debounce } from "lodash";
 
-interface SignupFormProps {
+interface ProfileUpdateFormProps {
   defaultValues?: Partial<UserProfile>;
   onSubmit: SubmitHandler<UserProfile>;
-  key: string
+  key: string;
 }
 
-const SignUpForm = ({ defaultValues = {}, onSubmit ,key}: SignupFormProps) => {
+const ProfileUpdateForm = ({ defaultValues = {}, onSubmit, key }: ProfileUpdateFormProps) => {
   const dispatch = useAppDispatch();
 
   // 1. Clean the default values strictly for initial state injection
@@ -26,8 +26,8 @@ const SignUpForm = ({ defaultValues = {}, onSubmit ,key}: SignupFormProps) => {
     handleSubmit,
     getValues,
     formState: { errors },
-  } = useForm<UserProfile>({ 
-    defaultValues: cleanDefaultValues 
+  } = useForm<UserProfile>({
+    defaultValues: cleanDefaultValues,
   });
 
   /* 
@@ -42,7 +42,7 @@ const SignUpForm = ({ defaultValues = {}, onSubmit ,key}: SignupFormProps) => {
         // Deep clone before sending to Redux to safely sever RHF references
         dispatch(setUser(JSON.parse(JSON.stringify(updatedValues))));
       }, 500),
-    [dispatch]
+    [dispatch],
   );
 
   useEffect(() => {
@@ -99,6 +99,34 @@ const SignUpForm = ({ defaultValues = {}, onSubmit ,key}: SignupFormProps) => {
         {errors.data?.lastName && (
           <p className="text-error text-sm">{errors.data?.lastName.message}</p>
         )}
+        {/* User Name */}
+        {key !== "edit-profile" && (
+          <>
+            <label className="label">
+              <span className="label-text">User Name</span>
+            </label>
+            <input
+              {...register("data.lastName", {
+                required: "Last name is required",
+                minLength: {
+                  value: 4,
+                  message: "Must be at least 4 characters",
+                },
+                pattern: {
+                  value: /^[A-Za-z]+$/,
+                  message: "Only letters allowed",
+                },
+              })}
+              placeholder="Last Name"
+              className="input input-bordered w-full"
+            />
+            {errors.data?.lastName && (
+              <p className="text-error text-sm">
+                {errors.data?.lastName.message}
+              </p>
+            )}
+          </>
+        )}
 
         {/* Skills Multiple Select */}
         <label className="label">
@@ -121,7 +149,7 @@ const SignUpForm = ({ defaultValues = {}, onSubmit ,key}: SignupFormProps) => {
         {errors.data?.skills && (
           <p className="text-error text-sm">{errors.data?.skills.message}</p>
         )}
-        
+
         {/* Chips for selected skills */}
         <div className="flex flex-wrap gap-2 mt-2">
           {selectedSkills.map((skill: string) => (
@@ -136,12 +164,16 @@ const SignUpForm = ({ defaultValues = {}, onSubmit ,key}: SignupFormProps) => {
           <span className="label-text">Profile Picture URL</span>
         </label>
         <input
-          {...register("data.profilePic", { required: "Profile picture URL is required" })}
+          {...register("data.profilePic", {
+            required: "Profile picture URL is required",
+          })}
           placeholder="Profile Pic URL"
           className="input input-bordered w-full"
         />
         {errors.data?.profilePic && (
-          <p className="text-error text-sm">{errors.data?.profilePic.message}</p>
+          <p className="text-error text-sm">
+            {errors.data?.profilePic.message}
+          </p>
         )}
 
         {/* Gender Dropdown */}
@@ -169,4 +201,4 @@ const SignUpForm = ({ defaultValues = {}, onSubmit ,key}: SignupFormProps) => {
   );
 };
 
-export default SignUpForm;
+export default ProfileUpdateForm;

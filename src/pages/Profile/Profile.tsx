@@ -4,7 +4,7 @@ import {
   useAppSelector,
 } from "@/components/utils/customHooks/reduxHook";
 import { setUser } from "@/components/utils/slices/userSliceReducer";
-import SignUpForm from "@/components/SignUpForm/SignUpForm";
+import ProfileUpdateForm from "@/components/ProfileUpdateForm/ProfileUpdateForm";
 import UserCard from "@/components/UserCard/UserCard";
 
 const Profile = () => {
@@ -22,7 +22,7 @@ const Profile = () => {
       <div className="flex items-center justify-center gap-4 bg-base-100 p-6 rounded-lg shadow-md">
         {/* Child div 1 */}
         <div className="text-primary-content rounded-lg">
-          <SignUpForm defaultValues={userData} onSubmit={onSubmit} key={'edit-profile'} />
+          <ProfileUpdateForm defaultValues={userData} onSubmit={onSubmit} key={'edit-profile'} />
         </div>
 
         {/* Child div 2 */}

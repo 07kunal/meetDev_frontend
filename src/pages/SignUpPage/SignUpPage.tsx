@@ -1,4 +1,4 @@
-import SignUpForm from "@/components/SignUpForm/SignUpForm";
+import ProfileUpdateForm from "@/components/ProfileUpdateForm/ProfileUpdateForm";
 import type { UserProfile } from "@/components/utils/type/user";
 
 const SignUpPage: React.FC = () => {
@@ -6,7 +6,7 @@ const SignUpPage: React.FC = () => {
     console.log("Signup Data:", data);
   };
 
-  return <SignUpForm onSubmit={handleSignup} key={'create-profile'}/>;
+  return <ProfileUpdateForm onSubmit={handleSignup} key={'create-profile'}/>;
 };
 
 export default SignUpPage;
