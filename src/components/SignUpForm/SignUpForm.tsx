@@ -95,8 +95,8 @@ const SignUpForm = ({
               <span className="label-text">User Name</span>
             </label>
             <input
-              {...register("data.lastName", {
-                required: "Last name is required",
+              {...register("data.userName", {
+                required: "User name is required",
                 minLength: {
                   value: 4,
                   message: "Must be at least 4 characters",
@@ -106,12 +106,12 @@ const SignUpForm = ({
                   message: "Only letters allowed",
                 },
               })}
-              placeholder="Last Name"
+              placeholder="User Name"
               className="input input-bordered w-full"
             />
-            {errors.data?.lastName && (
+            {errors.data?.userName && (
               <p className="text-error text-sm">
-                {errors.data?.lastName.message}
+                {errors.data?.userName.message}
               </p>
             )}
           </>
