@@ -12,8 +12,6 @@ interface ProfileUpdateFormProps {
 }
 
 const SignUpForm = ({ onSubmit, key }: ProfileUpdateFormProps) => {
-  const dispatch = useAppDispatch();
-
   // 2. Pass cloned values to initialization. RHF keeps track of changes locally.
   const {
     register,
@@ -22,32 +20,11 @@ const SignUpForm = ({ onSubmit, key }: ProfileUpdateFormProps) => {
     formState: { errors },
   } = useForm<UserSignUp>();
 
-  // 3. Stable debounced function to sync back to Redux
-  const debouncedDispatch = useMemo(
-    () =>
-      debounce((updatedValues: UserSignUp) => {
-        // Deep clone before sending to Redux to safely sever RHF references
-        dispatch(setUser(JSON.parse(JSON.stringify(updatedValues))));
-      }, 500),
-    [dispatch],
-  );
-
-  useEffect(() => {
-    return () => {
-      debouncedDispatch.cancel();
-    };
-  }, [debouncedDispatch]);
-
-  // 4. Handle changes seamlessly without state overwrites
-  const handleFormChange = () => {
-    const currentFormValues = getValues();
-    debouncedDispatch(currentFormValues);
-  };
-
+  const currentFormValues = getValues();
+  console.log("currentForm", currentFormValues);
   return (
     <div>
       <form
-        onChange={handleFormChange}
         onSubmit={handleSubmit(onSubmit)}
         className="flex flex-col gap-4 p-6 bg-base-200 rounded-lg shadow-md w-96"
       >
@@ -56,7 +33,7 @@ const SignUpForm = ({ onSubmit, key }: ProfileUpdateFormProps) => {
           <span className="label-text">First Name</span>
         </label>
         <input
-           id="firstName"
+          id="firstName"
           {...register("data.firstName", {
             required: "First name is required",
             minLength: { value: 4, message: "Must be at least 4 characters" },
@@ -74,7 +51,7 @@ const SignUpForm = ({ onSubmit, key }: ProfileUpdateFormProps) => {
           <span className="label-text">Last Name</span>
         </label>
         <input
-           id="lastName"
+          id="lastName"
           {...register("data.lastName", {
             required: "Last name is required",
             minLength: { value: 4, message: "Must be at least 4 characters" },
@@ -86,11 +63,11 @@ const SignUpForm = ({ onSubmit, key }: ProfileUpdateFormProps) => {
         {errors.data?.lastName && (
           <p className="text-error text-sm">{errors.data?.lastName.message}</p>
         )}
-         {/* Email*/}
+        {/* Email*/}
         <label className="label">
           <span className="label-text">Email</span>
         </label>
-      <input
+        <input
           id="emailId"
           type="email"
           {...register("data.emailId", {
@@ -100,8 +77,12 @@ const SignUpForm = ({ onSubmit, key }: ProfileUpdateFormProps) => {
               message: "Invalid email format",
             },
           })}
+          placeholder="Email"
+          className="input input-bordered w-full"
         />
-        {errors.data?.emailId && <p>{errors.data?.emailId.message}</p>}
+        {errors.data?.emailId && (
+          <p className="text-error text-sm">{errors.data?.emailId.message}</p>
+        )}
 
         {/* Password */}
         {key !== "edit-profile" && (
@@ -110,7 +91,8 @@ const SignUpForm = ({ onSubmit, key }: ProfileUpdateFormProps) => {
               <span className="label-text">Password</span>
             </label>
             <input
-               id="password"
+              id="password"
+              type="password"
               {...register("data.password", {
                 required: "Password is required",
                 minLength: {
@@ -120,7 +102,8 @@ const SignUpForm = ({ onSubmit, key }: ProfileUpdateFormProps) => {
                 pattern: {
                   value:
                     /^(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]).+$/,
-                  message: "Please ensure your password includes at least one lowercase letter (a-z), one uppercase letter (A-Z), one number (0-9), or one special character.",
+                  message:
+                    "Please ensure your password includes at least one lowercase letter (a-z), one uppercase letter (A-Z), one number (0-9), or one special character.",
                 },
               })}
               placeholder="Password"
@@ -129,6 +112,31 @@ const SignUpForm = ({ onSubmit, key }: ProfileUpdateFormProps) => {
             {errors.data?.password && (
               <p className="text-error text-sm">
                 {errors.data?.password.message}
+              </p>
+            )}
+          </>
+        )}
+        {/* confirm password*/}
+        {key !== "edit-profile" && (
+          <>
+            <label className="label">
+              <span className="label-text">Confirm Password</span>
+            </label>
+            <input
+              id="password"
+              type="password"
+              {...register("data.confirmPassword", {
+                required: "confirm Password is required",
+                validate: (value) =>
+                  value === currentFormValues?.data?.password ||
+                  "Passwords do not match",
+              })}
+              placeholder="Confirm Password"
+              className="input input-bordered w-full"
+            />
+            {errors.data?.confirmPassword && (
+              <p className="text-error text-sm">
+                {errors.data?.confirmPassword.message}
               </p>
             )}
           </>
