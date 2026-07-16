@@ -6,7 +6,11 @@ const SignUpPage: React.FC = () => {
     console.log("Signup Data:", data);
   };
 
-  return <SignUpForm onSubmit={handleSignup} key={'create-profile'}/>;
+  return (
+    <div className="flex items-center justify-center h-screen bg-base-200">
+      <SignUpForm onSubmit={handleSignup} key={"create-profile"} />
+    </div>
+  );
 };
 
 export default SignUpPage;
