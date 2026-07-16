@@ -19,15 +19,11 @@ const AppRoutes = () => {
           {/* Public Routes */}
           <Route
             path="/login"
-            element={
-              status ? <Navigate to="/feeds" replace /> : <LoginForm />
-            }
+            element={status ? <Navigate to="/feeds" replace /> : <LoginForm />}
           />
           <Route
             path="/signup"
-            element={
-              status ? <Navigate to="/feeds" replace /> : <SignUpPage />
-            }
+            element={status ? <Navigate to="/feeds" replace /> : <SignUpPage />}
           />
           <Route element={<PrivateRoutes />}>
             <Route path="/feeds" element={<UserFeed />} />

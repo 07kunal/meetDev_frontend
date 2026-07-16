@@ -8,7 +8,7 @@ export interface SignUpData {
   lastName: string;
   emailId: string;
   password: string;
-  confirmPassword: string;
+  confirmPassword?: string;
 }
 export interface User {
   firstName: string;
