@@ -1,17 +1,20 @@
 import { useForm } from "react-hook-form";
 import type { SubmitHandler } from "react-hook-form";
-import type { UserProfile, UserSignUp } from "../utils/type/user";
-import { useEffect, useMemo } from "react";
-import { useAppDispatch } from "../utils/customHooks/reduxHook";
-import { setUser } from "../utils/slices/userSliceReducer";
-import { debounce } from "lodash";
+import type { UserSignUp } from "../utils/type/user";
 
 interface ProfileUpdateFormProps {
   onSubmit: SubmitHandler<UserSignUp>;
-  key: string;
+  mode: string;
+  isPending: boolean;
+  errorMessage: string | null;
 }
 
-const SignUpForm = ({ onSubmit, key }: ProfileUpdateFormProps) => {
+const SignUpForm = ({
+  onSubmit,
+  mode,
+  isPending,
+  errorMessage,
+}: ProfileUpdateFormProps) => {
   // 2. Pass cloned values to initialization. RHF keeps track of changes locally.
   const {
     register,
@@ -24,6 +27,7 @@ const SignUpForm = ({ onSubmit, key }: ProfileUpdateFormProps) => {
   console.log("currentForm", currentFormValues);
   return (
     <div>
+      {errorMessage && <p className="text-error text-sm">{errorMessage}</p>}
       <form
         onSubmit={handleSubmit(onSubmit)}
         className="flex flex-col gap-4 p-6 bg-base-200 rounded-lg shadow-md w-96"
@@ -85,7 +89,7 @@ const SignUpForm = ({ onSubmit, key }: ProfileUpdateFormProps) => {
         )}
 
         {/* Password */}
-        {key !== "edit-profile" && (
+        {mode !== "edit-profile" && (
           <>
             <label className="label">
               <span className="label-text">Password</span>
@@ -117,7 +121,7 @@ const SignUpForm = ({ onSubmit, key }: ProfileUpdateFormProps) => {
           </>
         )}
         {/* confirm password*/}
-        {key !== "edit-profile" && (
+        {mode !== "edit-profile" && (
           <>
             <label className="label">
               <span className="label-text">Confirm Password</span>
@@ -144,7 +148,7 @@ const SignUpForm = ({ onSubmit, key }: ProfileUpdateFormProps) => {
 
         {/* Submit Button */}
         <button type="submit" className="btn btn-primary w-full mt-4">
-          Submit
+          {isPending ? "Loading..." : "Submit"}
         </button>
       </form>
     </div>

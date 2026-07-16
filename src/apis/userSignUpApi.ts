@@ -1,10 +1,9 @@
 import type { UserSignUp } from "@/components/utils/type/user";
 import axios from "axios";
+import type { signUpResponse } from "@/components/utils/type/user";
 
-interface signUpResponse {
-  data: string;
-}
-const userSignUp = async (signUpData: UserSignUp): Promise<signUpResponse> => {
+
+const userSignUpApi = async (signUpData: UserSignUp): Promise<signUpResponse> => {
   try {
     const url: string = `${import.meta.env.VITE_BASE_URL}/signup`;
     const response = await axios.post<signUpResponse>(url, signUpData, {
@@ -20,4 +19,4 @@ const userSignUp = async (signUpData: UserSignUp): Promise<signUpResponse> => {
   }
 };
 
-export default userSignUp;
+export default userSignUpApi;

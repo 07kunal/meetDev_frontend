@@ -36,6 +36,9 @@ export interface UserProfile {
 export interface UserSignUp {
   data: SignUpData
 }
+export interface signUpResponse {
+  data: string;
+}
 
 /*
 ENUM
