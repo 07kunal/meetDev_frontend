@@ -4,6 +4,7 @@ import type { signUpResponse } from "@/components/utils/type/user";
 
 
 const userSignUpApi = async (signUpData: UserSignUp): Promise<signUpResponse> => {
+  console.log('signUpData',signUpData);
   try {
     const url: string = `${import.meta.env.VITE_BASE_URL}/signup`;
     const response = await axios.post<signUpResponse>(url, signUpData, {
