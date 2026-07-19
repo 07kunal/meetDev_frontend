@@ -2,12 +2,14 @@ import type { UserSignUp } from "@/components/utils/type/user";
 import axios from "axios";
 import type { signUpResponse } from "@/components/utils/type/user";
 
-
-const userSignUpApi = async (signUpData: UserSignUp): Promise<signUpResponse> => {
-  console.log('signUpData',signUpData);
+const userSignUpApi = async (
+  signUpData: UserSignUp,
+): Promise<signUpResponse> => {
+  console.log("signUpData", signUpData.data);
+  const { confirmPassword, ...requiredData } = signUpData.data;
   try {
     const url: string = `${import.meta.env.VITE_BASE_URL}/signup`;
-    const response = await axios.post<signUpResponse>(url, signUpData, {
+    const response = await axios.post<signUpResponse>(url, requiredData, {
       headers: {
         "Content-Type": "application/json",
       },
