@@ -6,10 +6,8 @@ import { AxiosError } from "axios";
 import { useState } from "react";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
+import type { ErrorResponse } from "@/components/utils/type/commonType";
 
-interface ErrorResponse {
-  message: string;
-}
 const SignUpPage: React.FC = () => {
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const navigate = useNavigate();
@@ -34,8 +32,7 @@ const SignUpPage: React.FC = () => {
       } else {
         setErrorMessage(null);
       }
-      console.error("Message:", error.response?.data?.message);
-    },
+    }
   });
   const handleSignup = (data: UserSignUp) => {
     mutate(data);

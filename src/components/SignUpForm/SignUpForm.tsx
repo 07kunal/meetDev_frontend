@@ -127,7 +127,7 @@ const SignUpForm = ({
               <span className="label-text">Confirm Password</span>
             </label>
             <input
-              id="password"
+              id="confirmPassword"
               type="password"
               {...register("data.confirmPassword", {
                 required: "confirm Password is required",

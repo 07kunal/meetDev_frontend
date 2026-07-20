@@ -2,7 +2,11 @@ export interface LoginBody {
   emailId: string;
   password: string;
 }
-
+export interface ResetPassword {
+  oldPassword: string;
+  password: string;
+  confirmPassword?: string;
+}
 export interface SignUpData {
   firstName: string;
   lastName: string;
@@ -34,10 +38,17 @@ export interface UserProfile {
   status: boolean;
 }
 export interface UserSignUp {
-  data: SignUpData
+  data: SignUpData;
 }
 export interface signUpResponse {
   data: string;
+}
+
+export interface resetPasswordResponse {
+  data: {
+    message: string;
+    status: boolean;
+  };
 }
 
 /*
