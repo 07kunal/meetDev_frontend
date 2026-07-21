@@ -5,4 +5,5 @@ export interface params {
 }
 export interface ErrorResponse {
   message: string;
+  status? : boolean
 }

@@ -7,6 +7,7 @@ import PrivateRoutes from "@/components/utils/Privateroute/PrivateRoutes";
 import { useAppSelector } from "@/components/utils/customHooks/reduxHook";
 import UserFeed from "@/pages/userFeed/userFeed";
 import SignUpPage from "@/pages/SignUpPage/SignUpPage";
+import ResetPasswordPage from "@/pages/ResetPassword/ResetPasswordPage";
 
 const AppRoutes = () => {
   const { status } = useAppSelector((state) => state.user);
@@ -28,6 +29,7 @@ const AppRoutes = () => {
           <Route element={<PrivateRoutes />}>
             <Route path="/feeds" element={<UserFeed />} />
             <Route path="/profile" element={<Profile />} />
+            <Route path="/reset_password" element={<ResetPasswordPage />} />
           </Route>
         </Route>
       </Routes>

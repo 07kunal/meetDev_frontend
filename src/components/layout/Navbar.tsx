@@ -72,7 +72,12 @@ const Navbar = () => {
             <li>
               <button onClick={() => navigate("/profile")}>Profile</button>
             </li>
-             <li>
+            {userData?.status && (
+              <li>
+                <button onClick={() => navigate("/reset_password")}>Reset password</button>
+              </li>
+            )}
+            <li>
               <button onClick={() => navigate("/feeds")}>User Feeds</button>
             </li>
             <li>

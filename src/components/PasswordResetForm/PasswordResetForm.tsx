@@ -73,7 +73,7 @@ function PasswordResetForm({ onSubmit, errorMessage,isPending }: ResetUpdateForm
           id="confirmPassword"
           type="password"
           {...register("confirmPassword", {
-            required: "confirm Password is required",
+            required: "Confirm Password is required",
             validate: (value) =>
               value === currentFormValues?.password || "Passwords do not match",
           })}

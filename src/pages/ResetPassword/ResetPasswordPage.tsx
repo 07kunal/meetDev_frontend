@@ -11,7 +11,7 @@ import type {
 } from "@/components/utils/type/user";
 import { useState } from "react";
 
-const ResetPassword: React.FC = () => {
+const ResetPasswordPage: React.FC = () => {
   const navigate = useNavigate();
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const { mutate, isPending } = useMutation<
@@ -38,17 +38,18 @@ const ResetPassword: React.FC = () => {
   });
 
   const handleResetPassword = (data: ResetPassword) => {
+    console.log(data,'tttttt');
     mutate(data);
   };
   return (
-    <>
+    <div className="flex items-center justify-center h-screen bg-base-200">
       <PasswordResetForm
         onSubmit={handleResetPassword}
         errorMessage={errorMessage}
         isPending={isPending}
       />
-    </>
+    </div>
   );
 };
 
-export default ResetPassword;
+export default ResetPasswordPage;
