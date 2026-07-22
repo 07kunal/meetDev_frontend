@@ -10,10 +10,16 @@ import type {
   resetPasswordResponse,
 } from "@/components/utils/type/user";
 import { useState } from "react";
+import { useAppDispatch } from "@/components/utils/customHooks/reduxHook";
+import { clearUser } from "@/components/utils/slices/userSliceReducer";
+import { clearUserFeeds } from "@/components/utils/slices/userFeedSliceReducer";
+import { useQueryClient } from "@tanstack/react-query";
 
 const ResetPasswordPage: React.FC = () => {
   const navigate = useNavigate();
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
+  const dispatch = useAppDispatch();
+  const queryClient = useQueryClient();
   const { mutate, isPending } = useMutation<
     resetPasswordResponse,
     AxiosError<ErrorResponse>,
@@ -23,6 +29,12 @@ const ResetPasswordPage: React.FC = () => {
     onSuccess: (data) => {
       if (data?.data?.status) {
         toast("Password reset successfully");
+        dispatch(clearUser());
+        dispatch(clearUserFeeds());
+
+        queryClient.removeQueries({
+          queryKey: ["Profile"],
+        });
         navigate("/login");
       }
     },
@@ -38,7 +50,7 @@ const ResetPasswordPage: React.FC = () => {
   });
 
   const handleResetPassword = (data: ResetPassword) => {
-    console.log(data,'tttttt');
+    console.log(data, "tttttt");
     mutate(data);
   };
   return (

@@ -4,7 +4,7 @@ export interface LoginBody {
 }
 export interface ResetPassword {
   oldPassword: string;
-  password: string;
+  newPassword: string;
   confirmPassword?: string;
 }
 export interface SignUpData {

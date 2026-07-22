@@ -15,7 +15,7 @@ function PasswordResetForm({ onSubmit, errorMessage,isPending }: ResetUpdateForm
     formState: { errors },
   } = useForm<ResetPassword>();
   const currentFormValues = getValues();
-
+ 
   return (
     <>
       {errorMessage && <p className="text-error text-sm">{errorMessage}</p>}
@@ -50,7 +50,7 @@ function PasswordResetForm({ onSubmit, errorMessage,isPending }: ResetUpdateForm
           type="password"
           placeholder="New Password"
           className="input input-bordered w-full"
-          {...register("password", {
+          {...register("newPassword", {
             required: "New password is required",
             minLength: { value: 8, message: "Must be at least 8 character" },
             pattern: {
@@ -61,8 +61,8 @@ function PasswordResetForm({ onSubmit, errorMessage,isPending }: ResetUpdateForm
             },
           })}
         />
-        {errors.password && (
-          <p className="text-error text-sm">{errors.password.message}</p>
+        {errors.newPassword && (
+          <p className="text-error text-sm">{errors.newPassword.message}</p>
         )}
         {/* Confirm password */}
 
@@ -75,7 +75,7 @@ function PasswordResetForm({ onSubmit, errorMessage,isPending }: ResetUpdateForm
           {...register("confirmPassword", {
             required: "Confirm Password is required",
             validate: (value) =>
-              value === currentFormValues?.password || "Passwords do not match",
+              value === currentFormValues?.newPassword || "Passwords do not match",
           })}
           placeholder="Confirm Password"
           className="input input-bordered w-full"
