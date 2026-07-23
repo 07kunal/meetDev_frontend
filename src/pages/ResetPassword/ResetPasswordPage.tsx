@@ -28,14 +28,15 @@ const ResetPasswordPage: React.FC = () => {
     mutationFn: resetPasswordApi,
     onSuccess: (data) => {
       if (data?.data?.status) {
-        toast("Password reset successfully");
         dispatch(clearUser());
         dispatch(clearUserFeeds());
-
+        
         queryClient.removeQueries({
           queryKey: ["Profile"],
         });
         navigate("/login");
+        window.location.reload()
+        toast("Password reset successfully");
       }
     },
 
@@ -50,7 +51,6 @@ const ResetPasswordPage: React.FC = () => {
   });
 
   const handleResetPassword = (data: ResetPassword) => {
-    console.log(data, "tttttt");
     mutate(data);
   };
   return (

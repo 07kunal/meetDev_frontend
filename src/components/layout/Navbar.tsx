@@ -42,7 +42,7 @@ const Navbar = () => {
     }
   };
   return (
-    <div className="navbar bg-base-100 shadow-sm">
+    <div className=" static navbar bg-base-100 shadow-sm">
       <div className="flex-1">
         <button className="btn btn-ghost text-xl" onClick={() => navigate("/")}>
           DevMeet

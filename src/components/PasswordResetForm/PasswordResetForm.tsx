@@ -23,6 +23,8 @@ function PasswordResetForm({ onSubmit, errorMessage,isPending }: ResetUpdateForm
         onSubmit={handleSubmit(onSubmit)}
         className="flex flex-col gap-4 p-6 bg-base-200 rounded-lg shadow-md w-96"
       >
+      <h1 className="font-bold text-xl">New Password</h1>
+
         {/* Old password */}
         <label className="label">
           <span className="label-test">Old Password</span>

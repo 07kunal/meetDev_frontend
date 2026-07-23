@@ -12,7 +12,7 @@ interface UserCardViewProps {
 
 type propsType = FeedsProps | UserCardViewProps;
 const UserCard = ({ data, action }: propsType) => {
-  console.log('action',action);
+  console.log("action", action);
   const userCardData = action === "feeds" ? data[0] : data;
   return (
     <>
@@ -52,9 +52,7 @@ const UserCard = ({ data, action }: propsType) => {
             </div>
           </div>
         </div>
-        {/* ))} */}
       </div>
-      ;
     </>
   );
 };

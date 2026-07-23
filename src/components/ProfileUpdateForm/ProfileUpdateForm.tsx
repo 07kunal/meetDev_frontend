@@ -64,7 +64,7 @@ const ProfileUpdateForm = ({ defaultValues = {}, onSubmit, key }: ProfileUpdateF
       <form
         onChange={handleFormChange}
         onSubmit={handleSubmit(onSubmit)}
-        className="flex flex-col gap-4 p-6 bg-base-200 rounded-lg shadow-md w-96"
+        className="flex flex-col gap-2 p-6 bg-base-200 rounded-lg shadow-md w-96"
       >
         {/* First Name */}
         <label className="label">

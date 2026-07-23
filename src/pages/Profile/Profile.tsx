@@ -17,17 +17,22 @@ const Profile = () => {
   };
 
   return (
-    <div className="flex items-center justify-center h-screen bg-base-200">
+    <div className="bg-inherit rounded-lg">
+      <h1 className="text-center text-2xl p-1">Profile edit</h1>
       {/* Parent div */}
-      <div className="flex items-center justify-center gap-4 bg-base-100 p-6 rounded-lg shadow-md">
+      <div className="flex items-center justify-center  bg-base-100 p-6  shadow-md">
+
         {/* Child div 1 */}
         <div className="text-primary-content rounded-lg">
-          <ProfileUpdateForm defaultValues={userData} onSubmit={onSubmit} key={'edit-profile'} />
+          <ProfileUpdateForm
+            defaultValues={userData}
+            onSubmit={onSubmit}
+            key={"edit-profile"}
+          />
         </div>
 
         {/* Child div 2 */}
         <div className="p-4 text-secondary-content rounded-lg">
-          <span>Profile view</span>
           <UserCard data={userData?.data} action="userCardView" />
         </div>
       </div>
