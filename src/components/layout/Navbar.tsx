@@ -69,17 +69,21 @@ const Navbar = () => {
             tabIndex={-1}
             className="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow"
           >
-            <li>
-              <button onClick={() => navigate("/profile")}>Profile</button>
-            </li>
             {userData?.status && (
-              <li>
-                <button onClick={() => navigate("/reset_password")}>Reset password</button>
-              </li>
+              <>
+                <li>
+                  <button onClick={() => navigate("/profile")}>Profile</button>
+                </li>
+                <li>
+                  <button onClick={() => navigate("/reset_password")}>
+                    Reset password
+                  </button>
+                </li>
+                <li>
+                  <button onClick={() => navigate("/feeds")}>User Feeds</button>
+                </li>
+              </>
             )}
-            <li>
-              <button onClick={() => navigate("/feeds")}>User Feeds</button>
-            </li>
             <li>
               <button onClick={handleCredentialClick} disabled={isPending}>
                 {userData?.status ? "Logout" : "Login"}
