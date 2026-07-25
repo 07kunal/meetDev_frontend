@@ -2,6 +2,12 @@ export interface LoginBody {
   emailId: string;
   password: string;
 }
+export interface userEditProfile {
+  age?: number;
+  profile?: string;
+  education?: string[];
+  skills?: string[];
+}
 export interface ResetPassword {
   oldPassword: string;
   newPassword: string;

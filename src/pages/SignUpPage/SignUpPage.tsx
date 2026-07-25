@@ -36,7 +36,6 @@ const SignUpPage: React.FC = () => {
   });
   const handleSignup = (data: UserSignUp) => {
     mutate(data);
-    console.log("Signup Data:", data);
   };
 
   return (

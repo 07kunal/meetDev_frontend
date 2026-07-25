@@ -10,9 +10,11 @@ interface ProfileUpdateFormProps {
   defaultValues?: Partial<UserProfile>;
   onSubmit: SubmitHandler<UserProfile>;
   key: string;
+  errorMessage: string | null;
+  isPending:boolean
 }
 
-const ProfileUpdateForm = ({ defaultValues = {}, onSubmit, key }: ProfileUpdateFormProps) => {
+const ProfileUpdateForm = ({ defaultValues = {}, onSubmit, key ,errorMessage,isPending}: ProfileUpdateFormProps) => {
   const dispatch = useAppDispatch();
 
   // 1. Clean the default values strictly for initial state injection
@@ -29,11 +31,6 @@ const ProfileUpdateForm = ({ defaultValues = {}, onSubmit, key }: ProfileUpdateF
   } = useForm<UserProfile>({
     defaultValues: cleanDefaultValues,
   });
-
-  /* 
-    DELETED THE useEffect(() => { reset(...) }) BLOCK.
-    This prevents Redux updates from forcefully overriding your input mid-keystroke.
-  */
 
   // 3. Stable debounced function to sync back to Redux
   const debouncedDispatch = useMemo(
@@ -61,6 +58,8 @@ const ProfileUpdateForm = ({ defaultValues = {}, onSubmit, key }: ProfileUpdateF
 
   return (
     <div>
+      {errorMessage && <p className="text-error text-sm">{errorMessage}</p>}
+
       <form
         onChange={handleFormChange}
         onSubmit={handleSubmit(onSubmit)}
@@ -78,6 +77,7 @@ const ProfileUpdateForm = ({ defaultValues = {}, onSubmit, key }: ProfileUpdateF
           })}
           placeholder="First Name"
           className="input input-bordered w-full"
+            disabled 
         />
         {errors.data?.firstName && (
           <p className="text-error text-sm">{errors.data?.firstName.message}</p>
@@ -95,37 +95,10 @@ const ProfileUpdateForm = ({ defaultValues = {}, onSubmit, key }: ProfileUpdateF
           })}
           placeholder="Last Name"
           className="input input-bordered w-full"
+          disabled 
         />
         {errors.data?.lastName && (
           <p className="text-error text-sm">{errors.data?.lastName.message}</p>
-        )}
-        {/* User Name */}
-        {key !== "edit-profile" && (
-          <>
-            <label className="label">
-              <span className="label-text">User Name</span>
-            </label>
-            <input
-              {...register("data.lastName", {
-                required: "Last name is required",
-                minLength: {
-                  value: 4,
-                  message: "Must be at least 4 characters",
-                },
-                pattern: {
-                  value: /^[A-Za-z]+$/,
-                  message: "Only letters allowed",
-                },
-              })}
-              placeholder="Last Name"
-              className="input input-bordered w-full"
-            />
-            {errors.data?.lastName && (
-              <p className="text-error text-sm">
-                {errors.data?.lastName.message}
-              </p>
-            )}
-          </>
         )}
 
         {/* Skills Multiple Select */}
@@ -194,7 +167,7 @@ const ProfileUpdateForm = ({ defaultValues = {}, onSubmit, key }: ProfileUpdateF
 
         {/* Submit Button */}
         <button type="submit" className="btn btn-primary w-full mt-4">
-          Save
+            {isPending ? "Loading..." : "Save"}
         </button>
       </form>
     </div>

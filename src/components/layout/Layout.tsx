@@ -2,7 +2,6 @@ import { useQuery } from "@tanstack/react-query";
 import Footer from "./Footer";
 import Navbar from "./Navbar";
 import { Outlet } from "react-router-dom";
-import fetchLoggedInUserProfile from "@/apis/fetchLoggedInUserProfile";
 import { clearUser, setUser } from "../utils/slices/userSliceReducer";
 import { useAppDispatch } from "../utils/customHooks/reduxHook";
 import type { UserProfile } from "../utils/type/user";
@@ -10,6 +9,8 @@ import { useEffect } from "react";
 import getIsFetchApiCall from "../common/getIsFetchApiCall";
 import { useNavigate } from "react-router-dom";
 import Cookies from "js-cookie";
+import fetchLoggedInUserProfileApi from "@/apis/fetchLoggedInUserProfileApi";
+
 const Layout = () => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
@@ -17,7 +18,7 @@ const Layout = () => {
 
   const { data, isError, error } = useQuery<UserProfile>({
     queryKey: ["Profile"],
-    queryFn: fetchLoggedInUserProfile,
+    queryFn: fetchLoggedInUserProfileApi,
     enabled: shouldFetchProfile,
     retry: false, // Disable retry on error
   });
