@@ -7,3 +7,10 @@ export interface ErrorResponse {
   message: string;
   status? : boolean
 }
+
+export type Education = {
+  degree: string;
+};
+export type Skill = {
+  name: string;
+};

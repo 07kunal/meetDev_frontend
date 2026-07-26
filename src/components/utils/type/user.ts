@@ -7,6 +7,7 @@ export interface userEditProfile {
   profile?: string;
   education?: string[];
   skills?: string[];
+  address?: string
 }
 export interface ResetPassword {
   oldPassword: string;

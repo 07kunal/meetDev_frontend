@@ -5,39 +5,48 @@ import { useEffect, useMemo } from "react";
 import { useAppDispatch } from "../utils/customHooks/reduxHook";
 import { setUser } from "../utils/slices/userSliceReducer";
 import { debounce } from "lodash";
-
+import { defaultEducation } from "../utils/defaultData/defaultEducation";
+import { defaultSkills } from "../utils/defaultData/defaultSkills";
+import { XMarkIcon } from "@heroicons/react/24/solid";
 interface ProfileUpdateFormProps {
   defaultValues?: Partial<UserProfile>;
   onSubmit: SubmitHandler<UserProfile>;
-  key: string;
   errorMessage: string | null;
-  isPending:boolean
+  isPending: boolean;
 }
 
-const ProfileUpdateForm = ({ defaultValues = {}, onSubmit, key ,errorMessage,isPending}: ProfileUpdateFormProps) => {
+const ProfileUpdateForm = ({
+  defaultValues = {},
+  onSubmit,
+  errorMessage,
+  isPending,
+}: ProfileUpdateFormProps) => {
   const dispatch = useAppDispatch();
 
-  // 1. Clean the default values strictly for initial state injection
+  //  Clean the default values strictly for initial state injection
   const cleanDefaultValues = useMemo(() => {
     return JSON.parse(JSON.stringify(defaultValues));
   }, [defaultValues]);
 
-  // 2. Pass cloned values to initialization. RHF keeps track of changes locally.
+  // Pass cloned values to initialization. RHF keeps track of changes locally.
   const {
     register,
     handleSubmit,
     getValues,
+    setValue,
+    watch,
     formState: { errors },
   } = useForm<UserProfile>({
     defaultValues: cleanDefaultValues,
   });
+  const currentFormValues = getValues();
 
-  // 3. Stable debounced function to sync back to Redux
+  // Stable debounced function to sync back to Redux
   const debouncedDispatch = useMemo(
     () =>
       debounce((updatedValues: UserProfile) => {
         // Deep clone before sending to Redux to safely sever RHF references
-        dispatch(setUser(JSON.parse(JSON.stringify(updatedValues))));
+        // dispatch(setUser(JSON.parse(JSON.stringify(updatedValues))));
       }, 500),
     [dispatch],
   );
@@ -48,13 +57,31 @@ const ProfileUpdateForm = ({ defaultValues = {}, onSubmit, key ,errorMessage,isP
     };
   }, [debouncedDispatch]);
 
-  // 4. Handle changes seamlessly without state overwrites
+  //  Handle changes seamlessly without state overwrites
   const handleFormChange = () => {
-    const currentFormValues = getValues();
+    console.log("TEST");
     debouncedDispatch(currentFormValues);
   };
 
-  const selectedSkills = getValues("data.skills") || [];
+  const selectedSkills = watch("data.skills") || [];
+  const selectedEducation = watch("data.education") || [];
+  const removeEducation = (education: string) => {
+    debouncedDispatch(currentFormValues);
+
+    setValue(
+      "data.education",
+      selectedEducation.filter((s) => s !== education),
+    );
+  };
+  const removeSkills = (skills: string) => {
+    debouncedDispatch(currentFormValues);
+    setValue(
+      "data.skills",
+      selectedSkills.filter((s) => s !== skills),
+    );
+  };
+  const age = getValues("data.age");
+  const genderValue = getValues("data.gender");
 
   return (
     <div>
@@ -77,7 +104,7 @@ const ProfileUpdateForm = ({ defaultValues = {}, onSubmit, key ,errorMessage,isP
           })}
           placeholder="First Name"
           className="input input-bordered w-full"
-            disabled 
+          disabled
         />
         {errors.data?.firstName && (
           <p className="text-error text-sm">{errors.data?.firstName.message}</p>
@@ -95,11 +122,98 @@ const ProfileUpdateForm = ({ defaultValues = {}, onSubmit, key ,errorMessage,isP
           })}
           placeholder="Last Name"
           className="input input-bordered w-full"
-          disabled 
+          disabled
         />
         {errors.data?.lastName && (
           <p className="text-error text-sm">{errors.data?.lastName.message}</p>
         )}
+        {/* AGE */}
+        <label className="label">
+          <span className="label-text">Age</span>
+        </label>
+        <input
+          {...register("data.age", {
+            required: "Age is required",
+            maxLength: {
+              value: 3,
+              message: "Does not exceed Three characters",
+            },
+            pattern: { value: /^[0-9]+$/, message: "Only number allowed" },
+          })}
+          placeholder="AGe"
+          className="input input-bordered w-full"
+          disabled={age ? true : false}
+        />
+        {errors.data?.age && (
+          <p className="text-error text-sm">{errors.data?.age?.message}</p>
+        )}
+        {/* Age end */}
+
+        {/* Address*/}
+        <label className="label">
+          <span className="label-text">Address</span>
+        </label>
+        <input
+          {...register("data.address", {
+            required: "Address is required",
+            minLength: {
+              value: 5,
+              message: "Must contain at least five characters",
+            },
+            maxLength: {
+              value: 100,
+              message: "Does not exceed Hundred characters",
+            },
+            pattern: { value: /^[a-zA-Z0-9 ]+$/, message: "Only alpha numeric character allowed" },
+          })}
+          placeholder="Address"
+          className="input input-bordered w-full"
+        />
+        {errors.data?.address && (
+          <p className="text-error text-sm">{errors.data?.address?.message}</p>
+        )}
+        {/* Address end */}
+
+        {/* Education  */}
+        <label className="label">
+          <span className="label-text">Education (select multiple)</span>
+        </label>
+        <select
+          {...register("data.education", {
+            required: "Please select the Education",
+          })}
+          multiple
+          className="select select-bordered w-full h-32"
+        >
+          {defaultEducation?.map((item) => (
+            <option key={item.degree} value={item.degree}>{item.degree}</option>
+          ))}
+        </select>
+        {errors.data?.education && (
+          <p className="text-error text-sm">
+            {errors.data?.education?.message}
+          </p>
+        )}
+
+        {/* Chips for selected education*/}
+        <div className="flex flex-wrap gap-2  max-h-15 overflow-y-auto">
+          {selectedEducation.map((education: string) => (
+            <span
+              key={education}
+              className="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-indigo-100 text-indigo-700 badge badge-primary"
+            >
+              {education}
+              <button
+                type="button"
+                onClick={() => removeEducation(education)}
+                className="ml-2 text-indigo-500 hover:text-indigo-700"
+              >
+                <XMarkIcon className="h-4 w-4" />
+              </button>
+            </span>
+          ))}
+        </div>
+        {/* Education end */}
 
         {/* Skills Multiple Select */}
         <label className="label">
@@ -112,22 +226,29 @@ const ProfileUpdateForm = ({ defaultValues = {}, onSubmit, key ,errorMessage,isP
           multiple
           className="select select-bordered w-full h-32"
         >
-          <option value="React">React</option>
-          <option value="TypeScript">TypeScript</option>
-          <option value="Tailwind">Tailwind</option>
-          <option value="DaisyUI">DaisyUI</option>
-          <option value="Node.js">Node.js</option>
-          <option value="Java">Java</option>
+          {defaultSkills?.map((item) => (
+            <option key={item.name} value={item.name}>{item.name}</option>
+          ))}
         </select>
         {errors.data?.skills && (
           <p className="text-error text-sm">{errors.data?.skills.message}</p>
         )}
 
         {/* Chips for selected skills */}
-        <div className="flex flex-wrap gap-2 mt-2">
+        <div className="flex flex-wrap gap-2  max-h-15 overflow-y-auto">
           {selectedSkills.map((skill: string) => (
-            <span key={skill} className="badge badge-primary">
+            <span
+              key={skill}
+              className="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-indigo-100 text-indigo-700 badge badge-primary"
+            >
               {skill}
+              <button
+                type="button"
+                onClick={() => removeSkills(skill)}
+                className="ml-2 text-indigo-500 hover:text-indigo-700"
+              >
+                <XMarkIcon className="h-4 w-4" />
+              </button>
             </span>
           ))}
         </div>
@@ -156,6 +277,7 @@ const ProfileUpdateForm = ({ defaultValues = {}, onSubmit, key ,errorMessage,isP
         <select
           {...register("data.gender", { required: "Please select gender" })}
           className="select select-bordered w-full"
+          disabled={!!genderValue}
         >
           <option value="">Select gender</option>
           <option value="male">Male</option>
@@ -167,7 +289,7 @@ const ProfileUpdateForm = ({ defaultValues = {}, onSubmit, key ,errorMessage,isP
 
         {/* Submit Button */}
         <button type="submit" className="btn btn-primary w-full mt-4">
-            {isPending ? "Loading..." : "Save"}
+          {isPending ? "Loading..." : "Save"}
         </button>
       </form>
     </div>

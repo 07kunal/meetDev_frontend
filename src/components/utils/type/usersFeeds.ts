@@ -7,6 +7,7 @@ export interface userFeeds {
   lastName: string;
   gender: string;
   age: number | null;
+  address: string;
   education: string[];
   profilePic: string;
   skills: string[];

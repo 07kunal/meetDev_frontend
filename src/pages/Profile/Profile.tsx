@@ -32,7 +32,8 @@ const Profile = () => {
 
     onSuccess: (data) => {
       if (data?.data) {
-        toast("Successfully Sign up");
+        dispatch(setUser(data));
+        toast("Successfully Update the profile");
       }
     },
 
@@ -46,15 +47,54 @@ const Profile = () => {
   });
 
   const onSubmit = (data: UserProfile) => {
-    dispatch(setUser(data)); // update store
-    mutate(data);
+    const currentUser = userData?.data;
+    const updatedUser = data?.data;
+    const editPayload: userEditProfile = {};
+
+    if (
+      updatedUser?.age !== undefined &&
+      currentUser?.age !== updatedUser?.age
+    ) {
+      editPayload.age = updatedUser.age ?? undefined;
+    }
+
+    if (updatedUser?.address && currentUser?.address !== updatedUser?.address) {
+      editPayload.address = updatedUser.address;
+    }
+
+    if (
+      updatedUser?.profilePic &&
+      currentUser?.profilePic !== updatedUser?.profilePic
+    ) {
+      editPayload.profile = updatedUser.profilePic;
+    }
+
+    if (
+      updatedUser?.education &&
+      JSON.stringify(currentUser?.education) !==
+        JSON.stringify(updatedUser?.education)
+    ) {
+      editPayload.education = updatedUser.education;
+    }
+
+    if (
+      updatedUser?.skills &&
+      JSON.stringify(currentUser?.skills) !==
+        JSON.stringify(updatedUser?.skills)
+    ) {
+      editPayload.skills = updatedUser.skills;
+    }
+
+    if (Object.keys(editPayload).length > 0) {
+      mutate(editPayload);
+    } else {
+      toast("No changes were made.");
+    }
   };
 
   return (
     <div className="bg-inherit rounded-lg">
-      <h1 className="text-center text-2xl p-1 relative">
-        Profile <PencilIcon className="absolute top-2 h-5 w-5 right-100" />
-      </h1>
+      <h1 className="text-center text-2xl p-1">Update your profile.</h1>
       {/* Parent div */}
       <div className="flex items-center justify-center  bg-base-100 p-6  shadow-md">
         {/* Child div 1 */}
@@ -62,7 +102,6 @@ const Profile = () => {
           <ProfileUpdateForm
             defaultValues={userData}
             onSubmit={onSubmit}
-            key={"edit-profile"}
             errorMessage={errorMessage}
             isPending={isPending}
           />

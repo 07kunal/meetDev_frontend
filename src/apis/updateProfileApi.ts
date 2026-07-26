@@ -6,7 +6,7 @@ const updateProfileApi = async (
 ): Promise<UserProfile> => {
   try {
     const url: string = `${import.meta.env.VITE_BASE_URL}/profile/edit`;
-    const response = await axios.patch<UserProfile>(url, {
+    const response = await axios.patch<UserProfile>(url, EditData, {
       headers: {
         "Content-Type": "application/json",
       },
