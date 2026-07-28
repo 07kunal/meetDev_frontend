@@ -82,6 +82,9 @@ const Navbar = () => {
                 <li>
                   <button onClick={() => navigate("/feeds")}>User Feeds</button>
                 </li>
+                <li>
+                  <button onClick={() => navigate("/pending-request")}>My request</button>
+                </li>
               </>
             )}
             <li>

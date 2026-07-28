@@ -26,7 +26,7 @@ export interface User {
   lastName: string;
   gender: string;
   age: number | null;
-  userName: string | null;
+  userName?: string | null;
   education: string[];
   address: string;
   profilePic: string;

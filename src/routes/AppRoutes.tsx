@@ -8,6 +8,7 @@ import { useAppSelector } from "@/components/utils/customHooks/reduxHook";
 import UserFeed from "@/pages/userFeed/userFeed";
 import SignUpPage from "@/pages/SignUpPage/SignUpPage";
 import ResetPasswordPage from "@/pages/ResetPassword/ResetPasswordPage";
+import UserIncommimgPendingRequest from "@/pages/userIncommingPendingRequest/UserIncommimgPendingRequest";
 
 const AppRoutes = () => {
   const { status } = useAppSelector((state) => state.user);
@@ -30,6 +31,7 @@ const AppRoutes = () => {
             <Route path="/feeds" element={<UserFeed />} />
             <Route path="/profile" element={<Profile />} />
             <Route path="/reset_password" element={<ResetPasswordPage />} />
+            <Route path="/pending-request" element={<UserIncommimgPendingRequest />} />
           </Route>
         </Route>
       </Routes>

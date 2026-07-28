@@ -2,10 +2,10 @@
 
 import type { Collection } from "./usersFeeds";
 
-export interface toUserIdPendingRequest {
+export interface myIncommingPendingRequest {
   id: string;
   fromUserId: {
-    id: string;
+    id?: string;
     firstName: string;
     lastName: string;
     gender: string;
@@ -21,5 +21,5 @@ export interface toUserIdPendingRequest {
 }
 export interface userPendingRequest {
   message: string;
-  data: Collection<toUserIdPendingRequest>;
+  data: Collection<myIncommingPendingRequest>;
 }
