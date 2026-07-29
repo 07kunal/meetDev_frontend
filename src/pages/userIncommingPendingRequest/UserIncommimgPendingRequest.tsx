@@ -1,6 +1,4 @@
 import AccordionPendingRequest from "@/components/AccordionPendingRequest/AccordionPendingRequest";
-import React from "react";
-import { useState } from "react";
 
 type User = {
   id: number;
@@ -38,9 +36,12 @@ const dummyData: User[] = [
   },
 ];
 const UserIncommimgPendingRequest = () => {
+     const [openId, setOpenId] = useState<number | null>(null);
   return (
-    <div className="flex justify-center align-center">
-      <AccordionPendingRequest data={dummyData} />
+    <div className="flex justify-center align-center flex-col">
+      {dummyData?.map((dummyItem) => (
+        <AccordionPendingRequest data={dummyItem} key={dummyItem?.id} openId={openId} setOpenId={setOpenId} />
+      ))}
     </div>
   );
 };
