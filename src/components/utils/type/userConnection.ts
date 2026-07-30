@@ -3,7 +3,7 @@
 import type { Collection } from "./usersFeeds";
 
 export interface myIncommingPendingRequest {
-  id: string;
+  _id: string;
   fromUserId: {
     id?: string;
     firstName: string;
@@ -22,4 +22,7 @@ export interface myIncommingPendingRequest {
 export interface userPendingRequest {
   message: string;
   data: Collection<myIncommingPendingRequest>;
+  totalItems?: number;
+  page?: number;
+  limit?: number;
 }

@@ -185,8 +185,8 @@ const ProfileUpdateForm = ({
           multiple
           className="select select-bordered w-full h-32"
         >
-          {defaultEducation?.map((item) => (
-            <option key={item.degree} value={item.degree}>{item.degree}</option>
+          {defaultEducation?.map((item,index) => (
+            <option key={index} value={item.degree}>{item.degree}</option>
           ))}
         </select>
         {errors.data?.education && (
@@ -226,8 +226,8 @@ const ProfileUpdateForm = ({
           multiple
           className="select select-bordered w-full h-32"
         >
-          {defaultSkills?.map((item) => (
-            <option key={item.name} value={item.name}>{item.name}</option>
+          {defaultSkills?.map((item,index) => (
+            <option key={index} value={item.name}>{item.name}</option>
           ))}
         </select>
         {errors.data?.skills && (

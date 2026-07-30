@@ -1,46 +1,49 @@
 import AccordionPendingRequest from "@/components/AccordionPendingRequest/AccordionPendingRequest";
+import { useQuery } from "@tanstack/react-query";
+import { useEffect, useState } from "react";
+import type { params } from "@/components/utils/type/commonType";
+import { useAppDispatch } from "@/components/utils/customHooks/reduxHook";
+import type { userPendingRequest } from "@/components/utils/type/userConnection";
+import { fetchMyIncommingPendingRequestApi } from "@/apis/userConnection/fetchMyIncommingPendingRequest";
 
-type User = {
-  id: number;
-  name: string;
-  image: string;
-  about: string;
-  skills: string[];
-  education: string;
-};
-
-const dummyData: User[] = [
-  {
-    id: 1,
-    name: "John Doe",
-    image: "/images/john.png",
-    about: "Frontend developer with 3 years of experience.",
-    skills: ["React", "TypeScript", "Tailwind CSS"],
-    education: "B.Sc. Computer Science",
-  },
-  {
-    id: 2,
-    name: "Jane Smith",
-    image: "/images/jane.png",
-    about: "UI/UX designer passionate about clean design.",
-    skills: ["Figma", "Adobe XD", "CSS"],
-    education: "B.A. Design",
-  },
-  {
-    id: 3,
-    name: "Alex Johnson",
-    image: "/images/alex.png",
-    about: "Fullstack engineer working with MERN stack.",
-    skills: ["MongoDB", "Express", "React", "Node.js"],
-    education: "M.Sc. Software Engineering",
-  },
-];
 const UserIncommimgPendingRequest = () => {
-     const [openId, setOpenId] = useState<number | null>(null);
+  const [openId, setOpenId] = useState<string | null>(null);
+  const dispatch = useAppDispatch();
+  const queryOptions: params = {
+    page: 0,
+    limit: 10,
+  };
+  const { data, isError, error } = useQuery<userPendingRequest>({
+    queryKey: ["usesPendingRequest"],
+    queryFn: async (): Promise<userPendingRequest> => {
+      const result = await fetchMyIncommingPendingRequestApi(queryOptions);
+      return result;
+    }
+  });
+  // useEffect(() => {
+  //   if (data) {
+  //    console.log('connections-data',data);
+  //   }
+  // }, []);
+  // useEffect(() => {
+  //   if (isError) {
+  //     const axiosError = error as any;
+  //     if (axiosError?.response?.status === 401) {
+  //      console.log('error');
+  //     }
+  //   }
+  // }, []);
+  console.log('data=========',data?.data);
+
   return (
-    <div className="flex justify-center align-center flex-col">
-      {dummyData?.map((dummyItem) => (
-        <AccordionPendingRequest data={dummyItem} key={dummyItem?.id} openId={openId} setOpenId={setOpenId} />
+    <div className="flex justify-center items-center flex-col w-full">
+      {data?.data?.map((dummyItem) => (
+        <AccordionPendingRequest
+          data={dummyItem}
+          key={dummyItem?._id}
+          openId={openId}
+          setOpenId={setOpenId}
+        />
       ))}
     </div>
   );
