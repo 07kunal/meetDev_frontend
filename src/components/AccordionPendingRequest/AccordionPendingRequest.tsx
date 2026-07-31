@@ -12,7 +12,6 @@ const AccordionPendingRequest = ({
   openId,
   setOpenId,
 }: AccordionPendingRequestProps) => {
-  console.log('dummyData',data?._id);
   return (
     <div
       className={`collapse collapse-arrow bg-base-200 border border-base-400 rounded-2xl mb-4 w-2xl ${
@@ -56,7 +55,11 @@ const AccordionPendingRequest = ({
 
           <div>
             <h3 className="font-semibold text-base">Education</h3>
-            <p className="mt-1 text-gray-600">TEST---Default</p>
+              <ul className="list-disc list-inside text-gray-600">
+              {data?.fromUserId?.education.map((skill, i) => (
+                <li key={i}>{skill}</li>
+              ))}
+            </ul>
           </div>
 
           {/* Footer */}

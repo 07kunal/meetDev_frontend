@@ -13,6 +13,7 @@ export interface myIncommingPendingRequest {
     profilePic: string;
     skills: string[];
     fullName: string;
+    education: string[];
   };
   toUserId: string;
   status: string;

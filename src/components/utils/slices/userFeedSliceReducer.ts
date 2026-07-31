@@ -6,9 +6,9 @@ const initialData: Collection<userFeeds> = [
   {
     firstName: "",
     lastName: "",
-    fullName: "",
     gender: "",
     age: null,
+    address: "",
     education: [],
     profilePic: "",
     skills: [],
