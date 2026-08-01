@@ -5,6 +5,8 @@ import type { params } from "@/components/utils/type/commonType";
 import { useAppDispatch } from "@/components/utils/customHooks/reduxHook";
 import type { userPendingRequest } from "@/components/utils/type/userConnection";
 import { fetchMyIncommingPendingRequestApi } from "@/apis/userConnection/fetchMyIncommingPendingRequest";
+import { setUserPendingRequest } from "@/components/utils/slices/userPendingRequestSlice";
+
 
 const UserIncommimgPendingRequest = () => {
   const [openId, setOpenId] = useState<string | null>(null);
@@ -20,11 +22,11 @@ const UserIncommimgPendingRequest = () => {
       return result;
     }
   });
-  // useEffect(() => {
-  //   if (data) {
-  //    console.log('connections-data',data);
-  //   }
-  // }, []);
+  useEffect(() => {
+    if (data) {
+    dispatch(setUserPendingRequest(data));
+    }
+  }, [data]);
   // useEffect(() => {
   //   if (isError) {
   //     const axiosError = error as any;

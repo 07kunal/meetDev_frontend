@@ -6,6 +6,7 @@ import { AxiosError } from "axios";
 import { useNavigate } from "react-router-dom";
 import { clearUser } from "../utils/slices/userSliceReducer";
 import { clearUserFeeds } from "../utils/slices/userFeedSliceReducer";
+import { clearUserPendingReques } from "../utils/slices/userPendingRequestSlice";
 
 const Navbar = () => {
   const userData: UserProfile = useAppSelector((state) => state?.user);
@@ -21,6 +22,8 @@ const Navbar = () => {
       if (data.data.logOutStatus) {
         dispatch(clearUser());
         dispatch(clearUserFeeds());
+        dispatch(clearUserPendingReques());
+
 
         queryClient.removeQueries({
           queryKey: ["Profile"],
