@@ -9,6 +9,7 @@ import UserFeed from "@/pages/userFeed/userFeed";
 import SignUpPage from "@/pages/SignUpPage/SignUpPage";
 import ResetPasswordPage from "@/pages/ResetPassword/ResetPasswordPage";
 import UserIncommimgPendingRequest from "@/pages/userIncommingPendingRequest/UserIncommimgPendingRequest";
+import LoggedInUserConnections from "@/pages/LoggedInUserConnections/LoggedInUserConnections";
 
 const AppRoutes = () => {
   const { status } = useAppSelector((state) => state.user);
@@ -32,6 +33,7 @@ const AppRoutes = () => {
             <Route path="/profile" element={<Profile />} />
             <Route path="/reset_password" element={<ResetPasswordPage />} />
             <Route path="/pending-request" element={<UserIncommimgPendingRequest />} />
+            <Route path="/user-connections" element={<LoggedInUserConnections />} />
           </Route>
         </Route>
       </Routes>

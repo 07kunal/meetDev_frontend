@@ -7,6 +7,7 @@ import { useNavigate } from "react-router-dom";
 import { clearUser } from "../utils/slices/userSliceReducer";
 import { clearUserFeeds } from "../utils/slices/userFeedSliceReducer";
 import { clearUserPendingReques } from "../utils/slices/userPendingRequestSlice";
+import { clearUserConnections } from "../utils/slices/loggedInUserConnectionSlice";
 
 const Navbar = () => {
   const userData: UserProfile = useAppSelector((state) => state?.user);
@@ -23,8 +24,9 @@ const Navbar = () => {
         dispatch(clearUser());
         dispatch(clearUserFeeds());
         dispatch(clearUserPendingReques());
+        dispatch(clearUserConnections());
         queryClient.removeQueries({
-          queryKey: ["Profile","usesPendingRequest"],
+          queryKey: ["Profile", "usesPendingRequest", "userConnections"],
         });
         navigate("/");
       }
@@ -84,7 +86,14 @@ const Navbar = () => {
                   <button onClick={() => navigate("/feeds")}>User Feeds</button>
                 </li>
                 <li>
-                  <button onClick={() => navigate("/pending-request")}>My request</button>
+                  <button onClick={() => navigate("/pending-request")}>
+                    My request
+                  </button>
+                </li>
+                <li>
+                  <button onClick={() => navigate("/user-connections")}>
+                    My Connections
+                  </button>
                 </li>
               </>
             )}

@@ -27,3 +27,28 @@ export interface userPendingRequest {
   page?: number;
   limit?: number;
 }
+
+// LoggedIn user Connections
+
+export interface loggedInUserConnectionType {
+  requestId: string;
+  data: {
+    firstName: string;
+    lastName: string;
+    gender: string;
+    age: number | null;
+    education: string[];
+    profilePic: string;
+    skills: string[];
+    fullName: string;
+    id?: string;
+  };
+}
+export interface loggedInUserConnectionDataType {
+  message: string;
+  data: Collection<loggedInUserConnectionType>;
+  totalCount?: number;
+  page?: number;
+  limit?: number;
+}
+

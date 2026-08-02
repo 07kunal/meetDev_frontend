@@ -27,22 +27,24 @@ const UserIncommimgPendingRequest = () => {
     dispatch(setUserPendingRequest(data));
     }
   }, [data]);
-  // useEffect(() => {
-  //   if (isError) {
-  //     const axiosError = error as any;
-  //     if (axiosError?.response?.status === 401) {
-  //      console.log('error');
-  //     }
-  //   }
-  // }, []);
+  useEffect(() => {
+    if (isError) {
+      const axiosError = error as any;
+      if (axiosError?.response?.status === 401) {
+       console.log('error');
+      }
+    }
+  }, [error]);
   console.log('data=========',data?.data);
 
   return (
     <div className="flex justify-center items-center flex-col w-full">
-      {data?.data?.map((dummyItem) => (
+      <h1 className="text-center text-2xl p-1 mb-1">My Pending Requests</h1>
+
+      {data?.data?.map((connectionItem) => (
         <AccordionPendingRequest
-          data={dummyItem}
-          key={dummyItem?._id}
+          data={connectionItem}
+          key={connectionItem?._id}
           openId={openId}
           setOpenId={setOpenId}
         />
