@@ -52,3 +52,9 @@ export interface loggedInUserConnectionDataType {
   limit?: number;
 }
 
+// Review pending request response
+
+export interface reviewUserPendingRequestType {
+  message: string;
+  status: string;
+}

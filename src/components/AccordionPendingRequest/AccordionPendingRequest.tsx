@@ -1,16 +1,19 @@
 import React from "react";
 
 import type { myIncommingPendingRequest } from "../utils/type/userConnection";
+import type { pendingRequestProps } from "../utils/type/commonType";
 type AccordionPendingRequestProps = {
   data: myIncommingPendingRequest;
-  openId: string | null ;
+  openId: string | null;
   setOpenId: React.Dispatch<React.SetStateAction<string | null>>;
+  handleReviewPendingRequest: ({status,pendingRequestId}:pendingRequestProps) => void;
 };
 
 const AccordionPendingRequest = ({
   data,
   openId,
   setOpenId,
+  handleReviewPendingRequest,
 }: AccordionPendingRequestProps) => {
   return (
     <div
@@ -27,12 +30,14 @@ const AccordionPendingRequest = ({
         <div className="flex items-center gap-3">
           <div className="w-10 h-10">
             <img
-              src={data?.fromUserId?.profilePic || '-'}
-              alt={data?.fromUserId?.profilePic || '-'}
+              src={data?.fromUserId?.profilePic || "-"}
+              alt={data?.fromUserId?.profilePic || "-"}
               className="w-full h-full rounded-full object-cover"
             />
           </div>
-          <div className="text-base font-medium">{data?.fromUserId?.fullName}</div>
+          <div className="text-base font-medium">
+            {data?.fromUserId?.fullName}
+          </div>
         </div>
       </div>
 
@@ -55,7 +60,7 @@ const AccordionPendingRequest = ({
 
           <div>
             <h3 className="font-semibold text-base">Education</h3>
-              <ul className="list-disc list-inside text-gray-600">
+            <ul className="list-disc list-inside text-gray-600">
               {data?.fromUserId?.education.map((skill, i) => (
                 <li key={i}>{skill}</li>
               ))}
@@ -64,8 +69,18 @@ const AccordionPendingRequest = ({
 
           {/* Footer */}
           <div className="flex justify-end gap-2 pt-4">
-            <button className="btn btn-outline btn-error">Reject</button>
-            <button className="btn btn-primary">Accept</button>
+            <button
+              className="btn btn-outline btn-error"
+              onClick={() => handleReviewPendingRequest({status: "rejected", pendingRequestId:data?._id})}
+            >
+              Reject
+            </button>
+            <button
+              className="btn btn-primary"
+              onClick={() => handleReviewPendingRequest({status: "accepted", pendingRequestId:data?._id})}
+            >
+              Accept
+            </button>
           </div>
         </div>
       )}

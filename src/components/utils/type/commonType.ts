@@ -5,7 +5,7 @@ export interface params {
 }
 export interface ErrorResponse {
   message: string;
-  status? : boolean
+  status?: boolean;
 }
 
 export type Education = {
@@ -14,3 +14,7 @@ export type Education = {
 export type Skill = {
   name: string;
 };
+export interface pendingRequestProps {
+  status: string;
+  pendingRequestId: string;
+}

@@ -1,16 +1,21 @@
 import React from "react";
-
+import type { pendingRequestProps } from "../utils/type/commonType";
 import type { loggedInUserConnectionType } from "../utils/type/userConnection";
 type AccordionPendingRequestProps = {
   data: loggedInUserConnectionType;
   openId: string | null;
   setOpenId: React.Dispatch<React.SetStateAction<string | null>>;
+  handleReviewConnection: ({
+    status,
+    pendingRequestId,
+  }: pendingRequestProps) => void;
 };
 
 const AccordionUserConnections = ({
   data,
   openId,
   setOpenId,
+  handleReviewConnection,
 }: AccordionPendingRequestProps) => {
   return (
     <div
@@ -66,7 +71,17 @@ const AccordionUserConnections = ({
 
           {/* Footer */}
           <div className="flex justify-end gap-2 pt-4">
-            <button className="btn btn-outline btn-error">Reject</button>
+            <button
+              className="btn btn-outline btn-error"
+              onClick={() =>
+                handleReviewConnection({
+                  status: "rejected",
+                  pendingRequestId: data?.requestId,
+                })
+              }
+            >
+              Reject
+            </button>
           </div>
         </div>
       )}
