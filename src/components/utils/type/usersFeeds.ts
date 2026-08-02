@@ -13,3 +13,11 @@ export interface userFeeds {
   skills: string[];
   _id?: string;
 }
+
+export interface userFeedData {
+  message: string;
+  data: Collection<userFeeds>;
+  totalCount?: number;
+  page?: number;
+  limit?: number;
+}

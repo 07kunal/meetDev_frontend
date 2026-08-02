@@ -1,25 +1,20 @@
 import { createSlice } from "@reduxjs/toolkit";
-import type { Collection, userFeeds } from "../type/usersFeeds";
+import type { userFeedData } from "../type/usersFeeds";
 import type { PayloadAction } from "@reduxjs/toolkit";
 
-const initialData: Collection<userFeeds> = [
-  {
-    firstName: "",
-    lastName: "",
-    gender: "",
-    age: null,
-    address: "",
-    education: [],
-    profilePic: "",
-    skills: [],
-  },
-];
+const initialData: userFeedData = {
+  message: "",
+  data: [],
+  totalCount: undefined,
+  page: undefined,
+  limit: undefined,
+};
 
 export const userFeedSliceReducer = createSlice({
   name: "User Feed",
   initialState: initialData,
   reducers: {
-    setUserFeeds: (state, action: PayloadAction<Collection<userFeeds>>) => {
+    setUserFeeds: (state, action: PayloadAction<userFeedData>) => {
       return action.payload;
     },
     clearUserFeeds: () => {

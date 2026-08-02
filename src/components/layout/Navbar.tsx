@@ -23,10 +23,8 @@ const Navbar = () => {
         dispatch(clearUser());
         dispatch(clearUserFeeds());
         dispatch(clearUserPendingReques());
-
-
         queryClient.removeQueries({
-          queryKey: ["Profile"],
+          queryKey: ["Profile","usesPendingRequest"],
         });
         navigate("/");
       }

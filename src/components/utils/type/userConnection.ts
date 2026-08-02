@@ -23,7 +23,7 @@ export interface myIncommingPendingRequest {
 export interface userPendingRequest {
   message: string;
   data: Collection<myIncommingPendingRequest>;
-  totalItems?: number;
+  totalCount?: number;
   page?: number;
   limit?: number;
 }

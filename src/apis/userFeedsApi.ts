@@ -1,12 +1,12 @@
-import type { userFeeds, Collection } from "@/components/utils/type/usersFeeds";
+import type { userFeeds, Collection ,userFeedData} from "@/components/utils/type/usersFeeds";
 import axios from "axios";
 import type { params } from "@/components/utils/type/commonType";
 export const userFeedsApi = async (
   paramsArgument: params,
-): Promise<Collection<userFeeds>> => {
+): Promise<userFeedData> => {
   try {
     let URL: string = `${import.meta.env.VITE_BASE_URL}/feed`;
-    const response = await axios.get<Collection<userFeeds>>(URL, {
+    const response = await axios.get<userFeedData>(URL, {
       headers: {
         "Content-Type": "application/json",
       },

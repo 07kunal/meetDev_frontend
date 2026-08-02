@@ -4,7 +4,7 @@ import type { userPendingRequest } from "../type/userConnection";
 const initialData: userPendingRequest = {
   message: "",
   data: [],
-  totalItems: undefined,
+  totalCount: undefined,
   page: undefined,
   limit: undefined,
 };

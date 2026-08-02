@@ -1,7 +1,7 @@
 import { userFeedsApi } from "@/apis/userFeedsApi";
 import { useAppDispatch } from "@/components/utils/customHooks/reduxHook";
 import { setUserFeeds } from "@/components/utils/slices/userFeedSliceReducer";
-import type { Collection, userFeeds } from "@/components/utils/type/usersFeeds";
+import type {userFeedData } from "@/components/utils/type/usersFeeds";
 import { useQuery } from "@tanstack/react-query";
 import { useEffect } from "react";
 import type { params } from "@/components/utils/type/commonType";
@@ -16,9 +16,9 @@ const UserFeed = () => {
     limit: 10,
   };
 
-  const { data, isError, error } = useQuery<Collection<userFeeds>>({
+  const { data, isError, error } = useQuery<userFeedData>({
     queryKey: ["userFeeds"],
-    queryFn: async (): Promise<Collection<userFeeds>> => {
+    queryFn: async (): Promise<userFeedData> => {
       const result = await userFeedsApi(queryOptions);
       return result;
     },
@@ -39,7 +39,8 @@ const UserFeed = () => {
       }
     }
   }, [isError, error, dispatch, navigate]);
-  return <>{data && <UserCard data={data} action="feeds" />}</>;
+  // Need to create the map function here
+  return <>{data && <UserCard data={data?.data} action="feeds" />}</>;
 };
 
 export default UserFeed;
