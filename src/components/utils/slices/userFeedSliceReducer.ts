@@ -5,9 +5,6 @@ import type { PayloadAction } from "@reduxjs/toolkit";
 const initialData: userFeedData = {
   message: "",
   data: [],
-  totalCount: undefined,
-  page: undefined,
-  limit: undefined,
 };
 
 export const userFeedSliceReducer = createSlice({
@@ -20,8 +17,14 @@ export const userFeedSliceReducer = createSlice({
     clearUserFeeds: () => {
       return initialData;
     },
+    removeUserFromFeed: (
+      state,
+      action: PayloadAction<string>, // <-- userId
+    ) => {
+      state.data = state.data.filter((user) => user.id !== action.payload);
+    },
   },
 });
 
-export const { setUserFeeds, clearUserFeeds } = userFeedSliceReducer.actions;
+export const { setUserFeeds, clearUserFeeds,removeUserFromFeed } = userFeedSliceReducer.actions;
 export default userFeedSliceReducer.reducer;

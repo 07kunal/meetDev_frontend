@@ -59,7 +59,6 @@ const ProfileUpdateForm = ({
 
   //  Handle changes seamlessly without state overwrites
   const handleFormChange = () => {
-    console.log("TEST");
     debouncedDispatch(currentFormValues);
   };
 

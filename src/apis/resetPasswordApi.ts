@@ -7,7 +7,6 @@ import type {
 const resetPasswordApi = async (
   resetPasswordData: ResetPassword,
 ): Promise<resetPasswordResponse> => {
-  console.log('Api99999');
   const { confirmPassword, ...requiredData } = resetPasswordData;
 
   try {

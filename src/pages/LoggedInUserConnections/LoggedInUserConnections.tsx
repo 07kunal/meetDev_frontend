@@ -6,12 +6,12 @@ import { useEffect, useState } from "react";
 import type { params } from "@/components/utils/type/commonType";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { setUserConnections } from "@/components/utils/slices/loggedInUserConnectionSlice";
-import type { pendingRequestProps } from "@/components/utils/type/commonType";
+import type { connectionRequestProps } from "@/components/utils/type/commonType";
 import type { ErrorResponse } from "@/components/utils/type/commonType";
 import { AxiosError } from "axios";
 import toast from "react-hot-toast";
 import { reviewingPendingRequestApi } from "@/apis/userConnection/reviewingPendingRequestApi";
-import type { reviewUserPendingRequestType } from "@/components/utils/type/userConnection";
+import type { reviewUserConnectionRequestType } from "@/components/utils/type/userConnection";
 
 const LoggedInUserConnections = () => {
   const [openId, setOpenId] = useState<string | null>(null);
@@ -44,9 +44,9 @@ const LoggedInUserConnections = () => {
   }, [error]);
   //   Handling the rejectionMethod
   const { mutate } = useMutation<
-    reviewUserPendingRequestType,
+    reviewUserConnectionRequestType,
     AxiosError<ErrorResponse>,
-    pendingRequestProps
+    connectionRequestProps
   >({
     mutationFn: reviewingPendingRequestApi,
 
@@ -54,7 +54,6 @@ const LoggedInUserConnections = () => {
       if (data?.status === "accepted") {
         // navigate("/feeds");
         toast(data?.message);
-        console.log("data-status", data?.status);
       } else {
         toast(data?.message);
       }
@@ -75,11 +74,10 @@ const LoggedInUserConnections = () => {
   });
   const handleReviewConnection = ({
     status,
-    pendingRequestId,
-  }: pendingRequestProps) => {
-    console.log("status", status);
-    console.log("pendingRequst", pendingRequestId);
-    mutate({ status, pendingRequestId });
+    connectionRequestId,
+  }: connectionRequestProps) => {
+
+    mutate({ status, connectionRequestId });
   };
   console.log("data=========userconnections", data);
   return (

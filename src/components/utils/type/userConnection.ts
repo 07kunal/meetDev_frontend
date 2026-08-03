@@ -54,7 +54,19 @@ export interface loggedInUserConnectionDataType {
 
 // Review pending request response
 
-export interface reviewUserPendingRequestType {
+export interface reviewUserConnectionRequestType {
   message: string;
   status: string;
-}
+};
+
+// export interface connectionResponse {
+//   message: string;
+//   data: {
+//     fromUserId: string;
+//     toUserId: string;
+//     status: string;
+//     _id: string;
+//     createdAt: string;
+//     updatedAt: string;
+//   };
+// }

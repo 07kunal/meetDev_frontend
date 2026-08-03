@@ -1,9 +1,7 @@
-import type { userFeeds, Collection ,userFeedData} from "@/components/utils/type/usersFeeds";
+import type { userFeedData} from "@/components/utils/type/usersFeeds";
 import axios from "axios";
 import type { params } from "@/components/utils/type/commonType";
-export const userFeedsApi = async (
-  paramsArgument: params,
-): Promise<userFeedData> => {
+export const userFeedsApi = async (): Promise<userFeedData> => {
   try {
     let URL: string = `${import.meta.env.VITE_BASE_URL}/feed`;
     const response = await axios.get<userFeedData>(URL, {
@@ -11,10 +9,6 @@ export const userFeedsApi = async (
         "Content-Type": "application/json",
       },
       withCredentials: true,
-      params: {
-        page: paramsArgument.page, // Automatically builds: ?page=X
-        limit: paramsArgument.limit, // Automatically builds: &limit=Y
-      },
     });
     return response?.data;
   } catch (error) {

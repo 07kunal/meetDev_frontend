@@ -24,7 +24,6 @@ const SignUpForm = ({
   } = useForm<UserSignUp>();
 
   const currentFormValues = getValues();
-  console.log("currentForm", currentFormValues);
   return (
     <div>
       {errorMessage && <p className="text-error text-sm">{errorMessage}</p>}

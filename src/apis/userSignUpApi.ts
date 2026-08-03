@@ -5,7 +5,6 @@ import type { signUpResponse } from "@/components/utils/type/user";
 const userSignUpApi = async (
   signUpData: UserSignUp,
 ): Promise<signUpResponse> => {
-  console.log("signUpData", signUpData.data);
   const { confirmPassword, ...requiredData } = signUpData.data;
   try {
     const url: string = `${import.meta.env.VITE_BASE_URL}/signup`;

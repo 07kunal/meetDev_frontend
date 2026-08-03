@@ -1,12 +1,12 @@
 import React from "react";
 
 import type { myIncommingPendingRequest } from "../utils/type/userConnection";
-import type { pendingRequestProps } from "../utils/type/commonType";
+import type { connectionRequestProps } from "../utils/type/commonType";
 type AccordionPendingRequestProps = {
   data: myIncommingPendingRequest;
   openId: string | null;
   setOpenId: React.Dispatch<React.SetStateAction<string | null>>;
-  handleReviewPendingRequest: ({status,pendingRequestId}:pendingRequestProps) => void;
+  handleReviewPendingRequest: ({status,connectionRequestId}:connectionRequestProps) => void;
 };
 
 const AccordionPendingRequest = ({
@@ -71,13 +71,13 @@ const AccordionPendingRequest = ({
           <div className="flex justify-end gap-2 pt-4">
             <button
               className="btn btn-outline btn-error"
-              onClick={() => handleReviewPendingRequest({status: "rejected", pendingRequestId:data?._id})}
+              onClick={() => handleReviewPendingRequest({status: "rejected", connectionRequestId:data?._id})}
             >
               Reject
             </button>
             <button
               className="btn btn-primary"
-              onClick={() => handleReviewPendingRequest({status: "accepted", pendingRequestId:data?._id})}
+              onClick={() => handleReviewPendingRequest({status: "accepted", connectionRequestId:data?._id})}
             >
               Accept
             </button>

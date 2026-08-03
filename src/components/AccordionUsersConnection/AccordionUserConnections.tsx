@@ -1,5 +1,5 @@
 import React from "react";
-import type { pendingRequestProps } from "../utils/type/commonType";
+import type { connectionRequestProps } from "../utils/type/commonType";
 import type { loggedInUserConnectionType } from "../utils/type/userConnection";
 type AccordionPendingRequestProps = {
   data: loggedInUserConnectionType;
@@ -7,8 +7,8 @@ type AccordionPendingRequestProps = {
   setOpenId: React.Dispatch<React.SetStateAction<string | null>>;
   handleReviewConnection: ({
     status,
-    pendingRequestId,
-  }: pendingRequestProps) => void;
+    connectionRequestId,
+  }: connectionRequestProps) => void;
 };
 
 const AccordionUserConnections = ({
@@ -76,7 +76,7 @@ const AccordionUserConnections = ({
               onClick={() =>
                 handleReviewConnection({
                   status: "rejected",
-                  pendingRequestId: data?.requestId,
+                  connectionRequestId: data?.requestId,
                 })
               }
             >

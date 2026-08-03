@@ -4,12 +4,12 @@ import { useEffect, useState } from "react";
 import type { params } from "@/components/utils/type/commonType";
 import { useAppDispatch } from "@/components/utils/customHooks/reduxHook";
 import type {
-  reviewUserPendingRequestType,
+  reviewUserConnectionRequestType,
   userPendingRequest,
 } from "@/components/utils/type/userConnection";
 import { fetchMyIncommingPendingRequestApi } from "@/apis/userConnection/fetchMyIncommingPendingRequest";
 import { setUserPendingRequest } from "@/components/utils/slices/userPendingRequestSlice";
-import type { pendingRequestProps } from "@/components/utils/type/commonType";
+import type { connectionRequestProps } from "@/components/utils/type/commonType";
 import type { ErrorResponse } from "@/components/utils/type/commonType";
 import { AxiosError } from "axios";
 import { reviewingPendingRequestApi } from "@/apis/userConnection/reviewingPendingRequestApi";
@@ -45,9 +45,9 @@ const UserIncommimgPendingRequest = () => {
     }
   }, [error]);
   const { mutate } = useMutation<
-    reviewUserPendingRequestType,
+    reviewUserConnectionRequestType,
     AxiosError<ErrorResponse>,
-    pendingRequestProps
+    connectionRequestProps
   >({
     mutationFn: reviewingPendingRequestApi,
 
@@ -55,7 +55,6 @@ const UserIncommimgPendingRequest = () => {
       if (data?.status === "accepted") {
         // navigate("/feeds");
         toast(data?.message);
-        console.log("data-status", data?.status);
       } else {
         toast(data?.message);
       }
@@ -76,13 +75,10 @@ const UserIncommimgPendingRequest = () => {
 
   const handleReviewPendingRequest = ({
     status,
-    pendingRequestId,
-  }: pendingRequestProps) => {
-    console.log("status", status);
-    console.log("pendingRequst", pendingRequestId);
-    mutate({ status, pendingRequestId });
+    connectionRequestId,
+  }: connectionRequestProps) => {
+    mutate({ status, connectionRequestId });
   };
-  console.log("data=========", data?.data);
 
   return (
     <div className="flex justify-center items-center flex-col w-full">

@@ -31,7 +31,7 @@ export interface User {
   address: string;
   profilePic: string;
   skills: string[];
-  _id?: string;
+  id?: string;
 }
 export interface logOutResponse {
   data: {

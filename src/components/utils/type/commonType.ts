@@ -14,7 +14,7 @@ export type Education = {
 export type Skill = {
   name: string;
 };
-export interface pendingRequestProps {
+export interface connectionRequestProps {
   status: string;
-  pendingRequestId: string;
+  connectionRequestId: string;
 }
