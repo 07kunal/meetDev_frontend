@@ -1,5 +1,5 @@
 import { userFeedsApi } from "@/apis/userFeedsApi";
-import { useAppDispatch } from "@/components/utils/customHooks/reduxHook";
+import { useAppDispatch, useAppSelector } from "@/components/utils/customHooks/reduxHook";
 import {
   setUserFeeds,
   removeUserFromFeed,
@@ -22,6 +22,7 @@ const UserFeed = () => {
   const navigate = useNavigate();
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const [connectionId, setConnectionId] = useState<string>("");
+  const feedData = useAppSelector((state)=>state?.userFeed?.data)
 
   const { data, isError, error } = useQuery<userFeedData>({
     queryKey: ["userFeeds"],
@@ -89,18 +90,18 @@ const UserFeed = () => {
   };
   return (
     <div className="flex justify-center items-center flex-col w-full">
-      <h1 className="text-center text-2xl p-1 mb-2">My Pending Requests</h1>
-      {(data?.data?.length ?? 0) === 0 || errorMessage ? (
+      <h1 className="text-center text-2xl p-1 mb-2">User feeds</h1>
+      {(feedData?.length ?? 0) === 0 || errorMessage ? (
         <>
           {errorMessage ? (
             <h1>Something went wrong</h1>
           ) : (
-            <h1>No more pending request</h1>
+            <h1 className="text-center text-xl p-1 mt-5">No feeds to show</h1>
           )}
         </>
       ) : (
         <UserCard
-          data={data?.data}
+          data={feedData}
           action="feeds"
           handleConnectionRequest={handleConnectionRequest}
         />

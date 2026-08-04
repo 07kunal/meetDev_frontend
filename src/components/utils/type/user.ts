@@ -4,7 +4,7 @@ export interface LoginBody {
 }
 export interface userEditProfile {
   age?: number;
-  profile?: string;
+  profilePic?: string;
   education?: string[];
   skills?: string[];
   address?: string

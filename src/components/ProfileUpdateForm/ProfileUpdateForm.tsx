@@ -46,7 +46,7 @@ const ProfileUpdateForm = ({
     () =>
       debounce((updatedValues: UserProfile) => {
         // Deep clone before sending to Redux to safely sever RHF references
-        // dispatch(setUser(JSON.parse(JSON.stringify(updatedValues))));
+        dispatch(setUser(JSON.parse(JSON.stringify(updatedValues))));
       }, 500),
     [dispatch],
   );
@@ -139,7 +139,7 @@ const ProfileUpdateForm = ({
             },
             pattern: { value: /^[0-9]+$/, message: "Only number allowed" },
           })}
-          placeholder="AGe"
+          placeholder="Age"
           className="input input-bordered w-full"
           disabled={age ? true : false}
         />

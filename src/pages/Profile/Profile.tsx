@@ -66,7 +66,7 @@ const Profile = () => {
       updatedUser?.profilePic &&
       currentUser?.profilePic !== updatedUser?.profilePic
     ) {
-      editPayload.profile = updatedUser.profilePic;
+      editPayload.profilePic = updatedUser.profilePic;
     }
 
     if (

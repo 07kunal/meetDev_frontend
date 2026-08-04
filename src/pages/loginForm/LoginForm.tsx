@@ -10,8 +10,8 @@ import type { ErrorResponse } from "@/components/utils/type/commonType";
 
 const LoginForm = () => {
   const [loginCredential, setLoginCredential] = useState<LoginBody>({
-    emailId: "aj104@gmail.com",
-    password: "testA@321",
+    emailId: "",
+    password: "",
   });
   const [errorMessage, setErrorMessage] = useState<string | null>();
 
@@ -19,6 +19,8 @@ const LoginForm = () => {
   const navigate = useNavigate();
 
   const handleLoginCredential = (e: React.ChangeEvent<HTMLInputElement>) => {
+    e.preventDefault();
+    console.log("etarget", e);
     setLoginCredential((prev) => ({
       ...prev,
       [e.target.name]: e.target.value,
@@ -64,7 +66,7 @@ const LoginForm = () => {
 
     mutate(loginCredential);
   };
-  console.log("test-1");
+  console.log("loginForm", loginCredential);
   return (
     <>
       <div className="min-h-screen flex items-center justify-center bg-base-200">
@@ -85,6 +87,7 @@ const LoginForm = () => {
 
                 <input
                   type="emailId"
+                  name="emailId"
                   placeholder="Enter your emailId"
                   className="input input-bordered"
                   value={loginCredential.emailId}
@@ -101,6 +104,7 @@ const LoginForm = () => {
 
                 <input
                   type="password"
+                  name="password"
                   placeholder="Enter your password"
                   className="input input-bordered"
                   value={loginCredential.password}
@@ -110,7 +114,7 @@ const LoginForm = () => {
               </div>
 
               {/* Button */}
-              <div className="form-control mt-4">
+              <div className="form-control mt-4 ">
                 <button
                   type="submit"
                   className="btn btn-primary"
