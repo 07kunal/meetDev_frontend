@@ -1,41 +1,41 @@
+import { useState, useEffect } from "react";
+import { useQuery, useMutation, useQueryClient , keepPreviousData} from "@tanstack/react-query";
 import AccordionPendingRequest from "@/components/AccordionPendingRequest/AccordionPendingRequest";
-import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { useEffect, useState } from "react";
-import type { params } from "@/components/utils/type/commonType";
-import { useAppDispatch } from "@/components/utils/customHooks/reduxHook";
-import type {
-  reviewUserConnectionRequestType,
-  userPendingRequest,
-} from "@/components/utils/type/userConnection";
 import { fetchMyIncommingPendingRequestApi } from "@/apis/userConnection/fetchMyIncommingPendingRequest";
-import { setUserPendingRequest } from "@/components/utils/slices/userPendingRequestSlice";
-import type { connectionRequestProps } from "@/components/utils/type/commonType";
-import type { ErrorResponse } from "@/components/utils/type/commonType";
-import { AxiosError } from "axios";
 import { reviewingPendingRequestApi } from "@/apis/userConnection/reviewingPendingRequestApi";
+import { useAppDispatch } from "@/components/utils/customHooks/reduxHook";
+import { setUserPendingRequest } from "@/components/utils/slices/userPendingRequestSlice";
 import toast from "react-hot-toast";
+import type {
+  userPendingRequest,
+  reviewUserConnectionRequestType,
+} from "@/components/utils/type/userConnection";
+import type { connectionRequestProps, ErrorResponse } from "@/components/utils/type/commonType";
+import { AxiosError } from "axios";
 
 const UserIncommimgPendingRequest = () => {
   const [openId, setOpenId] = useState<string | null>(null);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
+  const [page, setPage] = useState<number>(0);
+  const [limit, setLimit] = useState<number>(1); // user‑selected limit
   const dispatch = useAppDispatch();
   const queryClient = useQueryClient();
-  const queryOptions: params = {
-    page: 0,
-    limit: 10,
-  };
+
   const { data, isError, error } = useQuery<userPendingRequest>({
-    queryKey: ["usesPendingRequest"],
+    queryKey: ["usesPendingRequest", page, limit],
     queryFn: async (): Promise<userPendingRequest> => {
-      const result = await fetchMyIncommingPendingRequestApi(queryOptions);
+      const result = await fetchMyIncommingPendingRequestApi({ page, limit });
       return result;
     },
+   placeholderData: keepPreviousData,
   });
+
   useEffect(() => {
     if (data) {
       dispatch(setUserPendingRequest(data));
     }
   }, [data]);
+
   useEffect(() => {
     if (isError) {
       const axiosError = error as any;
@@ -44,64 +44,99 @@ const UserIncommimgPendingRequest = () => {
       }
     }
   }, [error]);
+
   const { mutate } = useMutation<
     reviewUserConnectionRequestType,
     AxiosError<ErrorResponse>,
     connectionRequestProps
   >({
     mutationFn: reviewingPendingRequestApi,
-
     onSuccess: (data) => {
-      if (data?.status === "accepted") {
-        // navigate("/feeds");
-        toast(data?.message);
-      } else {
-        toast(data?.message);
-      }
-       queryClient.refetchQueries({ queryKey: ["usesPendingRequest"] });
+      toast(data?.message);
+      queryClient.refetchQueries({ queryKey: ["usesPendingRequest"] });
     },
-
     onError: (error: AxiosError<ErrorResponse>) => {
-      if (!error.response?.data?.status) {
-        setErrorMessage(
-          error?.response?.data?.message ?? "An unexpected error occurred",
-        );
-      } else {
-        setErrorMessage(null);
-      }
+      setErrorMessage(error?.response?.data?.message ?? "An unexpected error occurred");
       console.error("Message:", error.response?.data?.message);
     },
   });
 
-  const handleReviewPendingRequest = ({
-    status,
-    connectionRequestId,
-  }: connectionRequestProps) => {
+  const handleReviewPendingRequest = ({ status, connectionRequestId }: connectionRequestProps) => {
     mutate({ status, connectionRequestId });
   };
+
+  const totalRecords = data?.totalCount ?? 0;
+  const totalPages = Math.ceil(totalRecords / limit);
 
   return (
     <div className="flex justify-center items-center flex-col w-full">
       <h1 className="text-center text-2xl p-1 mb-2">My Pending Requests</h1>
 
+      {/* Limit selector */}
+      <div className="mb-4">
+        <label className="mr-2">Items per page:</label>
+        <select
+          className="select select-bordered"
+          value={limit}
+          onChange={(e) => {
+            setLimit(Number(e.target.value));
+            setPage(0); // reset to first page when limit changes
+          }}
+        >
+          <option value={1}>1</option>
+          <option value={5}>5</option>
+          <option value={10}>10</option>
+        </select>
+      </div>
+
       {(data?.data?.length ?? 0) === 0 || errorMessage ? (
         <>
-          {errorMessage ? (
-            <h1>Something went wrong</h1>
-          ) : (
-            <h1>No more pending request</h1>
-          )}
+          {errorMessage ? <h1>Something went wrong</h1> : <h1>No more pending request</h1>}
         </>
       ) : (
-        data?.data?.map((connectionItem) => (
-          <AccordionPendingRequest
-            data={connectionItem}
-            key={connectionItem?._id}
-            openId={openId}
-            setOpenId={setOpenId}
-            handleReviewPendingRequest={handleReviewPendingRequest}
-          />
-        ))
+        <>
+          {data?.data?.map((connectionItem) => (
+            <AccordionPendingRequest
+              data={connectionItem}
+              key={connectionItem?._id}
+              openId={openId}
+              setOpenId={setOpenId}
+              handleReviewPendingRequest={handleReviewPendingRequest}
+            />
+          ))}
+
+          {/* Display "i out of total" */}
+          <p className="mt-2 text-sm text-gray-600">
+            Page {page + 1} of {totalPages} — Showing {data?.data?.length} items out of {totalRecords}
+          </p>
+
+          {/* DaisyUI Pagination */}
+          <div className="btn-group mt-4">
+            <button
+              className="btn"
+              disabled={page === 0}
+              onClick={() => setPage((prev) => Math.max(prev - 1, 0))}
+            >
+              «
+            </button>
+            {[...Array(totalPages)].map((_, idx) => (
+              <button
+                key={idx}
+                className={`btn ${page === idx ? "btn-active" : ""}`}
+                onClick={() => setPage(idx)}
+              >
+                {idx + 1}
+              </button>
+            ))}
+            <button
+              className="btn"
+              disabled={page >= totalPages - 1}
+              onClick={() => setPage((prev) => Math.min(prev + 1, totalPages - 1))}
+            >
+              »
+            </button>
+          </div>
+        </>
       )}
     </div>
   );
