@@ -21,7 +21,7 @@ const AccordionPendingRequest = ({
         openId === data._id ? "collapse-open" : ""
       }`}
     >
-      {/* <input type="radio" name="user-accordion" /> */}
+
       {/* Title */}
       <div
         className="collapse-title font-semibold cursor-pointer p-2.5"
