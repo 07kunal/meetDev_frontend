@@ -1,6 +1,7 @@
 import type { Collection, userFeeds } from "../utils/type/usersFeeds";
 import type { User } from "../utils/type/user";
 import type { connectionRequestProps } from "../utils/type/commonType";
+import { useQueryClient } from "@tanstack/react-query";
 interface FeedsProps {
   data: Collection<userFeeds> | undefined;
   action: "feeds";
@@ -18,11 +19,24 @@ interface UserCardViewProps {
 type propsType = FeedsProps | UserCardViewProps;
 const UserCard = (props: propsType) => {
   const { data, action } = props;
+  const queryClient = useQueryClient();
 
-  const userCardData = action === "feeds" ? (data && data[0]) : data;
+  const userCardData = action === "feeds" ? data && data[0] : data;
   return (
     <>
-      <div className="min-h-screen flex items-center justify-center">
+      <div className="min-h-screen flex items-center justify-center flex-col">
+        {action === "feeds" && (
+          <div className="text-end w-full mb-5">
+            <button
+              className="btn btn-secondary"
+              onClick={() =>
+                queryClient.refetchQueries({ queryKey: ["userFeeds"] })
+              }
+            >
+              Refresh
+            </button>
+          </div>
+        )}
         <div
           className="card card-side bg-base-200 shadow-xl w-[600px] h-100"
           key={userCardData?.id}

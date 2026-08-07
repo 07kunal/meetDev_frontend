@@ -1,11 +1,14 @@
 import { userFeedsApi } from "@/apis/userFeedsApi";
-import { useAppDispatch, useAppSelector } from "@/components/utils/customHooks/reduxHook";
+import {
+  useAppDispatch,
+  useAppSelector,
+} from "@/components/utils/customHooks/reduxHook";
 import {
   setUserFeeds,
   removeUserFromFeed,
 } from "@/components/utils/slices/userFeedSliceReducer";
 import type { userFeedData } from "@/components/utils/type/usersFeeds";
-import { useMutation, useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery} from "@tanstack/react-query";
 import { useEffect, useState } from "react";
 import UserCard from "@/components/UserCard/UserCard";
 import { clearUser } from "@/components/utils/slices/userSliceReducer";
@@ -16,18 +19,24 @@ import type { reviewUserConnectionRequestType } from "@/components/utils/type/us
 import type { ErrorResponse } from "@/components/utils/type/commonType";
 import { AxiosError } from "axios";
 import toast from "react-hot-toast";
-
+import type { params } from "@/components/utils/type/commonType";
 const UserFeed = () => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const [connectionId, setConnectionId] = useState<string>("");
-  const feedData = useAppSelector((state)=>state?.userFeed?.data)
+  const feedData = useAppSelector((state) => state?.userFeed?.data);
 
+  const page: number = 0;
+  const limit: number = 30;
+  const queryOptions: params = {
+    page,
+    limit,
+  };
   const { data, isError, error } = useQuery<userFeedData>({
     queryKey: ["userFeeds"],
     queryFn: async (): Promise<userFeedData> => {
-      const result = await userFeedsApi();
+      const result = await userFeedsApi(queryOptions);
       return result;
     },
     // enabled: shouldFetchProfile,
@@ -100,11 +109,14 @@ const UserFeed = () => {
           )}
         </>
       ) : (
-        <UserCard
-          data={feedData}
-          action="feeds"
-          handleConnectionRequest={handleConnectionRequest}
-        />
+        <div>
+
+          <UserCard
+            data={feedData}
+            action="feeds"
+            handleConnectionRequest={handleConnectionRequest}
+          />
+        </div>
       )}
     </div>
   );
