@@ -12,18 +12,21 @@ import { AxiosError } from "axios";
 import toast from "react-hot-toast";
 import { reviewingPendingRequestApi } from "@/apis/userConnection/reviewingPendingRequestApi";
 import type { reviewUserConnectionRequestType } from "@/components/utils/type/userConnection";
+import Pagination from "@/components/Pagination/Pagination";
 
 const LoggedInUserConnections = () => {
   const [openId, setOpenId] = useState<string | null>(null);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
+  const [page, setPage] = useState<number>(0);
+  const [limit, setLimit] = useState<number>(10);
   const dispatch = useAppDispatch();
   const queryClient = useQueryClient();
   const queryOptions: params = {
-    page: 0,
-    limit: 10,
+    page,
+    limit,
   };
   const { data, isError, error } = useQuery<loggedInUserConnectionDataType>({
-    queryKey: ["usesConnections"],
+    queryKey: ["usesConnections", page, limit],
     queryFn: async (): Promise<loggedInUserConnectionDataType> => {
       const result = await fetchLoggedInUserConnectionApi(queryOptions);
       return result;
@@ -93,15 +96,27 @@ const LoggedInUserConnections = () => {
           )}
         </>
       ) : (
-        data?.data?.map((connectionItem) => (
-          <AccordionUserConnections
-            data={connectionItem}
-            key={connectionItem?.requestId}
-            openId={openId}
-            setOpenId={setOpenId}
-            handleReviewConnection={handleReviewConnection}
+        <>
+          <div className="h-[70vh] overflow-y-auto ">
+            {data?.data?.map((connectionItem) => (
+              <AccordionUserConnections
+                data={connectionItem}
+                key={connectionItem?.requestId}
+                openId={openId}
+                setOpenId={setOpenId}
+                handleReviewConnection={handleReviewConnection}
+              />
+            ))}
+          </div>
+
+          <Pagination
+            page={page}
+            setPage={setPage}
+            limit={limit}
+            setLimit={setLimit}
+            data={data}
           />
-        ))
+        </>
       )}
     </div>
   );
