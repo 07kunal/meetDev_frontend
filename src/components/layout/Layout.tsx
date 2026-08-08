@@ -45,7 +45,7 @@ const Layout = () => {
       <Navbar />
 
       {/* Body */}
-      <main className="flex-grow p-4 bg-base-100 mt-3">
+      <main className="flex-grow p-4 bg-base-100 mt-15">
         <Outlet /> {/* 👈 Route content renders here */}
       </main>
 

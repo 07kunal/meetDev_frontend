@@ -287,7 +287,7 @@ const ProfileUpdateForm = ({
         )}
 
         {/* Submit Button */}
-        <button type="submit" className="btn btn-primary w-full mt-4">
+        <button type="submit" className="btn btn-secondary w-full mt-4">
           {isPending ? "Loading..." : "Save"}
         </button>
       </form>
