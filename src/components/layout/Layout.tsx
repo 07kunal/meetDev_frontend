@@ -31,6 +31,7 @@ const Layout = () => {
 
   useEffect(() => {
     if (isError) {
+      console.log('test2222222222222222222');
       const axiosError = error as any;
       if (axiosError?.response?.status === 401) {
         dispatch(clearUser());
