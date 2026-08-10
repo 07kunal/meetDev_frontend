@@ -21,6 +21,8 @@ import type {
 } from "@/components/utils/type/commonType";
 import { AxiosError } from "axios";
 import Pagination from "@/components/Pagination/Pagination";
+import { useTokenExpiredMethod } from "@/components/utils/customHooks/useTokenExpiredMethod";
+
 
 const UserIncommimgPendingRequest = () => {
   const [openId, setOpenId] = useState<string | null>(null);
@@ -29,6 +31,7 @@ const UserIncommimgPendingRequest = () => {
   const [limit, setLimit] = useState<number>(10); // user‑selected limit
   const dispatch = useAppDispatch();
   const queryClient = useQueryClient();
+  const tokenExpiredMethod = useTokenExpiredMethod();
 
   const { data, isError, error } = useQuery<userPendingRequest>({
     queryKey: ["usesPendingRequest", page, limit],
@@ -36,6 +39,7 @@ const UserIncommimgPendingRequest = () => {
       const result = await fetchMyIncommingPendingRequestApi({ page, limit });
       return result;
     },
+    retry: false,
     placeholderData: keepPreviousData,
   });
 
@@ -47,9 +51,11 @@ const UserIncommimgPendingRequest = () => {
 
   useEffect(() => {
     if (isError) {
-      const axiosError = error as any;
-      if (axiosError?.response?.status === 401) {
-        console.log("error");
+      const axiosError = error as AxiosError<ErrorResponse>;
+      console.log('testeee',axiosError?.response?.data);
+      if (axiosError?.response?.data?.status === 401) {
+        console.log('TEST-1');
+        tokenExpiredMethod();
       }
     }
   }, [error]);
@@ -65,6 +71,7 @@ const UserIncommimgPendingRequest = () => {
       queryClient.refetchQueries({ queryKey: ["usesPendingRequest"] });
     },
     onError: (error: AxiosError<ErrorResponse>) => {
+      console.log('errorResponse',error);
       setErrorMessage(
         error?.response?.data?.message ?? "An unexpected error occurred",
       );

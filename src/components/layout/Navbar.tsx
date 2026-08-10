@@ -1,19 +1,15 @@
 import { type logOutResponse, type UserProfile } from "../utils/type/user";
-import { useAppDispatch, useAppSelector } from "../utils/customHooks/reduxHook";
+import { useAppSelector } from "../utils/customHooks/reduxHook";
 import { handleLogout } from "@/apis/logOutApi";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { useMutation} from "@tanstack/react-query";
 import { AxiosError } from "axios";
 import { useNavigate } from "react-router-dom";
-import { clearUser } from "../utils/slices/userSliceReducer";
-import { clearUserFeeds } from "../utils/slices/userFeedSliceReducer";
-import { clearUserPendingReques } from "../utils/slices/userPendingRequestSlice";
-import { clearUserConnections } from "../utils/slices/loggedInUserConnectionSlice";
+import { useTokenExpiredMethod } from "../utils/customHooks/useTokenExpiredMethod";
 
 const Navbar = () => {
   const userData: UserProfile = useAppSelector((state) => state?.user);
   const navigate = useNavigate();
-  const dispatch = useAppDispatch();
-  const queryClient = useQueryClient();
+  const tokenExpiredMethod = useTokenExpiredMethod();
 
   // ref for the dropdown trigger
 
@@ -21,14 +17,7 @@ const Navbar = () => {
     mutationFn: handleLogout,
     onSuccess: (data) => {
       if (data.data.logOutStatus) {
-        dispatch(clearUser());
-        dispatch(clearUserFeeds());
-        dispatch(clearUserPendingReques());
-        dispatch(clearUserConnections());
-        queryClient.removeQueries({
-          queryKey: ["Profile", "usesPendingRequest", "userConnections"],
-        });
-        navigate("/");
+        tokenExpiredMethod();
       }
     },
     onError: (error: AxiosError) => {

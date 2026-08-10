@@ -69,7 +69,7 @@ const LoginForm = () => {
   console.log("loginForm", loginCredential);
   return (
     <>
-      <div className="min-h-screen flex items-center justify-center bg-base-200">
+      <div className="min-h-screen flex items-center justify-center bg-base-200 p-4">
         <div className="card w-full max-w-sm shadow-2xl bg-base-100">
           <div className="card-body">
             {errorMessage && (

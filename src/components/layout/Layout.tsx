@@ -8,13 +8,14 @@ import type { UserProfile } from "../utils/type/user";
 import { useEffect } from "react";
 import getIsFetchApiCall from "../common/getIsFetchApiCall";
 import { useNavigate } from "react-router-dom";
-import Cookies from "js-cookie";
 import fetchLoggedInUserProfileApi from "@/apis/fetchLoggedInUserProfileApi";
+import { useTokenExpiredMethod } from "../utils/customHooks/useTokenExpiredMethod";
 
 const Layout = () => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const shouldFetchProfile = getIsFetchApiCall();
+  const tokenExpiredMethod = useTokenExpiredMethod();
 
   const { data, isError, error } = useQuery<UserProfile>({
     queryKey: ["Profile"],
@@ -31,12 +32,10 @@ const Layout = () => {
 
   useEffect(() => {
     if (isError) {
-      console.log('test2222222222222222222');
+      console.log("test2222222222222222222");
       const axiosError = error as any;
       if (axiosError?.response?.status === 401) {
-        dispatch(clearUser());
-        Cookies.remove("token");
-        navigate("/login");
+        tokenExpiredMethod();
       }
     }
   }, [isError, error, dispatch, navigate]);
@@ -46,7 +45,7 @@ const Layout = () => {
       <Navbar />
 
       {/* Body */}
-      <main className="flex-grow p-4 bg-base-100 mt-15">
+      <main className="flex-grow  bg-base-100 mt-15">
         <Outlet /> {/* 👈 Route content renders here */}
       </main>
 
