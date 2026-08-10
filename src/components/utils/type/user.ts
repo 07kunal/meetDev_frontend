@@ -43,6 +43,7 @@ export interface logOutResponse {
 export interface UserProfile {
   data: User;
   status: boolean;
+  authChecked?: boolean;
 }
 export interface UserSignUp {
   data: SignUpData;

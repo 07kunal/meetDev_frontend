@@ -54,7 +54,6 @@ const UserIncommimgPendingRequest = () => {
       const axiosError = error as AxiosError<ErrorResponse>;
       console.log('testeee',axiosError?.response?.data);
       if (axiosError?.response?.data?.status === 401) {
-        console.log('TEST-1');
         tokenExpiredMethod();
       }
     }

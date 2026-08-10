@@ -17,9 +17,9 @@ export const useTokenExpiredMethod = (): TokenExpiredHandler => {
     dispatch(clearUserFeeds());
     dispatch(clearUserPendingReques());
     dispatch(clearUserConnections());
-    queryClient.removeQueries({
-      queryKey: ["Profile", "usesPendingRequest", "userConnections"],
-    });
+    queryClient.removeQueries({ queryKey: ["Profile"], exact: true });
+    queryClient.removeQueries({ queryKey: ["usesPendingRequest"], exact: false });
+    queryClient.removeQueries({ queryKey: ["usesConnections"], exact: false });
     Cookies.remove("token");
     navigate("/login");
   };

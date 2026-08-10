@@ -4,7 +4,7 @@ import { useAppDispatch } from "@/components/utils/customHooks/reduxHook";
 import type { loggedInUserConnectionDataType } from "@/components/utils/type/userConnection";
 import { useEffect, useState } from "react";
 import type { params } from "@/components/utils/type/commonType";
-import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient,  keepPreviousData, } from "@tanstack/react-query";
 import { setUserConnections } from "@/components/utils/slices/loggedInUserConnectionSlice";
 import type { connectionRequestProps } from "@/components/utils/type/commonType";
 import type { ErrorResponse } from "@/components/utils/type/commonType";
@@ -13,6 +13,7 @@ import toast from "react-hot-toast";
 import { reviewingPendingRequestApi } from "@/apis/userConnection/reviewingPendingRequestApi";
 import type { reviewUserConnectionRequestType } from "@/components/utils/type/userConnection";
 import Pagination from "@/components/Pagination/Pagination";
+import { useTokenExpiredMethod } from "@/components/utils/customHooks/useTokenExpiredMethod";
 
 const LoggedInUserConnections = () => {
   const [openId, setOpenId] = useState<string | null>(null);
@@ -21,6 +22,7 @@ const LoggedInUserConnections = () => {
   const [limit, setLimit] = useState<number>(10);
   const dispatch = useAppDispatch();
   const queryClient = useQueryClient();
+  const tokenExpiredMethod = useTokenExpiredMethod();
   const queryOptions: params = {
     page,
     limit,
@@ -31,6 +33,8 @@ const LoggedInUserConnections = () => {
       const result = await fetchLoggedInUserConnectionApi(queryOptions);
       return result;
     },
+     retry: false,
+    placeholderData: keepPreviousData,
   });
   useEffect(() => {
     if (data) {
@@ -39,9 +43,10 @@ const LoggedInUserConnections = () => {
   }, [data]);
   useEffect(() => {
     if (isError) {
-      const axiosError = error as any;
-      if (axiosError?.response?.status === 401) {
-        console.log("error");
+      const axiosError = error as AxiosError<ErrorResponse>;
+      console.log('testeee',axiosError?.response?.data);
+      if (axiosError?.response?.data?.status === 401) {
+        tokenExpiredMethod();
       }
     }
   }, [error]);
