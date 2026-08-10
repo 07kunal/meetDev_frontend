@@ -3,7 +3,7 @@ import axios from "axios";
 
 const fetchLoggedInUserProfileApi = async (): Promise<UserProfile> => {
   try {
-    let URL: string = `${import.meta.env.VITE_BASE_URL}/profile`;
+    let URL: string = `${import.meta.env.VITE_BASE_URL}/authMyProfile`;
     const response = await axios.get<UserProfile>(URL, {
       headers: {
         "Content-Type": "application/json",
