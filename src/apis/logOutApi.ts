@@ -15,8 +15,6 @@ export const handleLogout = async (): Promise<logOutResponse> => {
       },
     );
     if (response) {
-      // remove the cookie once logout
-      // document.cookie = "token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
       return response.data;
     }
     throw new Error("something went wrong");

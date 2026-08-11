@@ -1,26 +1,32 @@
 import { useForm } from "react-hook-form";
 import type { SubmitHandler } from "react-hook-form";
-import type { UserProfile } from "../utils/type/user";
-import { useEffect } from "react";
-interface SignupFormProps {
-  defaultValues?: Partial<UserProfile>;
-  onSubmit: SubmitHandler<UserProfile>;
+import type { UserSignUp } from "../utils/type/user";
+
+interface ProfileUpdateFormProps {
+  onSubmit: SubmitHandler<UserSignUp>;
+  mode: string;
+  isPending: boolean;
+  errorMessage: string | null;
 }
-const SignUpForm = ({ defaultValues = {}, onSubmit }: SignupFormProps) => {
+
+const SignUpForm = ({
+  onSubmit,
+  mode,
+  isPending,
+  errorMessage,
+}: ProfileUpdateFormProps) => {
+  // 2. Pass cloned values to initialization. RHF keeps track of changes locally.
   const {
     register,
     handleSubmit,
-    reset,
-    watch,
+    getValues,
     formState: { errors },
-  } = useForm<UserProfile>({ defaultValues });
-  useEffect(() => {
-    reset(defaultValues);
-  }, [defaultValues, reset]);
-  const selectedSkills: string[] = watch("data.skills", []);
-  console.log("Test1112222");
+  } = useForm<UserSignUp>();
+
+  const currentFormValues = getValues();
   return (
     <div>
+      {errorMessage && <p className="text-error text-sm">{errorMessage}</p>}
       <form
         onSubmit={handleSubmit(onSubmit)}
         className="flex flex-col gap-4 p-6 bg-base-200 rounded-lg shadow-md w-96"
@@ -30,16 +36,11 @@ const SignUpForm = ({ defaultValues = {}, onSubmit }: SignupFormProps) => {
           <span className="label-text">First Name</span>
         </label>
         <input
+          id="firstName"
           {...register("data.firstName", {
             required: "First name is required",
-            minLength: {
-              value: 4,
-              message: "Must be at least 4 characters",
-            },
-            pattern: {
-              value: /^[A-Za-z]+$/,
-              message: "Only letters allowed, no special characters",
-            },
+            minLength: { value: 4, message: "Must be at least 4 characters" },
+            pattern: { value: /^[A-Za-z]+$/, message: "Only letters allowed" },
           })}
           placeholder="First Name"
           className="input input-bordered w-full"
@@ -53,16 +54,11 @@ const SignUpForm = ({ defaultValues = {}, onSubmit }: SignupFormProps) => {
           <span className="label-text">Last Name</span>
         </label>
         <input
+          id="lastName"
           {...register("data.lastName", {
             required: "Last name is required",
-            minLength: {
-              value: 4,
-              message: "Must be at least 4 characters",
-            },
-            pattern: {
-              value: /^[A-Za-z]+$/,
-              message: "Only letters allowed, no special characters",
-            },
+            minLength: { value: 4, message: "Must be at least 4 characters" },
+            pattern: { value: /^[A-Za-z]+$/, message: "Only letters allowed" },
           })}
           placeholder="Last Name"
           className="input input-bordered w-full"
@@ -70,73 +66,88 @@ const SignUpForm = ({ defaultValues = {}, onSubmit }: SignupFormProps) => {
         {errors.data?.lastName && (
           <p className="text-error text-sm">{errors.data?.lastName.message}</p>
         )}
-
-        {/* Skills Multiple Select */}
+        {/* Email*/}
         <label className="label">
-          <span className="label-text">Skills (select multiple)</span>
-        </label>
-        <select
-          {...register("data.skills", {
-            required: "Please select at least one skill",
-          })}
-          multiple
-          className="select select-bordered w-full h-32"
-        >
-          <option value="React">React</option>
-          <option value="TypeScript">TypeScript</option>
-          <option value="Tailwind">Tailwind</option>
-          <option value="DaisyUI">DaisyUI</option>
-          <option value="Node.js">Node.js</option>
-          <option value="Java">Java</option>
-        </select>
-        {errors.data?.skills && (
-          <p className="text-error text-sm">{errors.data?.skills.message}</p>
-        )}
-        {/* Chips for selected skills */}
-        <div className="flex flex-wrap gap-2 mt-2">
-          {selectedSkills &&
-            selectedSkills.map((skill: string) => (
-              <span key={skill} className="badge badge-primary">
-                {skill}
-              </span>
-            ))}
-        </div>
-        {/* Profile Pic */}
-        <label className="label">
-          <span className="label-text">Profile Picture URL</span>
+          <span className="label-text">Email</span>
         </label>
         <input
-          {...register("data.profilePic", {
-            required: "Profile picture URL is required",
+          id="emailId"
+          type="email"
+          {...register("data.emailId", {
+            required: "Email is required",
+            pattern: {
+              value: /^[^@\s]+@[^@\s]+\.[^@\s]+$/,
+              message: "Invalid email format",
+            },
           })}
-          placeholder="Profile Pic URL"
+          placeholder="Email"
           className="input input-bordered w-full"
         />
-        {errors.data?.profilePic && (
-          <p className="text-error text-sm">
-            {errors.data?.profilePic.message}
-          </p>
+        {errors.data?.emailId && (
+          <p className="text-error text-sm">{errors.data?.emailId.message}</p>
         )}
 
-        {/* Gender Dropdown */}
-        <label className="label">
-          <span className="label-text">Gender</span>
-        </label>
-        <select
-          {...register("data.gender", { required: "Please select gender" })}
-          className="select select-bordered w-full"
-        >
-          <option value="">Select gender</option>
-          <option value="male">Male</option>
-          <option value="female">Female</option>
-        </select>
-        {errors.data?.gender && (
-          <p className="text-error text-sm">{errors.data?.gender.message}</p>
+        {/* Password */}
+        {mode !== "edit-profile" && (
+          <>
+            <label className="label">
+              <span className="label-text">Password</span>
+            </label>
+            <input
+              id="password"
+              type="password"
+              {...register("data.password", {
+                required: "Password is required",
+                minLength: {
+                  value: 8,
+                  message: "Must be at least 8 characters",
+                },
+                pattern: {
+                  value:
+                    /^(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]).+$/,
+                  message:
+                    "Please ensure your password includes at least one lowercase letter (a-z), one uppercase letter (A-Z), one number (0-9), or one special character.",
+                },
+              })}
+              placeholder="Password"
+              className="input input-bordered w-full"
+            />
+            {errors.data?.password && (
+              <p className="text-error text-sm">
+                {errors.data?.password.message}
+              </p>
+            )}
+          </>
+        )}
+        {/* confirm password*/}
+        {mode !== "edit-profile" && (
+          <>
+            <label className="label">
+              <span className="label-text">Confirm Password</span>
+            </label>
+            <input
+              id="confirmPassword"
+              type="password"
+              {...register("data.confirmPassword", {
+                required: "confirm Password is required",
+                validate: (value) =>
+                  value === currentFormValues?.data?.password ||
+                  "Passwords do not match",
+              })}
+              placeholder="Confirm Password"
+              className="input input-bordered w-full"
+            />
+            {errors.data?.confirmPassword && (
+              <p className="text-error text-sm">
+                {errors.data?.confirmPassword.message}
+              </p>
+            )}
+          </>
         )}
 
         {/* Submit Button */}
         <button type="submit" className="btn btn-primary w-full mt-4">
-          Save
+          {isPending ? "Loading..." : "Submit"}
         </button>
       </form>
     </div>

@@ -2,49 +2,49 @@ import { useQuery } from "@tanstack/react-query";
 import Footer from "./Footer";
 import Navbar from "./Navbar";
 import { Outlet } from "react-router-dom";
-import fetchLoggedInUserProfile from "@/apis/fetchLoggedInUserProfile";
-import { clearUser, setUser } from "../utils/slices/userSliceReducer";
-import { useAppDispatch } from "../utils/customHooks/reduxHook";
+import { setAuthChecked, setUser } from "../utils/slices/userSliceReducer";
+import { useAppDispatch, useAppSelector } from "../utils/customHooks/reduxHook";
 import type { UserProfile } from "../utils/type/user";
 import { useEffect } from "react";
-import getIsFetchApiCall from "../common/getIsFetchApiCall";
-import { useNavigate } from "react-router-dom";
-import Cookies from "js-cookie";
+import fetchLoggedInUserProfileApi from "@/apis/fetchLoggedInUserProfileApi";
+import { useTokenExpiredMethod } from "../utils/customHooks/useTokenExpiredMethod";
+
+
 const Layout = () => {
   const dispatch = useAppDispatch();
-  const navigate = useNavigate();
-  const shouldFetchProfile = getIsFetchApiCall();
+  const { authChecked } = useAppSelector((state) => state.user);
+  const tokenExpiredMethod = useTokenExpiredMethod();
 
   const { data, isError, error } = useQuery<UserProfile>({
     queryKey: ["Profile"],
-    queryFn: fetchLoggedInUserProfile,
-    enabled: shouldFetchProfile,
-    retry: false, // Disable retry on error
+    queryFn: fetchLoggedInUserProfileApi,
+    enabled: !authChecked,
+    retry: false
   });
 
   useEffect(() => {
     if (data) {
-      dispatch(setUser(data));
+      dispatch(setUser({ ...data, authChecked: true }));
     }
   }, [data, dispatch]);
 
   useEffect(() => {
-    if (isError) {
+    if (isError && !authChecked) {
+      dispatch(setAuthChecked());
       const axiosError = error as any;
       if (axiosError?.response?.status === 401) {
-        dispatch(clearUser());
-        Cookies.remove("token");
-        navigate("/login");
+        tokenExpiredMethod();
       }
     }
-  }, [isError, error, dispatch, navigate]);
+  }, [isError, error, authChecked, dispatch, tokenExpiredMethod]);
+
   return (
-    <div className="flex flex-col min-h-screen">
+    <div className="flex flex-col min-h-screen relative">
       {/* Header */}
       <Navbar />
 
       {/* Body */}
-      <main className="flex-grow p-4 bg-base-100">
+      <main className="flex-grow  bg-base-100 mt-15">
         <Outlet /> {/* 👈 Route content renders here */}
       </main>
 

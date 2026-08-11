@@ -1,9 +1,9 @@
 import type { UserProfile } from "@/components/utils/type/user";
 import axios from "axios";
 
-const fetchLoggedInUserProfile = async (): Promise<UserProfile> => {
+const fetchLoggedInUserProfileApi = async (): Promise<UserProfile> => {
   try {
-    let URL: string = `${import.meta.env.VITE_BASE_URL}/profile`;
+    let URL: string = `${import.meta.env.VITE_BASE_URL}/authMyProfile`;
     const response = await axios.get<UserProfile>(URL, {
       headers: {
         "Content-Type": "application/json",
@@ -17,4 +17,4 @@ const fetchLoggedInUserProfile = async (): Promise<UserProfile> => {
   }
 };
 
-export default fetchLoggedInUserProfile;
+export default fetchLoggedInUserProfileApi;

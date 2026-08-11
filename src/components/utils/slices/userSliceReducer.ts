@@ -12,8 +12,10 @@ const initialUserData: UserProfile = {
     address: "",
     profilePic: "",
     skills: [],
+    about:""
   },
   status: false,
+  authChecked: false,
 };
 export const userSliceReducer = createSlice({
   name: "userData",
@@ -21,12 +23,24 @@ export const userSliceReducer = createSlice({
   initialState: initialUserData,
   reducers: {
     setUser: (state, action: PayloadAction<UserProfile>) => {
-     return action.payload
+      return {
+        ...action.payload,
+        authChecked: true,
+      };
+    },
+    setAuthChecked: (state) => {
+      return {
+        ...state,
+        authChecked: true,
+      };
     },
     clearUser: () => {
-      return initialUserData;
+      return {
+        ...initialUserData,
+        authChecked: true,
+      };
     },
   },
 });
-export const { setUser, clearUser } = userSliceReducer.actions;
+export const { setUser, clearUser,setAuthChecked } = userSliceReducer.actions;
 export default userSliceReducer.reducer;
