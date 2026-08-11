@@ -90,44 +90,53 @@ const LoggedInUserConnections = () => {
     mutate({ status, connectionRequestId });
   };
   return (
-    <div className="flex justify-center items-center flex-col w-full">
-      <h1 className="text-center text-2xl p-1 mb-1">My connections</h1>
-
-      {(data?.data?.length ?? 0) === 0 || errorMessage ? (
-        <>
-          {errorMessage ? (
-            <h1>Something went wrong</h1>
-          ) : (
-            <h1>No Connections found</h1>
-          )}
-        </>
-      ) : (
-        <>
-        {
-          isLoading && 
-          <SkeletonLoader/>
-        }
-          <div className="h-[70vh] overflow-y-auto ">
-            {data?.data?.map((connectionItem) => (
-              <AccordionUserConnections
-                data={connectionItem}
-                key={connectionItem?.requestId}
-                openId={openId}
-                setOpenId={setOpenId}
-                handleReviewConnection={handleReviewConnection}
-              />
-            ))}
+    <div className="flex justify-center bg-base-200 px-4 py-8 min-h-screen">
+      <div className="w-full max-w-6xl space-y-6">
+        <div className="rounded-3xl bg-base-100 p-6 shadow-lg shadow-base-200/50">
+          <div className="mb-3 text-center">
+            <h1 className="text-3xl font-semibold">My Connections</h1>
+            <p className="mt-2 text-sm text-base-content/70">
+              Review your current accepted connections and manage them from this list.
+            </p>
           </div>
 
-          <Pagination
-            page={page}
-            setPage={setPage}
-            limit={limit}
-            setLimit={setLimit}
-            data={data}
-          />
-        </>
-      )}
+          {errorMessage ? (
+            <div className="rounded-2xl border border-error/20 bg-error/10 p-4 text-sm text-error">
+              {errorMessage}
+            </div>
+          ) : (data?.data?.length ?? 0) === 0 ? (
+            <div className="rounded-2xl border border-base-300 bg-base-200 p-6 text-center text-base-content/70">
+              No connections found.
+            </div>
+          ) : (
+            <>
+              {isLoading && <SkeletonLoader />}
+
+              <div className="space-y-4 h-[70vh] overflow-y-auto pr-2">
+                {data?.data?.map((connectionItem) => (
+                  <AccordionUserConnections
+                    data={connectionItem}
+                    key={connectionItem?.requestId}
+                    openId={openId}
+                    setOpenId={setOpenId}
+                    handleReviewConnection={handleReviewConnection}
+                  />
+                ))}
+              </div>
+
+              <div className="flex align-center justify-center rounded-3xl border border-base-300 bg-base-200 p-4 shadow-sm">
+                <Pagination
+                  page={page}
+                  setPage={setPage}
+                  limit={limit}
+                  setLimit={setLimit}
+                  data={data}
+                />
+              </div>
+            </>
+          )}
+        </div>
+      </div>
     </div>
   );
 };

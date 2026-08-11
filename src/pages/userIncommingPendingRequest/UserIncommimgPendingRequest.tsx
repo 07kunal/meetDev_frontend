@@ -28,7 +28,7 @@ const UserIncommimgPendingRequest = () => {
   const [openId, setOpenId] = useState<string | null>(null);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const [page, setPage] = useState<number>(0);
-  const [limit, setLimit] = useState<number>(10); // user‑selected limit
+  const [limit, setLimit] = useState<number>(5); // user‑selected limit
   const dispatch = useAppDispatch();
   const queryClient = useQueryClient();
   const tokenExpiredMethod = useTokenExpiredMethod();
@@ -84,42 +84,51 @@ const UserIncommimgPendingRequest = () => {
 
 
   return (
-    <div className="flex justify-center items-center flex-col w-full">
-      <h1 className="text-center text-2xl p-1 mb-3">My Pending Requests</h1>
-
-      {(data?.data?.length ?? 0) === 0 || errorMessage ? (
-        <>
-          {errorMessage ? (
-            <h1>Something went wrong</h1>
-          ) : (
-            <h1>No more pending request</h1>
-          )}
-        </>
-      ) : (
-        <>
-          <div className="h-[70vh] overflow-y-auto">
-            {data?.data?.map((connectionItem) => (
-              <AccordionPendingRequest
-                data={connectionItem}
-                key={connectionItem?._id}
-                openId={openId}
-                setOpenId={setOpenId}
-                handleReviewPendingRequest={handleReviewPendingRequest}
-              />
-            ))}
+    <div className="flex justify-center bg-base-200 px-4 py-8 min-h-screen">
+      <div className="w-full max-w-6xl space-y-6">
+        <div className="rounded-3xl bg-base-100 p-6 shadow-lg shadow-base-200/50">
+          <div className="mb-3 text-center">
+            <h1 className="text-3xl font-semibold">My Pending Requests</h1>
+            <p className="mt-2 text-sm text-base-content/70">
+              Review incoming connection requests and accept or reject them from your inbox.
+            </p>
           </div>
 
-          {/* Pagination controls */}
-          <Pagination 
-           page={page}
-           setPage={setPage}
-           limit={limit}
-           setLimit={setLimit}
-           data={data}
-          />
-        
-        </>
-      )}
+          {errorMessage ? (
+            <div className="rounded-2xl border border-error/20 bg-error/10 p-4 text-sm text-error">
+              {errorMessage}
+            </div>
+          ) : (data?.data?.length ?? 0) === 0 ? (
+            <div className="rounded-2xl border border-base-300 bg-base-200 p-6 text-center text-base-content/70">
+              No more pending requests.
+            </div>
+          ) : (
+            <div className="space-y-4">
+              <div className="h-[70vh] overflow-y-auto pr-2">
+                {data?.data?.map((connectionItem) => (
+                  <AccordionPendingRequest
+                    data={connectionItem}
+                    key={connectionItem?._id}
+                    openId={openId}
+                    setOpenId={setOpenId}
+                    handleReviewPendingRequest={handleReviewPendingRequest}
+                  />
+                ))}
+              </div>
+
+              <div className=" flex align-center justify-center rounded-3xl border border-base-300 bg-base-200 p-4 shadow-sm">
+                <Pagination
+                  page={page}
+                  setPage={setPage}
+                  limit={limit}
+                  setLimit={setLimit}
+                  data={data}
+                />
+              </div>
+            </div>
+          )}
+        </div>
+      </div>
     </div>
   );
 };

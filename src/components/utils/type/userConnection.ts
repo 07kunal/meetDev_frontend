@@ -14,6 +14,7 @@ export interface myIncommingPendingRequest {
     skills: string[];
     fullName: string;
     education: string[];
+    about?:string
   };
   toUserId: string;
   status: string;
@@ -42,6 +43,7 @@ export interface loggedInUserConnectionType {
     skills: string[];
     fullName: string;
     id?: string;
+    about:string
   };
 }
 export interface loggedInUserConnectionDataType {
@@ -59,14 +61,3 @@ export interface reviewUserConnectionRequestType {
   status: string;
 };
 
-// export interface connectionResponse {
-//   message: string;
-//   data: {
-//     fromUserId: string;
-//     toUserId: string;
-//     status: string;
-//     _id: string;
-//     createdAt: string;
-//     updatedAt: string;
-//   };
-// }

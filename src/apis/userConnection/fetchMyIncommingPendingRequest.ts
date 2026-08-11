@@ -12,7 +12,7 @@ export const fetchMyIncommingPendingRequestApi = async (
       },
       withCredentials: true,
       params: {
-        page: paramsArgument.page, // Automatically builds: ?page=X
+        page: (paramsArgument.page +1), // Automatically builds: ?page=X
         limit: paramsArgument.limit, // Automatically builds: &limit=Y
       },
     });

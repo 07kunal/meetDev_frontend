@@ -50,10 +50,10 @@ const Pagination = ({
   };
 
   return (
-    <div className="mt-4 flex flex-wrap items-center justify-between gap-4 w-full max-w-4xl">
+    <div className="flex flex-wrap items-center justify-between gap-4 w-full max-w-4xl">
       <div className="btn-group flex-wrap justify-center gap-1">
         <button
-          className="btn btn-sm"
+          className="btn btn-sm mr-2"
           disabled={page === 0}
           onClick={() => setPage((prev) => Math.max(prev - 1, 0))}
         >
@@ -71,7 +71,10 @@ const Pagination = ({
           ) : (
             <button
               key={item}
-              className={`btn btn-sm ${page === item - 1 ? "btn-active" : ""}`}
+              className={`btn btn-sm ${
+                page === item - 1 ? "btn-secondary btn-active text-white" : "btn-ghost"
+              }`}
+              aria-current={page === item - 1 ? "page" : undefined}
               onClick={() => setPage(item - 1)}
             >
               {item}
@@ -80,7 +83,7 @@ const Pagination = ({
         )}
 
         <button
-          className="btn btn-sm"
+          className="btn btn-sm ml-2"
           disabled={page >= totalPages - 1}
           onClick={() => setPage((prev) => Math.min(prev + 1, totalPages - 1))}
         >
@@ -98,6 +101,7 @@ const Pagination = ({
             setPage(0);
           }}
         >
+          <option value={5}>5</option>
           <option value={10}>10</option>
           <option value={25}>25</option>
           <option value={50}>50</option>

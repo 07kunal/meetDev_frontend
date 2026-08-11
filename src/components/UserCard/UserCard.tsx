@@ -37,7 +37,7 @@ const UserCard = (props: propsType) => {
         </div>
       )}
 
-      <div className="card card-side bg-base-200 shadow-xlw-full max-w-[600px] overflow-hidden min-h-[420px]">
+      <div className="card card-side bg-base-200 shadow-xlw-full w-[600px] overflow-hidden min-h-[420px]">
         <div className="w-40 min-w-[160px] md:w-48 md:min-w-[180px] bg-base-300 min-h-[420px]">
           <figure className="h-full w-full">
             <img
