@@ -1,12 +1,17 @@
 import { configureStore } from "@reduxjs/toolkit";
 import userReducer from "../slices/userSliceReducer";
-import userFeedReducer from '../slices/userFeedSliceReducer';
+import userFeedReducer from "../slices/userFeedSliceReducer";
+import userPendingRequestSliceReducer from "../slices/userPendingRequestSlice";
+import loggedInUserConnectionSliceReducer from "../slices/loggedInUserConnectionSlice";
+
 const AppStore = configureStore({
   reducer: {
     user: userReducer,
-    userFeed: userFeedReducer
+    userFeed: userFeedReducer,
+    userPendingRequest: userPendingRequestSliceReducer,
+    userConnections: loggedInUserConnectionSliceReducer,
   },
-   devTools: true,
+  devTools: true,
 });
 
 // Infer the `RootState` and `AppDispatch` types from the store itself

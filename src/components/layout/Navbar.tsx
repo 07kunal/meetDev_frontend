@@ -1,17 +1,15 @@
 import { type logOutResponse, type UserProfile } from "../utils/type/user";
-import { useAppDispatch, useAppSelector } from "../utils/customHooks/reduxHook";
+import { useAppSelector } from "../utils/customHooks/reduxHook";
 import { handleLogout } from "@/apis/logOutApi";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { useMutation} from "@tanstack/react-query";
 import { AxiosError } from "axios";
 import { useNavigate } from "react-router-dom";
-import { clearUser } from "../utils/slices/userSliceReducer";
-import { clearUserFeeds } from "../utils/slices/userFeedSliceReducer";
+import { useTokenExpiredMethod } from "../utils/customHooks/useTokenExpiredMethod";
 
 const Navbar = () => {
   const userData: UserProfile = useAppSelector((state) => state?.user);
   const navigate = useNavigate();
-  const dispatch = useAppDispatch();
-  const queryClient = useQueryClient();
+  const tokenExpiredMethod = useTokenExpiredMethod();
 
   // ref for the dropdown trigger
 
@@ -19,13 +17,7 @@ const Navbar = () => {
     mutationFn: handleLogout,
     onSuccess: (data) => {
       if (data.data.logOutStatus) {
-        dispatch(clearUser());
-        dispatch(clearUserFeeds());
-
-        queryClient.removeQueries({
-          queryKey: ["Profile"],
-        });
-        navigate("/");
+        tokenExpiredMethod();
       }
     },
     onError: (error: AxiosError) => {
@@ -42,7 +34,7 @@ const Navbar = () => {
     }
   };
   return (
-    <div className="navbar bg-base-100 shadow-sm">
+    <div className=" fixed navbar bg-base-100 shadow-sm z-10">
       <div className="flex-1">
         <button className="btn btn-ghost text-xl" onClick={() => navigate("/")}>
           DevMeet
@@ -69,12 +61,31 @@ const Navbar = () => {
             tabIndex={-1}
             className="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow"
           >
-            <li>
-              <button onClick={() => navigate("/profile")}>Profile</button>
-            </li>
-             <li>
-              <button onClick={() => navigate("/feeds")}>User Feeds</button>
-            </li>
+            {userData?.status && (
+              <>
+                <li>
+                  <button onClick={() => navigate("/profile")}>Profile</button>
+                </li>
+                <li>
+                  <button onClick={() => navigate("/reset_password")}>
+                    Reset password
+                  </button>
+                </li>
+                <li>
+                  <button onClick={() => navigate("/feeds")}>User Feeds</button>
+                </li>
+                <li>
+                  <button onClick={() => navigate("/pending-request")}>
+                    My request
+                  </button>
+                </li>
+                <li>
+                  <button onClick={() => navigate("/user-connections")}>
+                    My Connections
+                  </button>
+                </li>
+              </>
+            )}
             <li>
               <button onClick={handleCredentialClick} disabled={isPending}>
                 {userData?.status ? "Logout" : "Login"}

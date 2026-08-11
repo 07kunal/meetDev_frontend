@@ -1,32 +1,30 @@
 import { createSlice } from "@reduxjs/toolkit";
-import type { Collection, userFeeds } from "../type/usersFeeds";
+import type { userFeedData } from "../type/usersFeeds";
 import type { PayloadAction } from "@reduxjs/toolkit";
 
-const initialData: Collection<userFeeds> = [
-  {
-    firstName: "",
-    lastName: "",
-    fullName: "",
-    gender: "",
-    age: null,
-    education: [],
-    profilePic: "",
-    skills: [],
-  },
-];
+const initialData: userFeedData = {
+  message: "",
+  data: [],
+};
 
 export const userFeedSliceReducer = createSlice({
   name: "User Feed",
   initialState: initialData,
   reducers: {
-    setUserFeeds: (state, action: PayloadAction<Collection<userFeeds>>) => {
+    setUserFeeds: (state, action: PayloadAction<userFeedData>) => {
       return action.payload;
     },
     clearUserFeeds: () => {
       return initialData;
     },
+    removeUserFromFeed: (
+      state,
+      action: PayloadAction<string>, // <-- userId
+    ) => {
+      state.data = state.data.filter((user) => user.id !== action.payload);
+    },
   },
 });
 
-export const { setUserFeeds, clearUserFeeds } = userFeedSliceReducer.actions;
+export const { setUserFeeds, clearUserFeeds,removeUserFromFeed } = userFeedSliceReducer.actions;
 export default userFeedSliceReducer.reducer;

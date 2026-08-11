@@ -5,11 +5,17 @@ export type Collection<T extends object> = T[];
 export interface userFeeds {
   firstName: string;
   lastName: string;
-  fullName: string;
   gender: string;
   age: number | null;
+  address: string;
   education: string[];
   profilePic: string;
   skills: string[];
-  _id?: string;
+  id?: string;
+  about?:string
+}
+
+export interface userFeedData {
+  message: string;
+  data: Collection<userFeeds>;
 }
