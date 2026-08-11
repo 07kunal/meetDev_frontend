@@ -106,7 +106,7 @@ function PasswordResetForm({ onSubmit, errorMessage,isPending }: ResetUpdateForm
           )}
         </div>
 
-        <button type="submit" className="btn btn-primary w-full py-3">
+        <button type="submit" className="btn btn-secondary w-full py-3">
           {isPending ? "Loading..." : "Submit"}
         </button>
       </form>
