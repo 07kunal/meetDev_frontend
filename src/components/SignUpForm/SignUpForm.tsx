@@ -21,9 +21,12 @@ const SignUpForm = ({
     handleSubmit,
     getValues,
     formState: { errors },
-  } = useForm<UserSignUp>();
-
-  const currentFormValues = getValues();
+  } = useForm<UserProfile>({ defaultValues });
+  useEffect(() => {
+    reset(defaultValues);
+  }, [defaultValues, reset]);
+  const selectedSkills: string[] = watch("data.skills", []);
+  console.log("Test1112222");
   return (
     <div>
       {errorMessage && <p className="text-error text-sm">{errorMessage}</p>}
