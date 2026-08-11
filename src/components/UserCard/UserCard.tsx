@@ -70,9 +70,9 @@ const UserCard = (props: propsType) => {
                 <div className="font-semibold text-center ">Age</div>
                 <div className=" text-center ">{userCardData?.age ?? "-"}</div>
               </div>
-              <div className="sm:col-span-2">
+              <div className="sm:col-span-2 mt-1">
                 <div className="font-semibold">Address</div>
-                <div className="max-h-20 overflow-auto whitespace-normal break-words">
+                <div className="max-h-20 overflow-auto whitespace-normal break-words mt-1">
                   {userCardData?.address || "-"}
                 </div>
               </div>

@@ -13,83 +13,104 @@ function PasswordResetForm({ onSubmit, errorMessage,isPending }: ResetUpdateForm
     handleSubmit,
     getValues,
     formState: { errors },
-  } = useForm<ResetPassword>();
+  } = useForm<ResetPassword>({
+    mode: "onChange"
+  });
   const currentFormValues = getValues();
  
   return (
-    <>
-      {errorMessage && <p className="text-error text-sm">{errorMessage}</p>}
+    <div className="w-full max-w-md">
+      {errorMessage && (
+        <div className="mb-4 rounded-lg border border-error/20 bg-error/10 px-4 py-3 text-sm text-error">
+          {errorMessage}
+        </div>
+      )}
       <form
         onSubmit={handleSubmit(onSubmit)}
-        className="flex flex-col gap-4 p-6 bg-base-200 rounded-lg shadow-md w-96"
+        className="flex flex-col gap-5 rounded-3xl bg-base-200 p-6 shadow-lg shadow-base-200/50"
       >
-      <h1 className="font-bold text-xl">New Password</h1>
+        <div>
+          <h2 className="text-2xl font-semibold">Change your password</h2>
+          <p className="mt-2 text-sm text-base-content/70">
+            Keep your account secure by using a strong password that includes uppercase, numbers, and symbols.
+          </p>
+        </div>
 
-        {/* Old password */}
-        <label className="label">
-          <span className="label-test">Old Password</span>
-        </label>
-        <input
-          id="oldPassword"
-          type="password"
-          placeholder="Old Password"
-          className="input input-bordered w-full"
-          {...register("oldPassword", {
-            required: "Old password is required",
-            minLength: { value: 8, message: "Must be at least 8 character" },
-          })}
-        />
-        {errors.oldPassword && (
-          <p className="text-error text-sm">{errors.oldPassword.message}</p>
-        )}
-        {/* New password */}
+        <div className="space-y-2">
+          <label className="label">
+            <span className="label-text">Old Password</span>
+          </label>
+          <input
+            id="oldPassword"
+            type="password"
+            placeholder="Old Password"
+            autoComplete="current-password"
+            className="input input-bordered w-full"
+            {...register("oldPassword", {
+              required: "Old password is required",
+              minLength: { value: 8, message: "Must be at least 8 characters" },
+            })}
+          />
+          {errors.oldPassword && (
+            <p className="text-error text-sm">{errors.oldPassword.message}</p>
+          )}
+        </div>
 
-        <label className="label">
-          <span className="label-test">New Password</span>
-        </label>
-        <input
-          id="newPassword"
-          type="password"
-          placeholder="New Password"
-          className="input input-bordered w-full"
-          {...register("newPassword", {
-            required: "New password is required",
-            minLength: { value: 8, message: "Must be at least 8 character" },
-            pattern: {
-              value:
-                /^(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]).+$/,
-              message:
-                "Please ensure your password includes at least one lowercase letter (a-z), one uppercase letter (A-Z), one number (0-9), or one special character.",
-            },
-          })}
-        />
-        {errors.newPassword && (
-          <p className="text-error text-sm">{errors.newPassword.message}</p>
-        )}
-        {/* Confirm password */}
+        <div className="space-y-2">
+          <label className="label">
+            <span className="label-text">New Password</span>
+          </label>
+          <input
+            id="newPassword"
+            type="password"
+            placeholder="New Password"
+            autoComplete="new-password"
+            className="input input-bordered w-full"
+            {...register("newPassword", {
+              required: "New password is required",
+              minLength: { value: 8, message: "Must be at least 8 characters" },
+              pattern: {
+                value:
+                  /^(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]).+$/,
+                message:
+                  "Password must contain uppercase, a number, and a special character.",
+              },
+            })}
+          />
+          <p className="text-xs text-base-content/60">
+            Use at least 8 characters and include uppercase, numbers, and symbols.
+          </p>
+          {errors.newPassword && (
+            <p className="text-error text-sm">{errors.newPassword.message}</p>
+          )}
+        </div>
 
-        <label className="label">
-          <span className="label-text">Confirm Password</span>
-        </label>
-        <input
-          id="confirmPassword"
-          type="password"
-          {...register("confirmPassword", {
-            required: "Confirm Password is required",
-            validate: (value) =>
-              value === currentFormValues?.newPassword || "Passwords do not match",
-          })}
-          placeholder="Confirm Password"
-          className="input input-bordered w-full"
-        />
-        {errors.confirmPassword && (
-          <p className="text-error text-sm">{errors.confirmPassword.message}</p>
-        )}
-            <button type="submit" className="btn btn-primary w-full mt-4">
+        <div className="space-y-2">
+          <label className="label">
+            <span className="label-text">Confirm Password</span>
+          </label>
+          <input
+            id="confirmPassword"
+            type="password"
+            autoComplete="new-password"
+            {...register("confirmPassword", {
+              required: "Confirm Password is required",
+              validate: (value) =>
+                value === currentFormValues?.newPassword || "Passwords do not match",
+            })}
+            placeholder="Confirm Password"
+            className="input input-bordered w-full"
+          />
+          {errors.confirmPassword && (
+            <p className="text-error text-sm">{errors.confirmPassword.message}</p>
+          )}
+        </div>
+
+        <button type="submit" className="btn btn-primary w-full py-3">
           {isPending ? "Loading..." : "Submit"}
         </button>
       </form>
-    </>
+    </div>
   );
 }
 

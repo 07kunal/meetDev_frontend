@@ -59,12 +59,21 @@ const ResetPasswordPage: React.FC = () => {
     mutate(data);
   };
   return (
-    <div className="flex items-center justify-center h-screen bg-base-200">
-      <PasswordResetForm
-        onSubmit={handleResetPassword}
-        errorMessage={errorMessage}
-        isPending={isPending}
-      />
+    <div className="flex min-h-screen items-center justify-center bg-base-200 px-4 py-8">
+      <div className="w-full max-w-lg rounded-3xl border border-base-300 bg-base-100 p-8 shadow-xl shadow-base-200/80">
+        <div className="mb-6 text-center">
+          <h1 className="text-3xl font-bold">Reset Password</h1>
+          <p className="mt-2 text-sm text-base-content/70">
+            Enter your current password and choose a strong new password to update your account.
+          </p>
+        </div>
+
+        <PasswordResetForm
+          onSubmit={handleResetPassword}
+          errorMessage={errorMessage}
+          isPending={isPending}
+        />
+      </div>
     </div>
   );
 };

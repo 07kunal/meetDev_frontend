@@ -38,6 +38,7 @@ const ProfileUpdateForm = ({
     formState: { errors },
   } = useForm<UserProfile>({
     defaultValues: cleanDefaultValues,
+     mode: "onChange"
   });
   const currentFormValues = getValues();
 
