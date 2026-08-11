@@ -37,7 +37,7 @@ const UserCard = (props: propsType) => {
         </div>
       )}
 
-      <div className="card card-side bg-base-200 shadow-xl w-full max-w-[600px] overflow-hidden min-h-[420px]">
+      <div className="card card-side bg-base-200 shadow-xlw-full max-w-[600px] overflow-hidden min-h-[420px]">
         <div className="w-40 min-w-[160px] md:w-48 md:min-w-[180px] bg-base-300 min-h-[420px]">
           <figure className="h-full w-full">
             <img
@@ -48,8 +48,8 @@ const UserCard = (props: propsType) => {
           </figure>
         </div>
 
-        <div className="card-body px-5 py-4 min-h-[420px]">
-          <div className="flex flex-col gap-2">
+        <div className="card-body px-5 py-4 min-h-[420px] flex flex-col">
+          <div className="flex flex-col gap-2 flex-1">
             <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-2">
               <h2 className="card-title text-lg md:text-xl">
                 {userCardData?.firstName} {userCardData?.lastName}
@@ -109,34 +109,34 @@ const UserCard = (props: propsType) => {
                 </div>
               </div>
             </div>
-
-            {action === "feeds" && (
-              <div className="card-actions justify-end flex-wrap gap-3 pt-2">
-                <button
-                  className="btn btn-primary"
-                  onClick={() =>
-                    (props as FeedsProps).handleConnectionRequest({
-                      status: "ignored",
-                      connectionRequestId: userCardData?.id ?? "",
-                    })
-                  }
-                >
-                  Ignore
-                </button>
-                <button
-                  className="btn btn-secondary"
-                  onClick={() =>
-                    (props as FeedsProps).handleConnectionRequest({
-                      status: "interested",
-                      connectionRequestId: userCardData?.id ?? "",
-                    })
-                  }
-                >
-                  Interested
-                </button>
-              </div>
-            )}
           </div>
+
+          {action === "feeds" && (
+            <div className="card-actions justify-end flex-wrap gap-3 pt-2">
+              <button
+                className="btn btn-primary"
+                onClick={() =>
+                  (props as FeedsProps).handleConnectionRequest({
+                    status: "ignored",
+                    connectionRequestId: userCardData?.id ?? "",
+                  })
+                }
+              >
+                Ignore
+              </button>
+              <button
+                className="btn btn-secondary"
+                onClick={() =>
+                  (props as FeedsProps).handleConnectionRequest({
+                    status: "interested",
+                    connectionRequestId: userCardData?.id ?? "",
+                  })
+                }
+              >
+                Interested
+              </button>
+            </div>
+          )}
         </div>
       </div>
     </div>

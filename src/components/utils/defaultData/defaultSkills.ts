@@ -18,5 +18,4 @@ export const defaultSkills: Skill[] = [
   { name: "Software Engineering & Design Patterns" },
   { name: "Cloud Computing (AWS/Azure/GCP)" },
   { name: "Programming Languages (C++, Java, Python)" },
-  { name: "Software Engineering & Design Patterns" },
 ];
