@@ -12,6 +12,7 @@ const initialUserData: UserProfile = {
     address: "",
     profilePic: "",
     skills: [],
+    about:""
   },
   status: false,
   authChecked: false,

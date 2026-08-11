@@ -10,7 +10,7 @@ import type { ErrorResponse } from "@/components/utils/type/commonType";
 
 const LoginForm = () => {
   const [loginCredential, setLoginCredential] = useState<LoginBody>({
-    emailId: "ayj104@gmail.com",
+    emailId: "rajkumar102@gmail.com",
     password: "testA@321",
   });
   const [errorMessage, setErrorMessage] = useState<string | null>();
@@ -20,7 +20,6 @@ const LoginForm = () => {
 
   const handleLoginCredential = (e: React.ChangeEvent<HTMLInputElement>) => {
     e.preventDefault();
-    console.log("etarget", e);
     setLoginCredential((prev) => ({
       ...prev,
       [e.target.name]: e.target.value,
@@ -66,7 +65,6 @@ const LoginForm = () => {
 
     mutate(loginCredential);
   };
-  console.log("loginForm", loginCredential);
   return (
     <>
       <div className="min-h-screen flex items-center justify-center bg-base-200 p-4">

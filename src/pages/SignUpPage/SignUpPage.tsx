@@ -27,12 +27,13 @@ const SignUpPage: React.FC = () => {
     },
 
     onError: (error) => {
-      if (error?.response?.data?.message) {
-        setErrorMessage(error.response.data.message);
+      const axiosError = error as AxiosError<ErrorResponse>;
+      if (axiosError?.response?.data?.message) {
+        setErrorMessage(axiosError.response.data.message);
       } else {
         setErrorMessage(null);
       }
-    }
+    },
   });
   const handleSignup = (data: UserSignUp) => {
     mutate(data);

@@ -12,6 +12,7 @@ export interface userFeeds {
   profilePic: string;
   skills: string[];
   id?: string;
+  about?:string
 }
 
 export interface userFeedData {

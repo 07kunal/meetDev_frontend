@@ -52,7 +52,6 @@ const UserIncommimgPendingRequest = () => {
   useEffect(() => {
     if (isError) {
       const axiosError = error as AxiosError<ErrorResponse>;
-      console.log('testeee',axiosError?.response?.data);
       if (axiosError?.response?.data?.status === 401) {
         tokenExpiredMethod();
       }
@@ -70,11 +69,9 @@ const UserIncommimgPendingRequest = () => {
       queryClient.refetchQueries({ queryKey: ["usesPendingRequest"] });
     },
     onError: (error: AxiosError<ErrorResponse>) => {
-      console.log('errorResponse',error);
       setErrorMessage(
         error?.response?.data?.message ?? "An unexpected error occurred",
       );
-      console.error("Message:", error.response?.data?.message);
     },
   });
 

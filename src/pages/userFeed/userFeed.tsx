@@ -8,7 +8,7 @@ import {
   removeUserFromFeed,
 } from "@/components/utils/slices/userFeedSliceReducer";
 import type { userFeedData } from "@/components/utils/type/usersFeeds";
-import { useMutation, useQuery} from "@tanstack/react-query";
+import { useMutation, useQuery } from "@tanstack/react-query";
 import { useEffect, useState } from "react";
 import UserCard from "@/components/UserCard/UserCard";
 import { clearUser } from "@/components/utils/slices/userSliceReducer";
@@ -86,14 +86,12 @@ const UserFeed = () => {
       } else {
         setErrorMessage(null);
       }
-      console.error("Message:", error.response?.data?.message);
     },
   });
   const handleConnectionRequest = ({
     status,
     connectionRequestId,
   }: connectionRequestProps) => {
-    console.log("TEST", status, connectionRequestId);
     if (connectionRequestId) setConnectionId(connectionRequestId);
     mutate({ status, connectionRequestId });
   };
@@ -110,7 +108,6 @@ const UserFeed = () => {
         </>
       ) : (
         <div>
-
           <UserCard
             data={feedData}
             action="feeds"

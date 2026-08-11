@@ -10,10 +10,12 @@ import type { connectionRequestProps } from "@/components/utils/type/commonType"
 import type { ErrorResponse } from "@/components/utils/type/commonType";
 import { AxiosError } from "axios";
 import toast from "react-hot-toast";
-import { reviewingPendingRequestApi } from "@/apis/userConnection/reviewingPendingRequestApi";
 import type { reviewUserConnectionRequestType } from "@/components/utils/type/userConnection";
 import Pagination from "@/components/Pagination/Pagination";
 import { useTokenExpiredMethod } from "@/components/utils/customHooks/useTokenExpiredMethod";
+import { SkeletonLoader } from "@/components/common/SkeletonLoader";
+import { sendRejectedConnectedUserApi } from "@/apis/userConnection/sendRejectedConnectedUserApi";
+
 
 const LoggedInUserConnections = () => {
   const [openId, setOpenId] = useState<string | null>(null);
@@ -27,7 +29,7 @@ const LoggedInUserConnections = () => {
     page,
     limit,
   };
-  const { data, isError, error } = useQuery<loggedInUserConnectionDataType>({
+  const { data, isError, error,isLoading } = useQuery<loggedInUserConnectionDataType>({
     queryKey: ["usesConnections", page, limit],
     queryFn: async (): Promise<loggedInUserConnectionDataType> => {
       const result = await fetchLoggedInUserConnectionApi(queryOptions);
@@ -39,12 +41,13 @@ const LoggedInUserConnections = () => {
   useEffect(() => {
     if (data) {
       dispatch(setUserConnections(data));
+      setErrorMessage(null);
+
     }
   }, [data]);
   useEffect(() => {
     if (isError) {
       const axiosError = error as AxiosError<ErrorResponse>;
-      console.log('testeee',axiosError?.response?.data);
       if (axiosError?.response?.data?.status === 401) {
         tokenExpiredMethod();
       }
@@ -56,7 +59,7 @@ const LoggedInUserConnections = () => {
     AxiosError<ErrorResponse>,
     connectionRequestProps
   >({
-    mutationFn: reviewingPendingRequestApi,
+    mutationFn: sendRejectedConnectedUserApi,
 
     onSuccess: (data) => {
       if (data?.status === "accepted") {
@@ -77,7 +80,6 @@ const LoggedInUserConnections = () => {
       } else {
         setErrorMessage(null);
       }
-      console.error("Message:", error.response?.data?.message);
     },
   });
   const handleReviewConnection = ({
@@ -87,7 +89,6 @@ const LoggedInUserConnections = () => {
 
     mutate({ status, connectionRequestId });
   };
-  console.log("data=========userconnections", data);
   return (
     <div className="flex justify-center items-center flex-col w-full">
       <h1 className="text-center text-2xl p-1 mb-1">My connections</h1>
@@ -102,6 +103,10 @@ const LoggedInUserConnections = () => {
         </>
       ) : (
         <>
+        {
+          isLoading && 
+          <SkeletonLoader/>
+        }
           <div className="h-[70vh] overflow-y-auto ">
             {data?.data?.map((connectionItem) => (
               <AccordionUserConnections

@@ -99,6 +99,10 @@ const ProfileUpdateForm = ({
           {...register("data.firstName", {
             required: "First name is required",
             minLength: { value: 4, message: "Must be at least 4 characters" },
+            maxLength: {
+              value: 20,
+              message: "Must be at most 20 characters",
+            },
             pattern: { value: /^[A-Za-z]+$/, message: "Only letters allowed" },
           })}
           placeholder="First Name"
@@ -117,6 +121,11 @@ const ProfileUpdateForm = ({
           {...register("data.lastName", {
             required: "Last name is required",
             minLength: { value: 4, message: "Must be at least 4 characters" },
+
+            maxLength: {
+              value: 20,
+              message: "Must be at most 20 characters",
+            },
             pattern: { value: /^[A-Za-z]+$/, message: "Only letters allowed" },
           })}
           placeholder="Last Name"
@@ -125,6 +134,26 @@ const ProfileUpdateForm = ({
         />
         {errors.data?.lastName && (
           <p className="text-error text-sm">{errors.data?.lastName.message}</p>
+        )}
+        {/* About */}
+        <label className="label">
+          <span className="label-text">About</span>
+        </label>
+        <input
+          {...register("data.about", {
+            required: "About is required",
+            minLength: { value: 5, message: "Must be at least 5 characters" },
+            maxLength: {
+              value: 200,
+              message: "Must be at most 200 characters",
+            },
+            pattern: { value: /^[A-Za-z]+$/, message: "Only letters allowed" },
+          })}
+          placeholder="About"
+          className="input input-bordered w-full"
+        />
+        {errors.data?.about && (
+          <p className="text-error text-sm">{errors.data?.about.message}</p>
         )}
         {/* AGE */}
         <label className="label">
@@ -163,7 +192,10 @@ const ProfileUpdateForm = ({
               value: 100,
               message: "Does not exceed Hundred characters",
             },
-            pattern: { value: /^[a-zA-Z0-9 ]+$/, message: "Only alpha numeric character allowed" },
+            pattern: {
+              value: /^[a-zA-Z0-9 ]+$/,
+              message: "Only alpha numeric character allowed",
+            },
           })}
           placeholder="Address"
           className="input input-bordered w-full"
@@ -184,8 +216,10 @@ const ProfileUpdateForm = ({
           multiple
           className="select select-bordered w-full h-32"
         >
-          {defaultEducation?.map((item,index) => (
-            <option key={index} value={item.degree}>{item.degree}</option>
+          {defaultEducation?.map((item, index) => (
+            <option key={index} value={item.degree}>
+              {item.degree}
+            </option>
           ))}
         </select>
         {errors.data?.education && (
@@ -225,8 +259,10 @@ const ProfileUpdateForm = ({
           multiple
           className="select select-bordered w-full h-32"
         >
-          {defaultSkills?.map((item,index) => (
-            <option key={index} value={item.name}>{item.name}</option>
+          {defaultSkills?.map((item, index) => (
+            <option key={index} value={item.name}>
+              {item.name}
+            </option>
           ))}
         </select>
         {errors.data?.skills && (

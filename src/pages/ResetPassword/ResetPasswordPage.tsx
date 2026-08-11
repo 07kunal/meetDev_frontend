@@ -14,12 +14,14 @@ import { useAppDispatch } from "@/components/utils/customHooks/reduxHook";
 import { clearUser } from "@/components/utils/slices/userSliceReducer";
 import { clearUserFeeds } from "@/components/utils/slices/userFeedSliceReducer";
 import { useQueryClient } from "@tanstack/react-query";
+import { useTokenExpiredMethod } from "@/components/utils/customHooks/useTokenExpiredMethod";
 
 const ResetPasswordPage: React.FC = () => {
   const navigate = useNavigate();
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const dispatch = useAppDispatch();
   const queryClient = useQueryClient();
+  const tokenExpiredMethod = useTokenExpiredMethod();
   const { mutate, isPending } = useMutation<
     resetPasswordResponse,
     AxiosError<ErrorResponse>,
@@ -30,23 +32,26 @@ const ResetPasswordPage: React.FC = () => {
       if (data?.data?.status) {
         dispatch(clearUser());
         dispatch(clearUserFeeds());
-        
+
         queryClient.removeQueries({
           queryKey: ["Profile"],
         });
         navigate("/login");
-        window.location.reload()
+        window.location.reload();
         toast("Password reset successfully");
       }
     },
 
     onError: (error) => {
-      if (error?.response?.data?.message) {
-        setErrorMessage(error.response.data.message);
+      const axiosError = error as AxiosError<ErrorResponse>;
+      if (axiosError?.response?.data?.status === 401) {
+        tokenExpiredMethod();
+      }
+      if (axiosError?.response?.data?.message) {
+        setErrorMessage(axiosError.response.data.message);
       } else {
         setErrorMessage(null);
       }
-      console.error("Message:", error.response?.data?.message);
     },
   });
 

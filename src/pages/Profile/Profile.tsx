@@ -49,6 +49,7 @@ const Profile = () => {
   const onSubmit = (data: UserProfile) => {
     const currentUser = userData?.data;
     const updatedUser = data?.data;
+    console.log('updateUser',updatedUser);
     const editPayload: userEditProfile = {};
 
     if (

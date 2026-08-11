@@ -32,6 +32,7 @@ export interface User {
   profilePic: string;
   skills: string[];
   id?: string;
+  about?: string
 }
 export interface logOutResponse {
   data: {
