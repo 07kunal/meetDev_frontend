@@ -30,13 +30,7 @@ const ResetPasswordPage: React.FC = () => {
     mutationFn: resetPasswordApi,
     onSuccess: (data) => {
       if (data?.data?.status) {
-        dispatch(clearUser());
-        dispatch(clearUserFeeds());
-
-        queryClient.removeQueries({
-          queryKey: ["Profile"],
-        });
-        navigate("/login");
+        tokenExpiredMethod();
         window.location.reload();
         toast("Password reset successfully");
       }
@@ -64,7 +58,8 @@ const ResetPasswordPage: React.FC = () => {
         <div className="mb-6 text-center">
           <h1 className="text-3xl font-bold">Reset Password</h1>
           <p className="mt-2 text-sm text-base-content/70">
-            Enter your current password and choose a strong new password to update your account.
+            Enter your current password and choose a strong new password to
+            update your account.
           </p>
         </div>
 

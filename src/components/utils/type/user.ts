@@ -8,7 +8,8 @@ export interface userEditProfile {
   education?: string[];
   skills?: string[];
   address?: string;
-  about?:string
+  about?:string;
+  gender?:string
 }
 export interface ResetPassword {
   oldPassword: string;
@@ -46,6 +47,7 @@ export interface UserProfile {
   data: User;
   status: boolean;
   authChecked?: boolean;
+  message?: string
 }
 export interface UserSignUp {
   data: SignUpData;

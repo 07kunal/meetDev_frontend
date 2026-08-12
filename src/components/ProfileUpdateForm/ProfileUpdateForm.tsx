@@ -177,7 +177,6 @@ const ProfileUpdateForm = ({
               })}
               placeholder="Age"
               className="input input-bordered w-full"
-              disabled={age ? true : false}
             />
             {errors.data?.age && (
               <p className="text-error text-sm">{errors.data?.age?.message}</p>
@@ -317,7 +316,6 @@ const ProfileUpdateForm = ({
             <select
               {...register("data.gender", { required: "Please select gender" })}
               className="select select-bordered w-full"
-              disabled={!!genderValue}
             >
               <option value="">Select gender</option>
               <option value="male">Male</option>
