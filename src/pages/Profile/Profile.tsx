@@ -10,7 +10,6 @@ import { setUser } from "@/components/utils/slices/userSliceReducer";
 import ProfileUpdateForm from "@/components/ProfileUpdateForm/ProfileUpdateForm";
 import UserCard from "@/components/UserCard/UserCard";
 import type { ErrorResponse } from "@/components/utils/type/commonType";
-import { PencilIcon } from "@heroicons/react/24/solid";
 import { useMutation } from "@tanstack/react-query";
 import updateProfileApi from "@/apis/updateProfileApi";
 import { AxiosError } from "axios";
@@ -33,7 +32,7 @@ const Profile = () => {
     onSuccess: (data) => {
       if (data?.data) {
         dispatch(setUser(data));
-        toast("Successfully Update the profile");
+        toast(data?.message || 'Successfully update the profile');
       }
     },
 
@@ -47,42 +46,45 @@ const Profile = () => {
   });
 
   const onSubmit = (data: UserProfile) => {
-    const currentUser = userData?.data;
     const updatedUser = data?.data;
     const editPayload: userEditProfile = {};
 
     if (
-      updatedUser?.age !== undefined &&
-      currentUser?.age !== updatedUser?.age
+      updatedUser?.age !== undefined 
     ) {
       editPayload.age = updatedUser.age ?? undefined;
     }
+     if (
+      updatedUser?.about !== undefined 
+    ) {
+      editPayload.about = updatedUser.about ?? undefined;
+    }
 
-    if (updatedUser?.address && currentUser?.address !== updatedUser?.address) {
+    if (updatedUser?.address ) {
       editPayload.address = updatedUser.address;
     }
 
     if (
-      updatedUser?.profilePic &&
-      currentUser?.profilePic !== updatedUser?.profilePic
+      updatedUser?.profilePic
     ) {
       editPayload.profilePic = updatedUser.profilePic;
     }
 
     if (
-      updatedUser?.education &&
-      JSON.stringify(currentUser?.education) !==
-        JSON.stringify(updatedUser?.education)
+      updatedUser?.education 
     ) {
       editPayload.education = updatedUser.education;
     }
 
     if (
-      updatedUser?.skills &&
-      JSON.stringify(currentUser?.skills) !==
-        JSON.stringify(updatedUser?.skills)
+      updatedUser?.skills
     ) {
       editPayload.skills = updatedUser.skills;
+    }
+     if (
+      updatedUser?.gender
+    ) {
+      editPayload.gender = updatedUser.gender;
     }
 
     if (Object.keys(editPayload).length > 0) {
