@@ -11,7 +11,7 @@ export const userFeedSliceReducer = createSlice({
   name: "User Feed",
   initialState: initialData,
   reducers: {
-    setUserFeeds: (state, action: PayloadAction<userFeedData>) => {
+    setUserFeeds: ({}, action: PayloadAction<userFeedData>) => {
       return action.payload;
     },
     clearUserFeeds: () => {

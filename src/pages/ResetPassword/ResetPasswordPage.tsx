@@ -1,7 +1,6 @@
 import PasswordResetForm from "@/components/PasswordResetForm/PasswordResetForm";
 import { AxiosError } from "axios";
 import toast from "react-hot-toast";
-import { useNavigate } from "react-router-dom";
 import type { ErrorResponse } from "@/components/utils/type/commonType";
 import { useMutation } from "@tanstack/react-query";
 import resetPasswordApi from "@/apis/resetPasswordApi";
@@ -10,17 +9,11 @@ import type {
   resetPasswordResponse,
 } from "@/components/utils/type/user";
 import { useState } from "react";
-import { useAppDispatch } from "@/components/utils/customHooks/reduxHook";
-import { clearUser } from "@/components/utils/slices/userSliceReducer";
-import { clearUserFeeds } from "@/components/utils/slices/userFeedSliceReducer";
-import { useQueryClient } from "@tanstack/react-query";
 import { useTokenExpiredMethod } from "@/components/utils/customHooks/useTokenExpiredMethod";
 
 const ResetPasswordPage: React.FC = () => {
-  const navigate = useNavigate();
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
-  const dispatch = useAppDispatch();
-  const queryClient = useQueryClient();
+
   const tokenExpiredMethod = useTokenExpiredMethod();
   const { mutate, isPending } = useMutation<
     resetPasswordResponse,

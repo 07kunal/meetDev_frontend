@@ -80,8 +80,6 @@ const ProfileUpdateForm = ({
       selectedSkills.filter((s) => s !== skills),
     );
   };
-  const age = getValues("data.age");
-  const genderValue = getValues("data.gender");
 
   return (
     <div>
