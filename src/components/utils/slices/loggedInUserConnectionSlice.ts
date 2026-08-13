@@ -13,10 +13,7 @@ export const loggedInUserConnectionSliceReducer = createSlice({
   name: "User Feed",
   initialState: initialData,
   reducers: {
-    setUserConnections: (
-      state,
-      action: PayloadAction<loggedInUserConnectionDataType>,
-    ) => {
+    setUserConnections: ({}, action: PayloadAction<loggedInUserConnectionDataType>  ) => {
       return action.payload;
     },
     clearUserConnections: () => {

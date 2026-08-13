@@ -22,7 +22,7 @@ export const userSliceReducer = createSlice({
   // `createSlice` will infer the state type from the `initialState` argument
   initialState: initialUserData,
   reducers: {
-    setUser: (state, action: PayloadAction<UserProfile>) => {
+    setUser: ({}, action: PayloadAction<UserProfile>) => {
       return {
         ...action.payload,
         authChecked: true,

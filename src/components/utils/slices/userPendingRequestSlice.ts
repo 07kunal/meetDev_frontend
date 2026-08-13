@@ -14,7 +14,7 @@ export const userPendingRequestSliceReducer = createSlice({
   initialState: initialData,
   reducers: {
     setUserPendingRequest: (
-      state,
+      {},
       action: PayloadAction<userPendingRequest>,
     ) => {
       return action.payload;
