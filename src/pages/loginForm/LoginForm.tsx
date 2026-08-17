@@ -10,8 +10,8 @@ import type { ErrorResponse } from "@/components/utils/type/commonType";
 
 const LoginForm = () => {
   const [loginCredential, setLoginCredential] = useState<LoginBody>({
-    emailId: "kunalgautam200@gmail.com",
-    password: "testA@321",
+    emailId: "",
+    password: "",
   });
   const [errorMessage, setErrorMessage] = useState<string | null>();
 
