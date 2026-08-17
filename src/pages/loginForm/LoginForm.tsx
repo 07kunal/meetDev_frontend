@@ -10,8 +10,8 @@ import type { ErrorResponse } from "@/components/utils/type/commonType";
 
 const LoginForm = () => {
   const [loginCredential, setLoginCredential] = useState<LoginBody>({
-    emailId: "kunalgautam200@gmail.com",
-    password: "testA@321",
+    emailId: "",
+    password: "",
   });
   const [errorMessage, setErrorMessage] = useState<string | null>();
 
@@ -75,7 +75,7 @@ const LoginForm = () => {
             )}
             <h2 className="text-2xl font-bold text-center">Login</h2>
 
-            <form className="space-y-5" onSubmit={handleSubmit}>
+            <form className="space-y-3" onSubmit={handleSubmit}>
               {/* Email */}
               <div className="form-control">
                 <label className="label">
