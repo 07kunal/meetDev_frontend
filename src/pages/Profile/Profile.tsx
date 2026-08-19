@@ -98,9 +98,9 @@ const Profile = () => {
     <div className="bg-inherit rounded-lg">
       <h1 className="text-center text-2xl p-1">Update your profile.</h1>
       {/* Parent div */}
-      <div className="flex items-center justify-center  bg-base-100 p-6  shadow-md">
+      <div className="flex flex-col lg:flex-row items-stretch justify-center gap-6 bg-base-100 p-3 sm:p-6 shadow-md">
         {/* Child div 1 */}
-        <div className="text-primary-content rounded-lg">
+        <div className="text-primary-content rounded-lg w-full lg:flex-1 min-w-0">
           <ProfileUpdateForm
             defaultValues={userData}
             onSubmit={onSubmit}
@@ -110,7 +110,7 @@ const Profile = () => {
         </div>
 
         {/* Child div 2 */}
-        <div className="p-4 text-secondary-content rounded-lg">
+        <div className="p-0 sm:p-4 text-secondary-content rounded-lg w-full lg:flex-1 min-w-0 flex justify-center">
           <UserCard data={userData?.data} action="userCardView" />
         </div>
       </div>
