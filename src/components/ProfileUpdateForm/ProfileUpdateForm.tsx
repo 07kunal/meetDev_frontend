@@ -88,7 +88,7 @@ const ProfileUpdateForm = ({
       <form
         onChange={handleFormChange}
         onSubmit={handleSubmit(onSubmit)}
-        className="grid grid-cols-1 gap-5 p-6 bg-base-200 rounded-lg shadow-md w-full max-w-[760px]"
+        className="grid grid-cols-1 gap-5 p-4 sm:p-6 bg-base-200 rounded-lg shadow-md w-full max-w-[760px]"
       >
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div>
