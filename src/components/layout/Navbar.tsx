@@ -36,8 +36,14 @@ const Navbar = () => {
   return (
     <div className=" fixed navbar bg-base-100 shadow-sm z-10">
       <div className="flex-1">
-        <button className="btn btn-ghost text-xl" onClick={() => navigate("/")}>
-          DevMeet
+        <button
+          className=" flex items-center gap-2 text-xl"
+          onClick={() => navigate("/")}
+        >
+          <span className="flex h-15 w-15 shrink-0 items-center justify-center">
+            <img className="h-full w-full object-contain" src="/favicon.svg" alt="DevMeet" />
+          </span>
+          <span>DevMeet</span>
         </button>
       </div>
       <div className="flex gap-2">
