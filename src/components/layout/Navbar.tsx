@@ -41,9 +41,9 @@ const Navbar = () => {
           onClick={() => navigate("/")}
         >
           <span className="flex h-15 w-15 shrink-0 items-center justify-center">
-            <img className="h-full w-full object-contain" src="/favicon.svg" alt="DevMeet" />
+            <img className="h-full w-full object-contain" src="/favicon.svg" alt="MeetDev" />
           </span>
-          <span>DevMeet</span>
+          <span>MeetDev</span>
         </button>
       </div>
       <div className="flex gap-2">
