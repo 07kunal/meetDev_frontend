@@ -37,10 +37,10 @@ const Navbar = () => {
     <div className=" fixed navbar bg-base-100 shadow-sm z-10">
       <div className="flex-1">
         <button
-          className=" flex items-center gap-2 text-xl"
+          className=" flex items-center gap-2 text-xl justify-center"
           onClick={() => navigate("/")}
         >
-          <span className="flex h-15 w-15 shrink-0 items-center justify-center">
+          <span className="flex h-15 w-15 shrink-0 items-center justify-center" >
             <img className="h-full w-full object-contain" src="/favicon.svg" alt="MeetDev" />
           </span>
           <span>MeetDev</span>
