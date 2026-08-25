@@ -45,7 +45,7 @@ const Layout = () => {
 
       {/* Body */}
       <main className="flex-grow  bg-base-100 pt-20">
-        <Outlet /> {/* 👈 Route content renders here */}
+        <Outlet /> 
       </main>
 
       {/* Footer */}
