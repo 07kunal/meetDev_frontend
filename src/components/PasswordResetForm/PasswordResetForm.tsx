@@ -11,12 +11,12 @@ function PasswordResetForm({ onSubmit, errorMessage,isPending }: ResetUpdateForm
   const {
     register,
     handleSubmit,
-    getValues,
+    watch,
     formState: { errors },
   } = useForm<ResetPassword>({
     mode: "onChange"
   });
-  const currentFormValues = getValues();
+  const watchedNewPassword = watch("newPassword", "");
  
   return (
     <div className="w-full max-w-md">
@@ -80,6 +80,30 @@ function PasswordResetForm({ onSubmit, errorMessage,isPending }: ResetUpdateForm
           <p className="text-xs text-base-content/60">
             Use at least 8 characters and include uppercase, numbers, and symbols.
           </p>
+          <div className="space-y-1">
+            <p className={`text-xs font-medium flex items-center gap-2 ${
+              watchedNewPassword.length >= 8 ? "text-success" : "text-base-content/50"
+            }`}>
+              <span>{watchedNewPassword.length >= 8 ? "✓" : "○"}</span> Min 8 characters
+            </p>
+            <p className={`text-xs font-medium flex items-center gap-2 ${
+              /[A-Z]/.test(watchedNewPassword) ? "text-success" : "text-base-content/50"
+            }`}>
+              <span>{/[A-Z]/.test(watchedNewPassword) ? "✓" : "○"}</span> Uppercase letter
+            </p>
+            <p className={`text-xs font-medium flex items-center gap-2 ${
+              /\d/.test(watchedNewPassword) ? "text-success" : "text-base-content/50"
+            }`}>
+              <span>{/\d/.test(watchedNewPassword) ? "✓" : "○"}</span> Number
+            </p>
+            <p className={`text-xs font-medium flex items-center gap-2 ${
+              /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]/.test(watchedNewPassword)
+                ? "text-success"
+                : "text-base-content/50"
+            }`}>
+              <span>{/[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]/.test(watchedNewPassword) ? "✓" : "○"}</span> Special character
+            </p>
+          </div>
           {errors.newPassword && (
             <p className="text-error text-sm">{errors.newPassword.message}</p>
           )}
@@ -96,7 +120,7 @@ function PasswordResetForm({ onSubmit, errorMessage,isPending }: ResetUpdateForm
             {...register("confirmPassword", {
               required: "Confirm Password is required",
               validate: (value) =>
-                value === currentFormValues?.newPassword || "Passwords do not match",
+                value === watchedNewPassword || "Passwords do not match",
             })}
             placeholder="Confirm Password"
             className="input input-bordered w-full"
