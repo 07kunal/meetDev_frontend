@@ -6,11 +6,9 @@ import { AxiosError } from "axios";
 import { useNavigate } from "react-router-dom";
 import { useTokenExpiredMethod } from "../utils/customHooks/useTokenExpiredMethod";
 import {
-  ArrowRightOnRectangleIcon,
   Bars3BottomLeftIcon,
   LinkIcon,
   LockClosedIcon,
-  UserCircleIcon,
   UserGroupIcon,
   UserIcon,
 } from "@heroicons/react/24/outline";
@@ -128,7 +126,6 @@ const Navbar = () => {
                 onClick={handleCredentialClick}
                 disabled={isPending}
               >
-                <ArrowRightOnRectangleIcon className="h-4 w-4" />
                 {isPending ? "Logging out..." : userData?.status ? "Logout" : "Login"}
               </button>
             </li>
