@@ -21,7 +21,7 @@ function PasswordResetForm({ onSubmit, errorMessage,isPending }: ResetUpdateForm
   return (
     <div className="w-full max-w-md">
       {errorMessage && (
-        <div className="mb-4 rounded-lg border border-error/20 bg-error/10 px-4 py-3 text-sm text-error">
+        <div className="mb-2 rounded-lg border border-error/20 bg-error/10 px-4 py-3 text-sm text-error">
           {errorMessage}
         </div>
       )}
