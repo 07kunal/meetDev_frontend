@@ -13,7 +13,7 @@ export const userFeedsApi = async (
       withCredentials: true,
 
       params: {
-        limit: paramsArgument.limit, // Automatically builds: &limit=Y
+        limit: paramsArgument.limit, 
       },
     });
     console.log('Checking the feeds',response);
