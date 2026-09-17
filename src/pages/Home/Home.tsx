@@ -69,10 +69,10 @@ const Home = () => {
                 <div className="avatar placeholder">
                   <div className="w-12 rounded-full bg-secondary text-secondary-content"><span className="text-lg">M</span></div>
                 </div>
-                <div>
+                {/* <div>
                   <p className="font-semibold">Maya wants to share ideas</p>
                   <p className="text-sm text-base-content/60">Frontend engineering · Pune</p>
-                </div>
+                </div> */}
               </div>
             </div>
 
