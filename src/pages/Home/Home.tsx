@@ -11,7 +11,7 @@ const Home = () => {
         <div className="animate-[fade-in_700ms_ease-out_both]">
           <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-info/30 bg-info/10 px-4 py-2 text-sm font-semibold text-info">
             <span className="h-2 w-2 rounded-full bg-info" />
-            A better way to meet your people
+            A better way to meet developer throught out the dev community.
           </div>
 
           <h1 className="max-w-3xl text-5xl font-black tracking-tight text-base-content sm:text-6xl lg:text-7xl">
