@@ -18,7 +18,7 @@ const Home = () => {
             Find your next <span className="text-primary">meaningful connection.</span>
           </h1>
           <p className="mt-6 max-w-xl text-lg leading-8 text-base-content/70 sm:text-xl">
-            MeetDev brings curious people together to share ideas, build friendships, and create something worth talking about.
+            MeetDev brings curious people together to share ideas, build Idea, and create something worth talking about.
           </p>
 
           <div className="mt-9 flex flex-wrap items-center gap-4">
