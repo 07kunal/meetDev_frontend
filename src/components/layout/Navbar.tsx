@@ -28,7 +28,7 @@ const Navbar = () => {
       }
     },
     onError: (error: AxiosError) => {
-      console.error("error logout", error);
+      console.error("error logout", error?.message);
     },
   });
 
