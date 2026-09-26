@@ -55,9 +55,6 @@ type RootState = {
 
 */
 
-
-
-
 // ====================================
 /* 
 Topic to understand 
