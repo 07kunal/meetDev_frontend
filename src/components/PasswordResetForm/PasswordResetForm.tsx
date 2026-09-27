@@ -30,7 +30,7 @@ function PasswordResetForm({ onSubmit, errorMessage,isPending }: ResetUpdateForm
         className="flex flex-col gap-5 rounded-3xl bg-base-200 p-6 shadow-lg shadow-base-200/50"
       >
         <div>
-          <h2 className="text-2xl font-semibold">Change your password</h2>
+          <h2 className="text-2xl font-semibold">Reset your password</h2>
           <p className="mt-2 text-sm text-base-content/70">
             Keep your account secure by using a strong password that includes uppercase, numbers, and symbols.
           </p>
