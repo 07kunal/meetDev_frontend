@@ -32,7 +32,7 @@ function PasswordResetForm({ onSubmit, errorMessage,isPending }: ResetUpdateForm
         <div>
           <h2 className="text-2xl font-semibold">Reset your password</h2>
           <p className="mt-2 text-sm text-base-content/70">
-            Keep your account secure by using a strong password that includes uppercase, numbers, and symbols.
+            Keep your account secure by using a strong password that includes uppercase, numbers, and special character.
           </p>
         </div>
 
