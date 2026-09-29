@@ -1,6 +1,6 @@
-import type { UserSignUp } from "@/components/utils/type/user";
+import type { UserSignUp } from "@/utils/type/user";
 import axios from "axios";
-import type { signUpResponse } from "@/components/utils/type/user";
+import type { signUpResponse } from "@/utils/type/user";
 
 const userSignUpApi = async (
   signUpData: UserSignUp,

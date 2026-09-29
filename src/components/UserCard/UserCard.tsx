@@ -1,6 +1,6 @@
-import type { Collection, userFeeds } from "../utils/type/usersFeeds";
-import type { User } from "../utils/type/user";
-import type { connectionRequestProps } from "../utils/type/commonType";
+import type { Collection, userFeeds } from "../../utils/type/usersFeeds";
+import type { User } from "../../utils/type/user";
+import type { connectionRequestProps } from "../../utils/type/commonType";
 import { useQueryClient } from "@tanstack/react-query";
 interface FeedsProps {
   data: Collection<userFeeds> | undefined;

@@ -1,4 +1,4 @@
-import type { logOutResponse } from "@/components/utils/type/user";
+import type { logOutResponse } from "@/utils/type/user";
 import axios from "axios";
 
 export const handleLogout = async (): Promise<logOutResponse> => {

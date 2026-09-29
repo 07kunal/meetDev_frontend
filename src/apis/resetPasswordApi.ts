@@ -2,7 +2,7 @@ import axios from "axios";
 import type {
   ResetPassword,
   resetPasswordResponse,
-} from "@/components/utils/type/user";
+} from "@/utils/type/user";
 
 const resetPasswordApi = async (
   resetPasswordData: ResetPassword,

@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom";
-import { useAppDispatch } from "../customHooks/reduxHook";
+import { useAppDispatch } from "./reduxHook";
 import { clearUser } from "../slices/userSliceReducer";
 import { clearUserFeeds } from "../slices/userFeedSliceReducer";
 import { clearUserConnections } from "../slices/loggedInUserConnectionSlice";

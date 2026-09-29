@@ -2,24 +2,24 @@ import { userFeedsApi } from "@/apis/userFeedsApi";
 import {
   useAppDispatch,
   useAppSelector,
-} from "@/components/utils/customHooks/reduxHook";
+} from "@/utils/customHooks/reduxHook";
 import {
   setUserFeeds,
   removeUserFromFeed,
-} from "@/components/utils/slices/userFeedSliceReducer";
-import type { userFeedData } from "@/components/utils/type/usersFeeds";
+} from "@/utils/slices/userFeedSliceReducer";
+import type { userFeedData } from "@/utils/type/usersFeeds";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { useEffect, useState } from "react";
 import UserCard from "@/components/UserCard/UserCard";
-import { clearUser } from "@/components/utils/slices/userSliceReducer";
+import { clearUser } from "@/utils/slices/userSliceReducer";
 import { useNavigate } from "react-router-dom";
-import type { connectionRequestProps } from "@/components/utils/type/commonType";
+import type { connectionRequestProps } from "@/utils/type/commonType";
 import { sendingConnectionRequestApi } from "@/apis/userConnection/sendingConnectionRequestApi";
-import type { reviewUserConnectionRequestType } from "@/components/utils/type/userConnection";
-import type { ErrorResponse } from "@/components/utils/type/commonType";
+import type { reviewUserConnectionRequestType } from "@/utils/type/userConnection";
+import type { ErrorResponse } from "@/utils/type/commonType";
 import { AxiosError } from "axios";
 import toast from "react-hot-toast";
-import type { params } from "@/components/utils/type/commonType";
+import type { params } from "@/utils/type/commonType";
 const UserFeed = () => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();

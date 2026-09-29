@@ -1,7 +1,7 @@
 import React from "react";
 
-import type { myIncommingPendingRequest } from "../utils/type/userConnection";
-import type { connectionRequestProps } from "../utils/type/commonType";
+import type { myIncommingPendingRequest } from "../../utils/type/userConnection";
+import type { connectionRequestProps } from "../../utils/type/commonType";
 type AccordionPendingRequestProps = {
   data: myIncommingPendingRequest;
   openId: string | null;

@@ -1,15 +1,15 @@
 import type {
   UserProfile,
   userEditProfile,
-} from "@/components/utils/type/user";
+} from "@/utils/type/user";
 import {
   useAppDispatch,
   useAppSelector,
-} from "@/components/utils/customHooks/reduxHook";
-import { setUser } from "@/components/utils/slices/userSliceReducer";
+} from "@/utils/customHooks/reduxHook";
+import { setUser } from "@/utils/slices/userSliceReducer";
 import ProfileUpdateForm from "@/components/ProfileUpdateForm/ProfileUpdateForm";
 import UserCard from "@/components/UserCard/UserCard";
-import type { ErrorResponse } from "@/components/utils/type/commonType";
+import type { ErrorResponse } from "@/utils/type/commonType";
 import { useMutation } from "@tanstack/react-query";
 import updateProfileApi from "@/apis/updateProfileApi";
 import { AxiosError } from "axios";

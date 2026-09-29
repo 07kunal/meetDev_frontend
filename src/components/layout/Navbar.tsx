@@ -1,10 +1,10 @@
-import { type logOutResponse, type UserProfile } from "../utils/type/user";
-import { useAppSelector } from "../utils/customHooks/reduxHook";
+import { type logOutResponse, type UserProfile } from "../../utils/type/user";
+import { useAppSelector } from "../../utils/customHooks/reduxHook";
 import { handleLogout } from "@/apis/logOutApi";
 import { useMutation} from "@tanstack/react-query";
 import { AxiosError } from "axios";
 import { useNavigate } from "react-router-dom";
-import { useTokenExpiredMethod } from "../utils/customHooks/useTokenExpiredMethod";
+import { useTokenExpiredMethod } from "../../utils/customHooks/useTokenExpiredMethod";
 import {
   Bars3BottomLeftIcon,
   LinkIcon,

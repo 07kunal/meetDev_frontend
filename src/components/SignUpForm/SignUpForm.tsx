@@ -1,7 +1,8 @@
 import { useForm } from "react-hook-form";
 import type { SubmitHandler } from "react-hook-form";
-import type { UserSignUp } from "../utils/type/user";
+import type { UserSignUp } from "../../utils/type/user";
 import { useMemo } from "react";
+import validationRegex from "@/utils/validationRegex/validationRegex";
 
 interface ProfileUpdateFormProps {
   onSubmit: SubmitHandler<UserSignUp>;
@@ -13,24 +14,24 @@ interface ProfileUpdateFormProps {
 // Validation helper functions
 const validateFirstName = (value: string): boolean => {
   if (!value) return false;
-  return value.length >= 4 && /^[A-Za-z]+$/.test(value);
+  return value.length >= 4 && validationRegex.alphabetWithCapsAndSmallRegex.test(value);
 };
 
 const validateLastName = (value: string): boolean => {
   if (!value) return false;
-  return value.length >= 4 && /^[A-Za-z]+$/.test(value);
+  return value.length >= 4 && validationRegex.alphabetWithCapsAndSmallRegex.test(value);
 };
 
 const validateEmail = (value: string): boolean => {
   if (!value) return false;
-  return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
+  return validationRegex.emailRegex.test(value);
 };
 
 const validatePassword = (value: string): boolean => {
   if (!value) return false;
   return (
     value.length >= 8 &&
-    /^(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]).+$/.test(value)
+    validationRegex.alphaNumWithSpecialRegx.test(value)
   );
 };
 
@@ -107,7 +108,7 @@ const SignUpForm = ({
                   {...register("data.firstName", {
                     required: "First name is required",
                     minLength: { value: 4, message: "Min 4 characters" },
-                    pattern: { value: /^[A-Za-z]+$/, message: "Letters only" },
+                    pattern: { value: validationRegex.alphabetWithCapsAndSmallRegex, message: "Letters only" },
                   })}
                   placeholder="Enter first name."
                   className={`input input-bordered w-full  transition-all duration-200 focus:ring-2 ${
@@ -137,7 +138,7 @@ const SignUpForm = ({
                   {...register("data.lastName", {
                     required: "Last name is required",
                     minLength: { value: 4, message: "Min 4 characters" },
-                    pattern: { value: /^[A-Za-z]+$/, message: "Letters only" },
+                    pattern: { value: validationRegex.alphabetWithCapsAndSmallRegex, message: "Letters only" },
                   })}
                   placeholder="Enter last name"
                   className={`input input-bordered w-full  transition-all duration-200 focus:ring-2 ${
@@ -211,8 +212,7 @@ const SignUpForm = ({
                         message: "Must be at least 8 characters",
                       },
                       pattern: {
-                        value:
-                          /^(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]).+$/,
+                        value:validationRegex.alphaNumWithSpecialRegx,
                         message: "Must include uppercase, number & special character",
                       },
                     })}
@@ -239,19 +239,19 @@ const SignUpForm = ({
                     <span>{watchedPassword && watchedPassword.length >= 8 ? "✓" : "○"}</span> Min 8 characters
                   </p>
                   <p className={`text-xs font-medium flex items-center gap-2 ${
-                    watchedPassword && /[A-Z]/.test(watchedPassword) ? "text-success" : "text-base-content/50"
+                    watchedPassword && validationRegex.onlyCapAlpha.test(watchedPassword) ? "text-success" : "text-base-content/50"
                   }`}>
-                    <span>{watchedPassword && /[A-Z]/.test(watchedPassword) ? "✓" : "○"}</span> Uppercase letter
+                    <span>{watchedPassword && validationRegex.onlyCapAlpha.test(watchedPassword) ? "✓" : "○"}</span> Uppercase letter
                   </p>
                   <p className={`text-xs font-medium flex items-center gap-2 ${
-                    watchedPassword && /\d/.test(watchedPassword) ? "text-success" : "text-base-content/50"
+                    watchedPassword && validationRegex.onlyNumRegx.test(watchedPassword) ? "text-success" : "text-base-content/50"
                   }`}>
-                    <span>{watchedPassword && /\d/.test(watchedPassword) ? "✓" : "○"}</span> Number
+                    <span>{watchedPassword && validationRegex.onlyNumRegx.test(watchedPassword) ? "✓" : "○"}</span> Number
                   </p>
                   <p className={`text-xs font-medium flex items-center gap-2 ${
-                    watchedPassword && /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]/.test(watchedPassword) ? "text-success" : "text-base-content/50"
+                    watchedPassword && validationRegex.onlyContainSpecialRegex.test(watchedPassword) ? "text-success" : "text-base-content/50"
                   }`}>
-                    <span>{watchedPassword && /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]/.test(watchedPassword) ? "✓" : "○"}</span> Special character
+                    <span>{watchedPassword && validationRegex.onlyContainSpecialRegex.test(watchedPassword) ? "✓" : "○"}</span> Special character
                   </p>
                 </div>
               </div>

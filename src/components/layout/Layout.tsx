@@ -2,12 +2,12 @@ import { useQuery } from "@tanstack/react-query";
 import Footer from "./Footer";
 import Navbar from "./Navbar";
 import { Outlet } from "react-router-dom";
-import { setAuthChecked, setUser } from "../utils/slices/userSliceReducer";
-import { useAppDispatch, useAppSelector } from "../utils/customHooks/reduxHook";
-import type { UserProfile } from "../utils/type/user";
+import { setAuthChecked, setUser } from "../../utils/slices/userSliceReducer";
+import { useAppDispatch, useAppSelector } from "../../utils/customHooks/reduxHook";
+import type { UserProfile } from "../../utils/type/user";
 import { useEffect } from "react";
 import fetchLoggedInUserProfileApi from "@/apis/fetchLoggedInUserProfileApi";
-import { useTokenExpiredMethod } from "../utils/customHooks/useTokenExpiredMethod";
+import { useTokenExpiredMethod } from "../../utils/customHooks/useTokenExpiredMethod";
 
 
 const Layout = () => {

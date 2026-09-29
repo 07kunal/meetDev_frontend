@@ -1,6 +1,6 @@
 import axios from "axios";
-import type { params } from "@/components/utils/type/commonType";
-import type { userPendingRequest } from "@/components/utils/type/userConnection";
+import type { params } from "@/utils/type/commonType";
+import type { userPendingRequest } from "@/utils/type/userConnection";
 export const fetchMyIncommingPendingRequestApi = async (
   paramsArgument: params,
 ): Promise<userPendingRequest> => {

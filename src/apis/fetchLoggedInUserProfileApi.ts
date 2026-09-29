@@ -1,4 +1,4 @@
-import type { UserProfile } from "@/components/utils/type/user";
+import type { UserProfile } from "@/utils/type/user";
 import axios from "axios";
 
 const fetchLoggedInUserProfileApi = async (): Promise<UserProfile> => {
