@@ -30,7 +30,6 @@ const ProfileUpdateForm = ({
     return JSON.parse(JSON.stringify(defaultValues));
   }, [defaultValues]);
 
-  // Pass cloned values to initialization. RHF keeps track of changes locally.
   const {
     register,
     handleSubmit,
