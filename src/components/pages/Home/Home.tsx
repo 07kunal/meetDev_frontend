@@ -11,14 +11,14 @@ const Home = () => {
         <div className="animate-[fade-in_700ms_ease-out_both]">
           <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-info/30 bg-info/10 px-4 py-2 text-sm font-semibold text-info">
             <span className="h-2 w-2 rounded-full bg-info" />
-            A better way to meet your people
+            A better way to meet developer throught out the dev community.
           </div>
 
           <h1 className="max-w-3xl text-5xl font-black tracking-tight text-base-content sm:text-6xl lg:text-7xl">
             Find your next <span className="text-primary">meaningful connection.</span>
           </h1>
           <p className="mt-6 max-w-xl text-lg leading-8 text-base-content/70 sm:text-xl">
-            MeetDev brings curious people together to share ideas, build friendships, and create something worth talking about.
+            MeetDev brings curious people together to share ideas, build Idea, and create something worth talking about.
           </p>
 
           <div className="mt-9 flex flex-wrap items-center gap-4">

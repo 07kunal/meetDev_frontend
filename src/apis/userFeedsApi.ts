@@ -1,6 +1,6 @@
-import type { userFeedData } from "@/components/utils/type/usersFeeds";
+import type { userFeedData } from "@/utils/type/usersFeeds";
 import axios from "axios";
-import type { params } from "@/components/utils/type/commonType";
+import type { params } from "@/utils/type/commonType";
 export const userFeedsApi = async (
   paramsArgument: params,
 ): Promise<userFeedData> => {
@@ -13,9 +13,10 @@ export const userFeedsApi = async (
       withCredentials: true,
 
       params: {
-        limit: paramsArgument.limit, // Automatically builds: &limit=Y
+        limit: paramsArgument.limit, 
       },
     });
+    console.log('Checking the feeds',response);
     return response?.data;
   } catch (error) {
     throw error;

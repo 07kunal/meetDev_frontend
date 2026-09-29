@@ -1,15 +1,15 @@
 import Layout from "@/components/layout/Layout";
-import Home from "@/pages/Home/Home";
-import LoginForm from "@/pages/loginForm/LoginForm";
+import Home from "@/components/pages/Home/Home";
+import LoginForm from "@/components/pages/loginForm/LoginForm";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
-import Profile from "@/pages/Profile/Profile";
-import PrivateRoutes from "@/components/utils/Privateroute/PrivateRoutes";
-import { useAppSelector } from "@/components/utils/customHooks/reduxHook";
-import UserFeed from "@/pages/userFeed/userFeed";
-import SignUpPage from "@/pages/SignUpPage/SignUpPage";
-import ResetPasswordPage from "@/pages/ResetPassword/ResetPasswordPage";
-import UserIncommimgPendingRequest from "@/pages/userIncommingPendingRequest/UserIncommimgPendingRequest";
-import LoggedInUserConnections from "@/pages/LoggedInUserConnections/LoggedInUserConnections";
+import Profile from "@/components/pages/Profile/Profile";
+import PrivateRoutes from "@/utils/Privateroute/PrivateRoutes";
+import { useAppSelector } from "@/utils/customHooks/reduxHook";
+import UserFeed from "@/components/pages/userFeed/userFeed";
+import SignUpPage from "@/components/pages/SignUpPage/SignUpPage";
+import ResetPasswordPage from "@/components/pages/ResetPassword/ResetPasswordPage";
+import UserIncommimgPendingRequest from "@/components/pages/userIncommingPendingRequest/UserIncommimgPendingRequest";
+import LoggedInUserConnections from "@/components/pages/LoggedInUserConnections/LoggedInUserConnections";
 
 const AppRoutes = () => {
   const { status } = useAppSelector((state) => state.user);

@@ -1,6 +1,6 @@
 import axios from "axios";
-import type { reviewUserConnectionRequestType } from "@/components/utils/type/userConnection";
-import type { connectionRequestProps } from "@/components/utils/type/commonType";
+import type { reviewUserConnectionRequestType } from "@/utils/type/userConnection";
+import type { connectionRequestProps } from "@/utils/type/commonType";
 
 export const reviewingPendingRequestApi = async ({
   status,

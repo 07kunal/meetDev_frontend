@@ -1,13 +1,15 @@
 import { useForm } from "react-hook-form";
 import type { SubmitHandler } from "react-hook-form";
-import type { UserProfile } from "../utils/type/user";
+import type { UserProfile } from "../../utils/type/user";
 import { useEffect, useMemo } from "react";
-import { useAppDispatch } from "../utils/customHooks/reduxHook";
-import { setUser } from "../utils/slices/userSliceReducer";
+import { useAppDispatch } from "../../utils/customHooks/reduxHook";
+import { setUser } from "../../utils/slices/userSliceReducer";
 import { debounce } from "lodash";
-import { defaultEducation } from "../utils/defaultData/defaultEducation";
-import { defaultSkills } from "../utils/defaultData/defaultSkills";
+import { defaultEducation } from "../../utils/defaultData/defaultEducation";
+import { defaultSkills } from "../../utils/defaultData/defaultSkills";
 import { XMarkIcon } from "@heroicons/react/24/solid";
+import validationRegex from "@/utils/validationRegex/validationRegex";
+
 interface ProfileUpdateFormProps {
   defaultValues?: Partial<UserProfile>;
   onSubmit: SubmitHandler<UserProfile>;
@@ -28,7 +30,6 @@ const ProfileUpdateForm = ({
     return JSON.parse(JSON.stringify(defaultValues));
   }, [defaultValues]);
 
-  // Pass cloned values to initialization. RHF keeps track of changes locally.
   const {
     register,
     handleSubmit,
@@ -103,7 +104,7 @@ const ProfileUpdateForm = ({
                   value: 20,
                   message: "Must be at most 20 characters",
                 },
-                pattern: { value: /^[A-Za-z]+$/, message: "Only letters allowed" },
+                pattern: { value: validationRegex.alphabetWithCapsAndSmallRegex , message: "Only letters allowed" },
               })}
               placeholder="First Name"
               className="input input-bordered w-full"
@@ -126,7 +127,7 @@ const ProfileUpdateForm = ({
                   value: 20,
                   message: "Must be at most 20 characters",
                 },
-                pattern: { value: /^[A-Za-z]+$/, message: "Only letters allowed" },
+                pattern: { value: validationRegex.alphabetWithCapsAndSmallRegex , message: "Only letters allowed" },
               })}
               placeholder="Last Name"
               className="input input-bordered w-full"
@@ -171,7 +172,7 @@ const ProfileUpdateForm = ({
                   value: 3,
                   message: "Does not exceed three characters",
                 },
-                pattern: { value: /^[0-9]+$/, message: "Only numbers allowed" },
+                pattern: { value: validationRegex.numRegex, message: "Only numbers allowed" },
               })}
               placeholder="Age"
               className="input input-bordered w-full"
@@ -197,7 +198,7 @@ const ProfileUpdateForm = ({
                   message: "Does not exceed one hundred characters",
                 },
                 pattern: {
-                  value: /^[a-zA-Z0-9 ]+$/,
+                  value: validationRegex.alphaNumReg,
                   message: "Only alpha numeric characters allowed",
                 },
               })}

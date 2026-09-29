@@ -2,11 +2,11 @@ import React, { useEffect, useState } from "react";
 import { useMutation } from "@tanstack/react-query";
 import loginApi from "@/apis/loginApi";
 import { AxiosError } from "axios";
-import type { LoginBody, UserProfile } from "@/components/utils/type/user";
-import { setUser } from "@/components/utils/slices/userSliceReducer";
+import type { LoginBody, UserProfile } from "@/utils/type/user";
+import { setUser } from "@/utils/slices/userSliceReducer";
 import { Link, useNavigate } from "react-router-dom";
-import { useAppDispatch } from "@/components/utils/customHooks/reduxHook";
-import type { ErrorResponse } from "@/components/utils/type/commonType";
+import { useAppDispatch } from "@/utils/customHooks/reduxHook";
+import type { ErrorResponse } from "@/utils/type/commonType";
 
 const LoginForm = () => {
   const [loginCredential, setLoginCredential] = useState<LoginBody>({

@@ -1,15 +1,15 @@
 import PasswordResetForm from "@/components/PasswordResetForm/PasswordResetForm";
 import { AxiosError } from "axios";
 import toast from "react-hot-toast";
-import type { ErrorResponse } from "@/components/utils/type/commonType";
+import type { ErrorResponse } from "@/utils/type/commonType";
 import { useMutation } from "@tanstack/react-query";
 import resetPasswordApi from "@/apis/resetPasswordApi";
 import type {
   ResetPassword,
   resetPasswordResponse,
-} from "@/components/utils/type/user";
+} from "@/utils/type/user";
 import { useState } from "react";
-import { useTokenExpiredMethod } from "@/components/utils/customHooks/useTokenExpiredMethod";
+import { useTokenExpiredMethod } from "@/utils/customHooks/useTokenExpiredMethod";
 
 const ResetPasswordPage: React.FC = () => {
   const [errorMessage, setErrorMessage] = useState<string | null>(null);

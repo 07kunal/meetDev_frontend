@@ -55,9 +55,6 @@ type RootState = {
 
 */
 
-
-
-
 // ====================================
 /* 
 Topic to understand 
@@ -99,8 +96,6 @@ const dispatch = useAppDispatch();
 const user = useAppSelector(
   state => state.user
 );
-
-
 ================
 
 1. Type Redux once

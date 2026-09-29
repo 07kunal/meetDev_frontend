@@ -1,6 +1,7 @@
 import { useForm } from "react-hook-form";
-import type { ResetPassword } from "../utils/type/user";
+import type { ResetPassword } from "../../utils/type/user";
 import type { SubmitHandler } from "react-hook-form";
+import validationRegex from "@/utils/validationRegex/validationRegex";
 
 interface ResetUpdateFormProps {
   onSubmit: SubmitHandler<ResetPassword>;
@@ -30,9 +31,9 @@ function PasswordResetForm({ onSubmit, errorMessage,isPending }: ResetUpdateForm
         className="flex flex-col gap-5 rounded-3xl bg-base-200 p-6 shadow-lg shadow-base-200/50"
       >
         <div>
-          <h2 className="text-2xl font-semibold">Change your password</h2>
+          <h2 className="text-2xl font-semibold">Reset your password</h2>
           <p className="mt-2 text-sm text-base-content/70">
-            Keep your account secure by using a strong password that includes uppercase, numbers, and symbols.
+            Keep your account secure by using a strong password that includes uppercase, numbers, and special character.
           </p>
         </div>
 
@@ -70,8 +71,7 @@ function PasswordResetForm({ onSubmit, errorMessage,isPending }: ResetUpdateForm
               required: "New password is required",
               minLength: { value: 8, message: "Must be at least 8 characters" },
               pattern: {
-                value:
-                  /^(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]).+$/,
+                value:validationRegex.alphaNumWithSpecialRegx,
                 message:
                   "Password must contain uppercase, a number, and a special character.",
               },
@@ -87,21 +87,21 @@ function PasswordResetForm({ onSubmit, errorMessage,isPending }: ResetUpdateForm
               <span>{watchedNewPassword.length >= 8 ? "✓" : "○"}</span> Min 8 characters
             </p>
             <p className={`text-xs font-medium flex items-center gap-2 ${
-              /[A-Z]/.test(watchedNewPassword) ? "text-success" : "text-base-content/50"
+              validationRegex.onlyCapAlpha.test(watchedNewPassword) ? "text-success" : "text-base-content/50"
             }`}>
-              <span>{/[A-Z]/.test(watchedNewPassword) ? "✓" : "○"}</span> Uppercase letter
+              <span>{validationRegex.onlyCapAlpha.test(watchedNewPassword) ? "✓" : "○"}</span> Uppercase letter
             </p>
             <p className={`text-xs font-medium flex items-center gap-2 ${
-              /\d/.test(watchedNewPassword) ? "text-success" : "text-base-content/50"
+              validationRegex.onlyNumRegx.test(watchedNewPassword) ? "text-success" : "text-base-content/50"
             }`}>
-              <span>{/\d/.test(watchedNewPassword) ? "✓" : "○"}</span> Number
+              <span>{validationRegex.onlyNumRegx.test(watchedNewPassword) ? "✓" : "○"}</span> Number
             </p>
             <p className={`text-xs font-medium flex items-center gap-2 ${
-              /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]/.test(watchedNewPassword)
+              validationRegex.onlyContainSpecialRegex.test(watchedNewPassword)
                 ? "text-success"
                 : "text-base-content/50"
             }`}>
-              <span>{/[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]/.test(watchedNewPassword) ? "✓" : "○"}</span> Special character
+              <span>{validationRegex.onlyContainSpecialRegex.test(watchedNewPassword) ? "✓" : "○"}</span> Special character
             </p>
           </div>
           {errors.newPassword && (

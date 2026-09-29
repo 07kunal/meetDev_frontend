@@ -1,5 +1,5 @@
 import axios from "axios";
-import type { UserProfile, userEditProfile } from "@/components/utils/type/user";
+import type { UserProfile, userEditProfile } from "@/utils/type/user";
 
 const updateProfileApi = async (
   EditData: userEditProfile ,

@@ -1,18 +1,18 @@
 import { fetchLoggedInUserConnectionApi } from "@/apis/userConnection/fetchLoggedInUserConnectionsApi";
 import AccordionUserConnections from "@/components/AccordionUsersConnection/AccordionUserConnections";
-import { useAppDispatch } from "@/components/utils/customHooks/reduxHook";
-import type { loggedInUserConnectionDataType } from "@/components/utils/type/userConnection";
+import { useAppDispatch } from "@/utils/customHooks/reduxHook";
+import type { loggedInUserConnectionDataType } from "@/utils/type/userConnection";
 import { useEffect, useState } from "react";
-import type { params } from "@/components/utils/type/commonType";
+import type { params } from "@/utils/type/commonType";
 import { useMutation, useQuery, useQueryClient,  keepPreviousData, } from "@tanstack/react-query";
-import { setUserConnections } from "@/components/utils/slices/loggedInUserConnectionSlice";
-import type { connectionRequestProps } from "@/components/utils/type/commonType";
-import type { ErrorResponse } from "@/components/utils/type/commonType";
+import { setUserConnections } from "@/utils/slices/loggedInUserConnectionSlice";
+import type { connectionRequestProps } from "@/utils/type/commonType";
+import type { ErrorResponse } from "@/utils/type/commonType";
 import { AxiosError } from "axios";
 import toast from "react-hot-toast";
-import type { reviewUserConnectionRequestType } from "@/components/utils/type/userConnection";
+import type { reviewUserConnectionRequestType } from "@/utils/type/userConnection";
 import Pagination from "@/components/Pagination/Pagination";
-import { useTokenExpiredMethod } from "@/components/utils/customHooks/useTokenExpiredMethod";
+import { useTokenExpiredMethod } from "@/utils/customHooks/useTokenExpiredMethod";
 import { SkeletonLoader } from "@/components/common/SkeletonLoader";
 import { sendRejectedConnectedUserApi } from "@/apis/userConnection/sendRejectedConnectedUserApi";
 

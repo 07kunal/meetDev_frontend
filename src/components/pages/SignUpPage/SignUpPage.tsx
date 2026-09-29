@@ -1,12 +1,12 @@
 import userSignUpApi from "@/apis/userSignUpApi";
 import SignUpForm from "@/components/SignUpForm/SignUpForm";
-import type { UserSignUp, signUpResponse } from "@/components/utils/type/user";
+import type { UserSignUp, signUpResponse } from "@/utils/type/user";
 import { useMutation } from "@tanstack/react-query";
 import { AxiosError } from "axios";
 import { useState } from "react";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
-import type { ErrorResponse } from "@/components/utils/type/commonType";
+import type { ErrorResponse } from "@/utils/type/commonType";
 
 const SignUpPage: React.FC = () => {
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
