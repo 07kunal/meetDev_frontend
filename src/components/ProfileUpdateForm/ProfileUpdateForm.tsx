@@ -124,7 +124,7 @@ const ProfileUpdateForm = ({
                 required: "Last name is required",
                 minLength: { value: 4, message: "Must be at least 4 characters" },
                 maxLength: {
-                  value: 20,
+                  value: 15,
                   message: "Must be at most 20 characters",
                 },
                 pattern: { value: validationRegex.alphabetWithCapsAndSmallRegex , message: "Only letters allowed" },
