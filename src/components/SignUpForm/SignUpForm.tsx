@@ -95,7 +95,6 @@ const SignUpForm = ({
 
         {/* Form Fields */}
         <div className="space-y-5">
-          {/* First Name & Last Name Row */}
           <div className="grid grid-cols-2 gap-4">
             {/* First Name */}
             <div className="space-y-2">
