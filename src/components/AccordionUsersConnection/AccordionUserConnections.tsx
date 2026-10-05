@@ -49,7 +49,7 @@ const AccordionUserConnections = ({
       </div>
 
       {openId === data.requestId && (
-        <div className="collapse-content space-y-2 border-t border-base-300/60 p-4 text-base-content">
+        <div className="collapse-content space-y-5 border-t border-base-300/60 p-4 text-base-content">
           <div>
             <h3 className="font-semibold text-base">About</h3>
             <p className="mt-2 text-sm text-base-content/80">
