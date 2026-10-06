@@ -57,7 +57,7 @@ const AccordionUserConnections = ({
             </p>
           </div>
 
-          <div className="grid gap-4 md:grid-cols-2">
+          <div className="grid gap-6 md:grid-cols-2">
             <div>
               <h3 className="font-semibold text-base">Skills</h3>
               <ul className="mt-2 list-disc list-inside space-y-1 text-sm text-base-content/80">
