@@ -49,7 +49,7 @@ const AccordionUserConnections = ({
       </div>
 
       {openId === data.requestId && (
-        <div className="collapse-content space-y-5 border-t border-base-300/60 p-4 text-base-content">
+        <div className="collapse-content space-y-6 border-t border-base-300/60 p-4 text-base-content">
           <div>
             <h3 className="font-semibold text-base">About</h3>
             <p className="mt-2 text-sm text-base-content/80">
@@ -60,7 +60,7 @@ const AccordionUserConnections = ({
           <div className="grid gap-3 md:grid-cols-2">
             <div>
               <h3 className="font-semibold text-base">Skills</h3>
-              <ul className="mt-2 list-disc list-inside space-y-1 text-sm text-base-content/80">
+              <ul className="mt-2 list-disc list-inside space-y-2 text-sm text-base-content/80">
                 {data?.data?.skills?.length ? (
                   data.data.skills.map((skill, i) => <li key={i}>{skill}</li>)
                 ) : (
