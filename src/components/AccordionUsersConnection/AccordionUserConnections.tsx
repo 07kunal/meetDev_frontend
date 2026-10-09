@@ -60,7 +60,7 @@ const AccordionUserConnections = ({
           <div className="grid gap-3 md:grid-cols-2">
             <div>
               <h3 className="font-semibold text-base">Skills</h3>
-              <ul className="mt-2 list-disc list-inside space-y-2 text-sm text-base-content/80">
+              <ul className="mt-2 list-disc list-inside space-y-6 text-sm text-base-content/80">
                 {data?.data?.skills?.length ? (
                   data.data.skills.map((skill, i) => <li key={i}>{skill}</li>)
                 ) : (
