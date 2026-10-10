@@ -15,7 +15,7 @@ function App() {
             position="top-right"
             toastOptions={{
               style: {
-                padding: "16px",
+                padding: "18px",
                 color: "white",
                 background:"green"
               },
