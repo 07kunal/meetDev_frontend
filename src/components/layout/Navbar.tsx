@@ -113,7 +113,7 @@ const Navbar = () => {
                   </button>
                 </li>
                 <li>
-                  <button className="gap-3 rounded-lg py-2.5" onClick={() => navigate("/user-connections")}>
+                  <button className="gap-3 rounded-lg py-2.5" onClick={() => navigate("/userConnections")}>
                     <UserGroupIcon className="h-4 w-4 text-primary" />
                     My Connections
                   </button>

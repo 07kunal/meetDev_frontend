@@ -33,7 +33,7 @@ const AppRoutes = () => {
             <Route path="/profile" element={<Profile />} />
             <Route path="/resetPassword" element={<ResetPasswordPage />} />
             <Route path="/pending-request" element={<UserIncommimgPendingRequest />} />
-            <Route path="/user-connections" element={<LoggedInUserConnections />} />
+            <Route path="/userConnections" element={<LoggedInUserConnections />} />
           </Route>
         </Route>
       </Routes>
