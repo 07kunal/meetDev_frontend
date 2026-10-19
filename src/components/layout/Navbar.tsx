@@ -101,7 +101,7 @@ const Navbar = () => {
                   </button>
                 </li>
                 <li>
-                  <button className="gap-3 rounded-lg py-2.5" onClick={() => navigate("/feeds")}>
+                  <button className="gap-3 rounded-lg py-2.5" onClick={() => navigate("/userFeeds")}>
                     <Bars3BottomLeftIcon className="h-4 w-4 text-primary" />
                     User Feeds
                   </button>

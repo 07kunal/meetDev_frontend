@@ -22,14 +22,14 @@ const AppRoutes = () => {
           {/* Public Routes */}
           <Route
             path="/login"
-            element={status ? <Navigate to="/feeds" replace /> : <LoginForm />}
+            element={status ? <Navigate to="/userFeeds" replace /> : <LoginForm />}
           />
           <Route
             path="/signup"
-            element={status ? <Navigate to="/feeds" replace /> : <SignUpPage />}
+            element={status ? <Navigate to="/userFeeds" replace /> : <SignUpPage />}
           />
           <Route element={<PrivateRoutes />}>
-            <Route path="/feeds" element={<UserFeed />} />
+            <Route path="/userFeeds" element={<UserFeed />} />
             <Route path="/profile" element={<Profile />} />
             <Route path="/resetPassword" element={<ResetPasswordPage />} />
             <Route path="/pending-request" element={<UserIncommimgPendingRequest />} />

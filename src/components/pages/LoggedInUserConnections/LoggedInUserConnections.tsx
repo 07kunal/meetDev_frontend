@@ -63,7 +63,7 @@ const LoggedInUserConnections = () => {
 
     onSuccess: (data) => {
       if (data?.status === "accepted") {
-        // navigate("/feeds");
+        // navigate("/userFeeds");
         toast(data?.message);
       } else {
         toast(data?.message);
