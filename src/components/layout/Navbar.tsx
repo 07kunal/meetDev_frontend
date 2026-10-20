@@ -95,13 +95,13 @@ const Navbar = () => {
                   </button>
                 </li>
                 <li>
-                  <button className="gap-3 rounded-lg py-2.5" onClick={() => navigate("/reset_password")}>
+                  <button className="gap-3 rounded-lg py-2.5" onClick={() => navigate("/resetPassword")}>
                     <LockClosedIcon className="h-4 w-4 text-primary" />
                     Reset password
                   </button>
                 </li>
                 <li>
-                  <button className="gap-3 rounded-lg py-2.5" onClick={() => navigate("/feeds")}>
+                  <button className="gap-3 rounded-lg py-2.5" onClick={() => navigate("/userFeeds")}>
                     <Bars3BottomLeftIcon className="h-4 w-4 text-primary" />
                     User Feeds
                   </button>
@@ -113,7 +113,7 @@ const Navbar = () => {
                   </button>
                 </li>
                 <li>
-                  <button className="gap-3 rounded-lg py-2.5" onClick={() => navigate("/user-connections")}>
+                  <button className="gap-3 rounded-lg py-2.5" onClick={() => navigate("/userConnections")}>
                     <UserGroupIcon className="h-4 w-4 text-primary" />
                     My Connections
                   </button>
