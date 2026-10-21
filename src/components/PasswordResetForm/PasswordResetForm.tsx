@@ -39,7 +39,7 @@ function PasswordResetForm({ onSubmit, errorMessage,isPending }: ResetUpdateForm
 
         <div className="space-y-2">
           <label className="label">
-            <span className="label-text">Old Password</span>
+            <span className="label-text">Current Password</span>
           </label>
           <input
             id="oldPassword"
