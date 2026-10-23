@@ -48,7 +48,7 @@ function PasswordResetForm({ onSubmit, errorMessage,isPending }: ResetUpdateForm
             autoComplete="current-password"
             className="input input-bordered w-full"
             {...register("currentPassword", {
-              required: "Old password is required",
+              required: "Current password is required",
               minLength: { value: 8, message: "Must be at least 8 characters" },
             })}
           />
