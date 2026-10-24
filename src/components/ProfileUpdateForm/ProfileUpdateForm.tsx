@@ -84,7 +84,7 @@ const ProfileUpdateForm = ({
 
   return (
     <div>
-      {errorMessage && <p className="text-error text-sm">{errorMessage}</p>}
+      {errorMessage && <p className="text-error text-lg">{errorMessage}</p>}
 
       <form
         onChange={handleFormChange}
