@@ -14,6 +14,7 @@ const loginApi = async (credentials: LoginBody): Promise<UserProfile> => {
 
     return response.data;
   } catch (error) {
+    console.log('test@@@',error)
     throw error;
   }
 };
