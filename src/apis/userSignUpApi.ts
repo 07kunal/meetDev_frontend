@@ -17,6 +17,7 @@ const userSignUpApi = async (
 
     return response.data;
   } catch (error) {
+      console.log('exception in signUpAPI',error);
     throw error;
   }
 };

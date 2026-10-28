@@ -19,6 +19,7 @@ export const handleLogout = async (): Promise<logOutResponse> => {
     }
     throw new Error("something went wrong");
   } catch (error) {
+      console.log('exception in logOut',error);
     throw error;
   }
 };
