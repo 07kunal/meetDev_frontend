@@ -23,7 +23,7 @@ const resetPasswordApi = async (
     );
     return response?.data;
   } catch (error) {
-      console.log('exception in resetPassword',error);
+      console.log('exception in reset_Password',error);
     throw error;
   }
 };
