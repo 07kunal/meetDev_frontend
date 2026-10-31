@@ -12,7 +12,7 @@ const fetchLoggedInUserProfileApi = async (): Promise<UserProfile> => {
     });
     return response?.data;
   } catch (error) {
-  console.log('exception in fetch user_Profile',error);
+  console.log('exception in fetch user profile',error);
     throw error;
   }
 };
