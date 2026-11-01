@@ -317,6 +317,7 @@ const SignUpForm = ({
             Privacy Policy
           </a>
         </p> */}
+        {/* Need to add the signup form details */}
       </form>
     </div>
   );
