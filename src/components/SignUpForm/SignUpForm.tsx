@@ -305,19 +305,7 @@ const SignUpForm = ({
             "Create Account"
           )}
         </button>
-
-        {/* Terms & Conditions */}
-        {/* <p className="text-center text-xs text-base-content/60">
-          By signing up, you agree to our{" "}
-          <a href="#" className="link link-primary font-semibold no-underline hover:underline">
-            Terms of Service
-          </a>{" "}
-          and{" "}
-          <a href="#" className="link link-primary font-semibold no-underline hover:underline">
-            Privacy Policy
-          </a>
-        </p> */}
-        {/* Need to add the signup form details */}
+        {/* Need to add the captchaform details */}
       </form>
     </div>
   );
