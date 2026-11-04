@@ -306,7 +306,6 @@ const SignUpForm = ({
           )}
         </button>
         {/* Need to add the captchaform details */}
-        {/* Captcha validation need to implement this */}
       </form>
     </div>
   );
