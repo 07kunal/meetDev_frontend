@@ -3,6 +3,7 @@ import type { SubmitHandler } from "react-hook-form";
 import type { UserSignUp } from "../../utils/type/user";
 import { useMemo } from "react";
 import validationRegex from "@/utils/validationRegex/validationRegex";
+import { ArrowPathIcon } from "@heroicons/react/24/outline";
 
 interface ProfileUpdateFormProps {
   onSubmit: SubmitHandler<UserSignUp>;
@@ -305,16 +306,35 @@ const SignUpForm = ({
             "Create Account"
           )}
         </button>
-        {/* Need to add the captchaform details */}
-        {/* 
-        <div>
-        input field 
-        captcha image
-        resend otp
-        validate captcha
+        <div className="space-y-2">
+          <div className="space-y-3">
+            <input
+              id="captcha"
+              type="text"
+              placeholder="Enter captcha"
+              aria-describedby="captcha-error"
+              className="input input-bordered w-full"
+            />
+            <div className="flex items-center justify-between rounded-lg border border-base-300 bg-base-200 px-4 py-3">
+              <span className="font-mono text-lg font-semibold tracking-[0.3em]">
+                CAPTCHA
+              </span>
+              <button
+                type="button"
+                aria-label="Reload captcha"
+                className="btn btn-ghost btn-sm"
+              >
+                <ArrowPathIcon className="h-5 w-5" aria-hidden="true" />
+              </button>
+            </div>
+          </div>
+          <span
+            id="captcha-error"
+            role="alert"
+            aria-live="polite"
+            className="block min-h-4 text-xs text-error"
+          />
         </div>
-        
-        */}
       </form>
     </div>
   );
