@@ -76,7 +76,7 @@ const SignUpForm = ({
     <div className="w-full max-w-md">
       <form
         onSubmit={handleSubmit(onSubmit)}
-        className="flex flex-col gap-6 p-8 bg-base-100 rounded-2xl shadow-lg border border-base-200 hover:shadow-xl transition-shadow duration-300"
+        className="flex flex-col gap-6 rounded-2xl border border-base-200 bg-base-100 p-5 shadow-lg transition-shadow duration-300 hover:shadow-xl sm:p-8"
       >
         {/* Form Header */}
         <div className="space-y-2 text-center">
@@ -291,21 +291,6 @@ const SignUpForm = ({
           )}
         </div>
 
-        {/* Submit Button */}
-        <button
-          type="submit"
-          disabled={isPending}
-          className="btn btn-primary w-full mt-4 font-semibold text-white transition-all duration-200 hover:shadow-lg disabled:opacity-50 disabled:cursor-not-allowed"
-        >
-          {isPending ? (
-            <span className="flex items-center gap-2">
-              <span className="loading loading-spinner loading-xs"></span>
-              Creating Account...
-            </span>
-          ) : (
-            "Create Account"
-          )}
-        </button>
         <div className="space-y-2">
           <div className="space-y-3">
             <input
@@ -335,6 +320,21 @@ const SignUpForm = ({
             className="block min-h-4 text-xs text-error"
           />
         </div>
+          {/* Submit Button */}
+        <button
+          type="submit"
+          disabled={isPending}
+          className="btn btn-primary w-full mt-4 font-semibold text-white transition-all duration-200 hover:shadow-lg disabled:opacity-50 disabled:cursor-not-allowed"
+        >
+          {isPending ? (
+            <span className="flex items-center gap-2">
+              <span className="loading loading-spinner loading-xs"></span>
+              Creating Account...
+            </span>
+          ) : (
+            "Create Account"
+          )}
+        </button>
       </form>
     </div>
   );

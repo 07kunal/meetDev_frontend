@@ -40,14 +40,14 @@ const SignUpPage: React.FC = () => {
   };
 
   return (
-    <div className="flex items-center justify-center h-screen bg-base-200">
+    <main className="flex min-h-[calc(100svh-4rem)] items-center justify-center bg-base-200 px-4 py-8">
       <SignUpForm
         onSubmit={handleSignup}
         mode={"create-profile"}
         isPending={isPending}
         errorMessage={errorMessage}
       />
-    </div>
+    </main>
   );
 };
 
