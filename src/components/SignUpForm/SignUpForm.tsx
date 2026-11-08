@@ -97,7 +97,7 @@ const SignUpForm = ({
         {/* Form Fields */}
         <div className="space-y-5">
           <div className="grid grid-cols-2 gap-4">
-            {/* First Name */}
+            {/* First Name with valiation */}
             <div className="space-y-2">
               <label className="label px-0">
                 <span className="label-text font-semibold text-base-content">First Name</span>
