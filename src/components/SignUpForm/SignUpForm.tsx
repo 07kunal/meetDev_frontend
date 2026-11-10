@@ -329,7 +329,7 @@ const SignUpForm = ({
           {isPending ? (
             <span className="flex items-center gap-2">
               <span className="loading loading-spinner loading-xs"></span>
-              Creating Account...
+              Creating Account
             </span>
           ) : (
             "Create Account"
