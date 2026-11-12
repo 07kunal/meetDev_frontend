@@ -14,6 +14,7 @@ const loginApi = async (credentials: LoginBody): Promise<UserProfile> => {
 
     return response.data;
   } catch (error) {
+    console.log('exception in login_API',error);
     throw error;
   }
 };

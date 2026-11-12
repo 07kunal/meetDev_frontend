@@ -3,6 +3,7 @@ import type { SubmitHandler } from "react-hook-form";
 import type { UserSignUp } from "../../utils/type/user";
 import { useMemo } from "react";
 import validationRegex from "@/utils/validationRegex/validationRegex";
+import { ArrowPathIcon } from "@heroicons/react/24/outline";
 
 interface ProfileUpdateFormProps {
   onSubmit: SubmitHandler<UserSignUp>;
@@ -75,7 +76,7 @@ const SignUpForm = ({
     <div className="w-full max-w-md">
       <form
         onSubmit={handleSubmit(onSubmit)}
-        className="flex flex-col gap-6 p-8 bg-base-100 rounded-2xl shadow-lg border border-base-200 hover:shadow-xl transition-shadow duration-300"
+        className="flex flex-col gap-6 rounded-2xl border border-base-200 bg-base-100 p-5 shadow-lg transition-shadow duration-300 hover:shadow-xl sm:p-8"
       >
         {/* Form Header */}
         <div className="space-y-2 text-center">
@@ -96,7 +97,7 @@ const SignUpForm = ({
         {/* Form Fields */}
         <div className="space-y-5">
           <div className="grid grid-cols-2 gap-4">
-            {/* First Name */}
+            {/* First Name with valiation */}
             <div className="space-y-2">
               <label className="label px-0">
                 <span className="label-text font-semibold text-base-content">First Name</span>
@@ -290,7 +291,36 @@ const SignUpForm = ({
           )}
         </div>
 
-        {/* Submit Button */}
+        <div className="space-y-2">
+          <div className="space-y-3">
+            <input
+              id="captcha"
+              type="text"
+              placeholder="Enter captcha"
+              aria-describedby="captcha-error"
+              className="input input-bordered w-full"
+            />
+            <div className="flex items-center justify-between rounded-lg border border-base-300 bg-base-200 px-4 py-3">
+              <span className="font-mono text-lg font-semibold tracking-[0.3em]">
+                CAPTCHA
+              </span>
+              <button
+                type="button"
+                aria-label="Reload captcha"
+                className="btn btn-ghost btn-sm"
+              >
+                <ArrowPathIcon className="h-5 w-5" aria-hidden="true" />
+              </button>
+            </div>
+          </div>
+          <span
+            id="captcha-error"
+            role="alert"
+            aria-live="polite"
+            className="block min-h-4 text-xs text-error"
+          />
+        </div>
+          {/* Submit Button */}
         <button
           type="submit"
           disabled={isPending}
@@ -299,24 +329,12 @@ const SignUpForm = ({
           {isPending ? (
             <span className="flex items-center gap-2">
               <span className="loading loading-spinner loading-xs"></span>
-              Creating Account...
+              Creating Account
             </span>
           ) : (
             "Create Account"
           )}
         </button>
-
-        {/* Terms & Conditions */}
-        {/* <p className="text-center text-xs text-base-content/60">
-          By signing up, you agree to our{" "}
-          <a href="#" className="link link-primary font-semibold no-underline hover:underline">
-            Terms of Service
-          </a>{" "}
-          and{" "}
-          <a href="#" className="link link-primary font-semibold no-underline hover:underline">
-            Privacy Policy
-          </a>
-        </p> */}
       </form>
     </div>
   );

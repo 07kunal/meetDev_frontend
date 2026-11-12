@@ -15,6 +15,7 @@ const updateProfileApi = async (
 
     return response.data;
   } catch (error) {
+      console.log('exception in UpdatePassword',error);
     throw error;
   }
 };

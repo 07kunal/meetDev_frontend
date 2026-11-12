@@ -19,6 +19,7 @@ export const userFeedsApi = async (
     console.log('Checking the feeds',response);
     return response?.data;
   } catch (error) {
+      console.log('exception in userFeeds',error);
     throw error;
   }
 };

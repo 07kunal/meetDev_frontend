@@ -39,21 +39,21 @@ function PasswordResetForm({ onSubmit, errorMessage,isPending }: ResetUpdateForm
 
         <div className="space-y-2">
           <label className="label">
-            <span className="label-text">Old Password</span>
+            <span className="label-text">Current Password</span>
           </label>
           <input
-            id="oldPassword"
+            id="currentPassword"
             type="password"
-            placeholder="Old Password"
+            placeholder="Current Password"
             autoComplete="current-password"
             className="input input-bordered w-full"
-            {...register("oldPassword", {
-              required: "Old password is required",
+            {...register("currentPassword", {
+              required: "Current password is required",
               minLength: { value: 8, message: "Must be at least 8 characters" },
             })}
           />
-          {errors.oldPassword && (
-            <p className="text-error text-sm">{errors.oldPassword.message}</p>
+          {errors.currentPassword && (
+            <p className="text-error text-sm">{errors.currentPassword.message}</p>
           )}
         </div>
 

@@ -41,7 +41,7 @@ const Navbar = () => {
     }
   };
   return (
-    <div className="fixed navbar z-10 border-b border-base-200/70 bg-base-100/90 px-4 shadow-sm backdrop-blur-md sm:px-6">
+    <div className="sticky top-0 navbar z-10 border-b border-base-200/70 bg-base-100/90 px-4 shadow-sm backdrop-blur-md sm:px-6">
       <div className="flex-1">
         <button
           className="flex items-center justify-center gap-2 text-xl font-bold tracking-tight transition-opacity hover:opacity-80"

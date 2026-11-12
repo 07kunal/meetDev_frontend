@@ -12,7 +12,7 @@ export interface userEditProfile {
   gender?:string
 }
 export interface ResetPassword {
-  oldPassword: string;
+  currentPassword: string;
   newPassword: string;
   confirmPassword?: string;
 }

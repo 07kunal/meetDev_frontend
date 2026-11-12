@@ -20,6 +20,7 @@ export const reviewingPendingRequestApi = async ({
     );
     return response?.data;
   } catch (error) {
+      console.log('exception in reviewingPendingRequestAPI ',error);
     throw error;
   }
 };
