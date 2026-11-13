@@ -81,7 +81,7 @@ const SignUpForm = ({
         {/* Form Header */}
         <div className="space-y-2 text-center">
           <h2 className="text-3xl font-bold text-base-content">Create Account</h2>
-          <p className="text-sm text-base-content/60">Join us and start connecting</p>
+          <p className="text-sm text-base-content/60">Join us and start interaction</p>
         </div>
 
         {/* Error Message Alert */}
