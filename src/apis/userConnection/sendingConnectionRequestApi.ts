@@ -20,7 +20,7 @@ export const sendingConnectionRequestApi = async ({
     );
     return response?.data;
   } catch (error) {
-      console.log('exception in sendingconnectionRequest',error);
+      console.log('Exception in sendingconnectionRequest',error);
     throw error;
   }
 };

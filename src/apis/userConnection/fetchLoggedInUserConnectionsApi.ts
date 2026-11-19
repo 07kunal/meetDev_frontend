@@ -18,7 +18,7 @@ export const fetchLoggedInUserConnectionApi = async (
     });
     return response?.data;
   } catch (error) {
-      console.log('exception in fetchLoggedInUserConnections',error);
+      console.log('Exception in fetchLoggedInUserConnections',error);
     throw error;
   }
 };

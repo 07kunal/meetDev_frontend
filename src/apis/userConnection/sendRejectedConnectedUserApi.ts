@@ -20,7 +20,7 @@ export const sendRejectedConnectedUserApi = async ({
     );
     return response?.data;
   } catch (error) {
-      console.log('exception in SendingConnected',error);
+      console.log('Exception in SendingConnected',error);
     throw error;
   }
 };
