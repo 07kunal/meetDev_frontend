@@ -4,7 +4,7 @@ import LoginForm from "@/components/pages/loginForm/LoginForm";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import Profile from "@/components/pages/Profile/Profile";
 import PrivateRoutes from "@/utils/Privateroute/PrivateRoutes";
-import { useAppSelector } from "@/utils/customHooks/reduxHook";
+import { useAppSelector } from "@/customHooks/reduxHook";
 import UserFeed from "@/components/pages/userFeed/userFeed";
 import SignUpPage from "@/components/pages/SignUpPage/SignUpPage";
 import ResetPasswordPage from "@/components/pages/ResetPassword/ResetPasswordPage";

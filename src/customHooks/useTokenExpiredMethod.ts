@@ -1,10 +1,10 @@
 import { useNavigate } from "react-router-dom";
 import { useAppDispatch } from "./reduxHook";
-import { clearUser } from "../slices/userSliceReducer";
-import { clearUserFeeds } from "../slices/userFeedSliceReducer";
-import { clearUserConnections } from "../slices/loggedInUserConnectionSlice";
+import { clearUser } from "../utils/slices/userSliceReducer";
+import { clearUserFeeds } from "../utils/slices/userFeedSliceReducer";
+import { clearUserConnections } from "../utils/slices/loggedInUserConnectionSlice";
 import { useQueryClient } from "@tanstack/react-query";
-import { clearUserPendingReques } from "../slices/userPendingRequestSlice";
+import { clearUserPendingReques } from "../utils/slices/userPendingRequestSlice";
 import Cookies from "js-cookie";
 type TokenExpiredHandler = () => void;
 export const useTokenExpiredMethod = (): TokenExpiredHandler => {

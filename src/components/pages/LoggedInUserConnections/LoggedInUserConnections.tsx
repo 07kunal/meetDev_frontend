@@ -1,6 +1,6 @@
 import { fetchLoggedInUserConnectionApi } from "@/apis/userConnection/fetchLoggedInUserConnectionsApi";
 import AccordionUserConnections from "@/components/AccordionUsersConnection/AccordionUserConnections";
-import { useAppDispatch } from "@/utils/customHooks/reduxHook";
+import { useAppDispatch } from "@/customHooks/reduxHook";
 import type { loggedInUserConnectionDataType } from "@/utils/type/userConnection";
 import { useEffect, useState } from "react";
 import type { params } from "@/utils/type/commonType";
@@ -12,7 +12,7 @@ import { AxiosError } from "axios";
 import toast from "react-hot-toast";
 import type { reviewUserConnectionRequestType } from "@/utils/type/userConnection";
 import Pagination from "@/components/Pagination/Pagination";
-import { useTokenExpiredMethod } from "@/utils/customHooks/useTokenExpiredMethod";
+import { useTokenExpiredMethod } from "@/customHooks/useTokenExpiredMethod";
 import { SkeletonLoader } from "@/components/common/SkeletonLoader";
 import { sendRejectedConnectedUserApi } from "@/apis/userConnection/sendRejectedConnectedUserApi";
 

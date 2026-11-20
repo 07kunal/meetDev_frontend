@@ -5,7 +5,7 @@ import { AxiosError } from "axios";
 import type { LoginBody, UserProfile } from "@/utils/type/user";
 import { setUser } from "@/utils/slices/userSliceReducer";
 import { Link, useNavigate } from "react-router-dom";
-import { useAppDispatch } from "@/utils/customHooks/reduxHook";
+import { useAppDispatch } from "@/customHooks/reduxHook";
 import type { ErrorResponse } from "@/utils/type/commonType";
 
 const LoginForm = () => {

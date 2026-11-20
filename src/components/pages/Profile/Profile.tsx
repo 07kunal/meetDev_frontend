@@ -5,7 +5,7 @@ import type {
 import {
   useAppDispatch,
   useAppSelector,
-} from "@/utils/customHooks/reduxHook";
+} from "@/customHooks/reduxHook";
 import { setUser } from "@/utils/slices/userSliceReducer";
 import ProfileUpdateForm from "@/components/ProfileUpdateForm/ProfileUpdateForm";
 import UserCard from "@/components/UserCard/UserCard";

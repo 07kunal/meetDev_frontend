@@ -9,7 +9,7 @@ import type {
   resetPasswordResponse,
 } from "@/utils/type/user";
 import { useState } from "react";
-import { useTokenExpiredMethod } from "@/utils/customHooks/useTokenExpiredMethod";
+import { useTokenExpiredMethod } from "@/customHooks/useTokenExpiredMethod";
 
 const ResetPasswordPage: React.FC = () => {
   const [errorMessage, setErrorMessage] = useState<string | null>(null);

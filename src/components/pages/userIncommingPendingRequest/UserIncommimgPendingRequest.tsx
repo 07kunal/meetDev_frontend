@@ -8,7 +8,7 @@ import {
 import AccordionPendingRequest from "@/components/AccordionPendingRequest/AccordionPendingRequest";
 import { fetchMyIncommingPendingRequestApi } from "@/apis/userConnection/fetchMyIncommingPendingRequest";
 import { reviewingPendingRequestApi } from "@/apis/userConnection/reviewingPendingRequestApi";
-import { useAppDispatch } from "@/utils/customHooks/reduxHook";
+import { useAppDispatch } from "@/customHooks/reduxHook";
 import { setUserPendingRequest } from "@/utils/slices/userPendingRequestSlice";
 import toast from "react-hot-toast";
 import type {
@@ -21,7 +21,7 @@ import type {
 } from "@/utils/type/commonType";
 import { AxiosError } from "axios";
 import Pagination from "@/components/Pagination/Pagination";
-import { useTokenExpiredMethod } from "@/utils/customHooks/useTokenExpiredMethod";
+import { useTokenExpiredMethod } from "@/customHooks/useTokenExpiredMethod";
 
 
 const UserIncommimgPendingRequest = () => {

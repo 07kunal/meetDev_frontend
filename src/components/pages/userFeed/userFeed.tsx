@@ -2,7 +2,7 @@ import { userFeedsApi } from "@/apis/userFeedsApi";
 import {
   useAppDispatch,
   useAppSelector,
-} from "@/utils/customHooks/reduxHook";
+} from "@/customHooks/reduxHook";
 import {
   setUserFeeds,
   removeUserFromFeed,
