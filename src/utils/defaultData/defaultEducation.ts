@@ -1,4 +1,4 @@
-import type { Education } from "../type/commonType";
+import type { Education } from "../../type/commonType";
 export const defaultEducation: Education[] = [
   {
     degree: "High School Diploma",

@@ -6,20 +6,20 @@ import {
 import {
   setUserFeeds,
   removeUserFromFeed,
-} from "@/utils/slices/userFeedSliceReducer";
-import type { userFeedData } from "@/utils/type/usersFeeds";
+} from "@/slices/userFeedSliceReducer";
+import type { userFeedData } from "@/type/usersFeeds";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { useEffect, useState } from "react";
 import UserCard from "@/components/UserCard/UserCard";
-import { clearUser } from "@/utils/slices/userSliceReducer";
+import { clearUser } from "@/slices/userSliceReducer";
 import { useNavigate } from "react-router-dom";
-import type { connectionRequestProps } from "@/utils/type/commonType";
+import type { connectionRequestProps } from "@/type/commonType";
 import { sendingConnectionRequestApi } from "@/apis/userConnection/sendingConnectionRequestApi";
-import type { reviewUserConnectionRequestType } from "@/utils/type/userConnection";
-import type { ErrorResponse } from "@/utils/type/commonType";
+import type { reviewUserConnectionRequestType } from "@/type/userConnection";
+import type { ErrorResponse } from "@/type/commonType";
 import { AxiosError } from "axios";
 import toast from "react-hot-toast";
-import type { params } from "@/utils/type/commonType";
+import type { params } from "@/type/commonType";
 const UserFeed = () => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();

@@ -1,4 +1,4 @@
-import type { LoginBody, UserProfile } from "@/utils/type/user";
+import type { LoginBody, UserProfile } from "@/type/user";
 import axios from "axios";
 
 // API function

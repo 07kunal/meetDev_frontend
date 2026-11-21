@@ -1,4 +1,4 @@
-import type { Skill } from "../type/commonType";
+import type { Skill } from "../../type/commonType";
 
 export const defaultSkills: Skill[] = [
   { name: "Data Structures & Algorithms" },

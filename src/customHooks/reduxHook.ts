@@ -1,7 +1,7 @@
 // Even Better: Create Typed Hooks
 import { useSelector,useDispatch} from "react-redux";
 import type {TypedUseSelectorHook } from "react-redux";
-import type { RootState, AppDispatch } from "../utils/store/AppStore";
+import type { RootState, AppDispatch } from "../store/AppStore";
 
 // Hook one for dispatch the action . 
 export const useAppDispatch = () => useDispatch<AppDispatch>();

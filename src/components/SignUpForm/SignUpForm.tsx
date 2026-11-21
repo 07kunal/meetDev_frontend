@@ -1,6 +1,6 @@
 import { useForm } from "react-hook-form";
 import type { SubmitHandler } from "react-hook-form";
-import type { UserSignUp } from "../../utils/type/user";
+import type { UserSignUp } from "../../type/user";
 import { useMemo } from "react";
 import validationRegex from "@/utils/validationRegex/validationRegex";
 import { ArrowPathIcon } from "@heroicons/react/24/outline";

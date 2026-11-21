@@ -1,4 +1,4 @@
-import { type logOutResponse, type UserProfile } from "../../utils/type/user";
+import { type logOutResponse, type UserProfile } from "../../type/user";
 import { useAppSelector } from "../../customHooks/reduxHook";
 import { handleLogout } from "@/apis/logOutApi";
 import { useMutation} from "@tanstack/react-query";

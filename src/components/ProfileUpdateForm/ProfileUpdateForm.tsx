@@ -1,9 +1,9 @@
 import { useForm } from "react-hook-form";
 import type { SubmitHandler } from "react-hook-form";
-import type { UserProfile } from "../../utils/type/user";
+import type { UserProfile } from "../../type/user";
 import { useEffect, useMemo } from "react";
 import { useAppDispatch } from "../../customHooks/reduxHook";
-import { setUser } from "../../utils/slices/userSliceReducer";
+import { setUser } from "../../slices/userSliceReducer";
 import { debounce } from "lodash";
 import { defaultEducation } from "../../utils/defaultData/defaultEducation";
 import { defaultSkills } from "../../utils/defaultData/defaultSkills";

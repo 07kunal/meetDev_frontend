@@ -1,6 +1,6 @@
-import type { userFeedData } from "@/utils/type/usersFeeds";
+import type { userFeedData } from "@/type/usersFeeds";
 import axios from "axios";
-import type { params } from "@/utils/type/commonType";
+import type { params } from "@/type/commonType";
 export const userFeedsApi = async (
   paramsArgument: params,
 ): Promise<userFeedData> => {

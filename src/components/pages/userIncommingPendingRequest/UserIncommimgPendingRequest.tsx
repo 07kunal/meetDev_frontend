@@ -9,16 +9,16 @@ import AccordionPendingRequest from "@/components/AccordionPendingRequest/Accord
 import { fetchMyIncommingPendingRequestApi } from "@/apis/userConnection/fetchMyIncommingPendingRequest";
 import { reviewingPendingRequestApi } from "@/apis/userConnection/reviewingPendingRequestApi";
 import { useAppDispatch } from "@/customHooks/reduxHook";
-import { setUserPendingRequest } from "@/utils/slices/userPendingRequestSlice";
+import { setUserPendingRequest } from "@/slices/userPendingRequestSlice";
 import toast from "react-hot-toast";
 import type {
   userPendingRequest,
   reviewUserConnectionRequestType,
-} from "@/utils/type/userConnection";
+} from "@/type/userConnection";
 import type {
   connectionRequestProps,
   ErrorResponse,
-} from "@/utils/type/commonType";
+} from "@/type/commonType";
 import { AxiosError } from "axios";
 import Pagination from "@/components/Pagination/Pagination";
 import { useTokenExpiredMethod } from "@/customHooks/useTokenExpiredMethod";

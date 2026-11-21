@@ -1,13 +1,13 @@
 import PasswordResetForm from "@/components/PasswordResetForm/PasswordResetForm";
 import { AxiosError } from "axios";
 import toast from "react-hot-toast";
-import type { ErrorResponse } from "@/utils/type/commonType";
+import type { ErrorResponse } from "@/type/commonType";
 import { useMutation } from "@tanstack/react-query";
 import resetPasswordApi from "@/apis/resetPasswordApi";
 import type {
   ResetPassword,
   resetPasswordResponse,
-} from "@/utils/type/user";
+} from "@/type/user";
 import { useState } from "react";
 import { useTokenExpiredMethod } from "@/customHooks/useTokenExpiredMethod";
 

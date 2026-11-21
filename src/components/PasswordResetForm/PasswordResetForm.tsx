@@ -1,5 +1,5 @@
 import { useForm } from "react-hook-form";
-import type { ResetPassword } from "../../utils/type/user";
+import type { ResetPassword } from "../../type/user";
 import type { SubmitHandler } from "react-hook-form";
 import validationRegex from "@/utils/validationRegex/validationRegex";
 

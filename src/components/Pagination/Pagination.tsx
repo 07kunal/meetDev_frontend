@@ -1,5 +1,5 @@
 import type { Dispatch, SetStateAction } from "react";
-import type { loggedInUserConnectionDataType, userPendingRequest } from "@/utils/type/userConnection";
+import type { loggedInUserConnectionDataType, userPendingRequest } from "@/type/userConnection";
 
 interface PaginationProps {
   page: number;
